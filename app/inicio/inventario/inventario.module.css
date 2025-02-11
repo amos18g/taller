@@ -1,0 +1,30 @@
+/* Inventory.module.css */
+.tableContainer {
+    background-color: #f4f4f4;  /* Fondo suave */
+    border-radius: 10px;
+    padding: 20px;
+    font-weight: bold;
+  }
+  
+  .buttonEliminar {
+    background-color: #ff4d4f; /* Rojo para el botón de eliminar */
+    color: white;
+    border: none;
+  }
+
+  
+  .buttonEliminar:hover {
+    background-color: #ec1410; /* Color de hover para eliminar */
+  }
+
+  .buttonContainer{
+
+    display: flex;
+	  flex-direction: column;
+	  flex-wrap: nowrap;
+	  justify-content: center;
+	  align-items: flex-end;
+	  align-content: center;
+  
+    border: 2px solid rgb(128, 128, 118)
+  }
