@@ -1,6 +1,4 @@
-// app/user/game-leaderboard/page.tsx
-// Página adaptada para mostrar el leaderboard con columnas 'nombre' y 'puntos'
-// Asume que esta ruta (/user/game-leaderboard) está protegida por el middleware para usuarios autenticados.
+
 
 import { createClient } from '@/utils/supabase/server'; // Importa el cliente Supabase del servidor
 import { notFound } from 'next/navigation';
