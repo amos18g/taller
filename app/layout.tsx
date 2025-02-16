@@ -10,6 +10,8 @@ import { Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
+import Footer  from "@/components/Footer/Footer";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -53,6 +55,7 @@ export default function RootLayout({
                     {/* <div className="flex items-center gap-2">
                       <DeployButton />
                     </div> */}
+                    hola
                   </div>
                   {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
                 </div>
@@ -64,20 +67,7 @@ export default function RootLayout({
               
             </div>
           </main>
-          <footer className="AppFooter">
-                <p>
-                  Powered by{" "}
-                  <a
-                    href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-                    target="_blank"
-                    className="font-bold hover:underline"
-                    rel="noreferrer"
-                  >
-                    Supabase
-                  </a>
-                </p>
-                <ThemeSwitcher />
-              </footer>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
