@@ -1,9 +1,7 @@
-import { Form } from "antd";
+import Inventory from "./inventario/page";
 
 export default function Home() {
   return (
-    <div className= "">
-      <div>HomePage</div>
-    </div>
+    <Inventory />
   );
 }
