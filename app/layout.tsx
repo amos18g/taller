@@ -6,7 +6,7 @@ import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
-import {  Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
@@ -19,7 +19,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -62,7 +61,7 @@ export default function RootLayout({
                 {children}
               </div>
 
-               <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
+              <footer className="AppFooter">
                 <p>
                   Powered by{" "}
                   <a
@@ -75,7 +74,9 @@ export default function RootLayout({
                   </a>
                 </p>
                 <ThemeSwitcher />
-              </footer>  
+              </footer>
+
+              
             </div>
           </main>
         </ThemeProvider>

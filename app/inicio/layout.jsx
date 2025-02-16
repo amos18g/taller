@@ -23,14 +23,14 @@ export default function RootLayout({ children }) {
   return (
  
         <div className="App">
-          <Header />
+          
           <div className="SideMenuAndPageContent">
             <SideMenu/>
             <main className="PageContent">
               {children}
             </main>
           </div>
-          <Footer />
+      
         </div>
       
   );
