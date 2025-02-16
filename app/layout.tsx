@@ -61,7 +61,10 @@ export default function RootLayout({
                 {children}
               </div>
 
-              <footer className="AppFooter">
+              
+            </div>
+          </main>
+          <footer className="AppFooter">
                 <p>
                   Powered by{" "}
                   <a
@@ -75,10 +78,6 @@ export default function RootLayout({
                 </p>
                 <ThemeSwitcher />
               </footer>
-
-              
-            </div>
-          </main>
         </ThemeProvider>
       </body>
     </html>
