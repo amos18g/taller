@@ -26,7 +26,7 @@ export default async function Signup(props: { searchParams: Promise<Message> }) 
         </h1>
         <p className="text-sm text-gray-600 dark:text-gray-300 text-center mt-2">
           ¿Ya tienes una cuenta?{" "}
-          <Link className="text-blue-500 dark:text-blue-400 font-medium underline" href="/sign-in">
+          <Link className="text-blue-500 dark:text-blue-700 font-medium underline" href="/sign-in">
             Inicia sesión
           </Link>
         </p>
