@@ -49,10 +49,9 @@ export default function RootLayout({
         enableSystem
         disableTransitionOnChange
       >
-        <Header />
         <main className="min-h-screen flex flex-col items-center">
           <div className="flex-1 w-full flex flex-col gap-20 items-center">
-            
+            <Header />
             <div className="flex flex-col gap-1 max-w-10xl p-0 mt-[-70]">
               {children}
             </div>
