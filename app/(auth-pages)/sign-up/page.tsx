@@ -18,7 +18,8 @@ export default async function Signup(props: { searchParams: Promise<Message> }) 
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-[80vh] mx-4">
+
       <div className="w-full max-w-sm bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
         <h1 className="text-2xl font-semibold text-center text-gray-900 dark:text-white">
           Registro
