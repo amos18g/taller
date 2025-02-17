@@ -6,46 +6,54 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { SmtpMessage } from "../smtp-message";
 
-export default async function Signup(props: {
-  searchParams: Promise<Message>;
-}) {
+export default async function Signup(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
+
   if ("message" in searchParams) {
     return (
-      <div className="w-full flex-1 flex items-center h-screen sm:max-w-md justify-center gap-2 p-4">
+      <div className="flex items-center justify-center min-h-screen">
         <FormMessage message={searchParams} />
       </div>
     );
   }
 
   return (
-    <>
-      <form className="flex flex-col min-w-64 max-w-64 mx-auto">
-        <h1 className="text-2xl font-medium">Registro</h1>
-        <p className="text-sm text text-foreground">
-          Ya tienes una cuenta?{" "}
-          <Link className="text-primary font-medium underline" href="/sign-in">
-            Sign in
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="w-full max-w-sm bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
+        <h1 className="text-2xl font-semibold text-center text-gray-900 dark:text-white">
+          Registro
+        </h1>
+        <p className="text-sm text-gray-600 dark:text-gray-300 text-center mt-2">
+          ¿Ya tienes una cuenta?{" "}
+          <Link className="text-blue-500 dark:text-blue-400 font-medium underline" href="/sign-in">
+            Inicia sesión
           </Link>
         </p>
-        <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-          <Label htmlFor="email">Correo</Label>
+        <form className="flex flex-col gap-3 mt-6">
+          <Label htmlFor="email" className="text-gray-700 dark:text-gray-300">
+            Correo
+          </Label>
           <Input name="email" placeholder="you@example.com" required />
-          <Label htmlFor="password">Contraseña</Label>
+
+          <Label htmlFor="password" className="text-gray-700 dark:text-gray-300">
+            Contraseña
+          </Label>
           <Input
             type="password"
             name="password"
-            placeholder="Your password"
+            placeholder="Tu contraseña"
             minLength={6}
             required
           />
-          <SubmitButton formAction={signUpAction} pendingText="Signing up...">
-           Registrarse
+
+          <SubmitButton formAction={signUpAction} pendingText="Registrando..."
+            className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+            Registrarse
           </SubmitButton>
           <FormMessage message={searchParams} />
-        </div>
-      </form>
-      <SmtpMessage />
-    </>
+        </form>
+      </div>
+
+    </div>
   );
 }
