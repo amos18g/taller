@@ -6,7 +6,7 @@ export async function GET() {
 
   const { data, error } = await supabase
     .from("producto")
-    .select("id_producto, nombre, precio_venta, stock_actual, categoria_id, unidad_id");
+    .select("nombre, nombre, precio_venta, stock_actual, id_categoria, id_unidad");
 
     
 

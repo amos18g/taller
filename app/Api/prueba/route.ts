@@ -7,10 +7,8 @@ export async function GET() {
   const { data, error } = await supabase
     .from("tabla_prueba")
     .select("nombre, puntos")
-    .order("puntos", { ascending: false });
-
-
-    console.log(data);
+    .gt("puntos", 20) // Filtra los registros con puntos mayores a 20
+    .order("puntos", { ascending: false }); // Ordena de mayor a menor
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
