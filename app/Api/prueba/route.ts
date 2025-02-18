@@ -9,6 +9,9 @@ export async function GET() {
     .select("nombre, puntos")
     .order("puntos", { ascending: false });
 
+
+    console.log(data);
+
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
