@@ -6,9 +6,17 @@ export async function GET() {
 
   const { data, error } = await supabase
     .from("producto")
-    .select("nombre, nombre, precio_venta, stock_actual, id_categoria, id_unidad");
+    .select(`
+      id_producto,
+      codigo,
+      nombre,
+      precio_venta,
+      stock_actual,
+      categoria:categoria(nombre),
+      unidad:unidad(nombre)
+    `) ;
 
-    
+   // console.log(data);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

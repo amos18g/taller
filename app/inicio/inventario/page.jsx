@@ -6,9 +6,9 @@ import { useProductos } from "@/hooks/useProductos"; // Hook personalizado
 
 const Inventory = () => {
   const { data, loading, error } = useProductos();
+  console.log(data);
 
   const handleSort = (columnKey, order) => {
-    // Lógica para ordenar los productos
     const sortedData = [...data].sort((a, b) => {
       if (order === "ascend") {
         return a[columnKey] > b[columnKey] ? 1 : -1;
@@ -25,9 +25,9 @@ const Inventory = () => {
       dataIndex: "nombre", 
       key: "nombre", 
       width: 200,
-      sorter: (a, b) => a.nombre.localeCompare(b.nombre), // Ordenar por nombre
+      sorter: (a, b) => a.nombre.localeCompare(b.nombre), 
       render: (text) => <span>{text}</span>,
-      sortDirections: ['ascend', 'descend'], // Direcciones de orden
+      sortDirections: ['ascend', 'descend'],
     },
     { 
       title: "Precio", 
@@ -35,8 +35,8 @@ const Inventory = () => {
       key: "precio_venta", 
       render: (value) => <span>${value.toFixed(2)}</span>, 
       width: 150,
-      sorter: (a, b) => a.precio_venta - b.precio_venta, // Ordenar por precio
-      sortDirections: ['ascend', 'descend'], // Direcciones de orden
+      sorter: (a, b) => a.precio_venta - b.precio_venta, 
+      sortDirections: ['ascend', 'descend'],
     },
     { 
       title: "Cantidad", 
@@ -48,20 +48,22 @@ const Inventory = () => {
           {stock}
         </span>
       ),
-      sorter: (a, b) => a.stock_actual - b.stock_actual, // Ordenar por cantidad
-      sortDirections: ['ascend', 'descend'], // Direcciones de orden
+      sorter: (a, b) => a.stock_actual - b.stock_actual, 
+      sortDirections: ['ascend', 'descend'],
     },
     { 
       title: "Categoría", 
-      dataIndex: "categoria", 
+      dataIndex: "categoria",  
       key: "categoria", 
-      width: 150 
+      width: 150,
+      render: (categoria) => <span>{categoria}</span>, // Muestra el nombre de la categoría
     },
     { 
       title: "Unidad", 
-      dataIndex: "unidad", 
+      dataIndex: "unidad",  
       key: "unidad", 
-      width: 150 
+      width: 150,
+      render: (unidad) => <span>{unidad}</span>,
     },
     { 
       title: "Editar", 
@@ -102,10 +104,8 @@ const Inventory = () => {
         rowKey="id_producto"
         pagination={{ pageSize: 5 }}
         onChange={(pagination, filters, sorter) => {
-          // Maneja el cambio de ordenación
           if (sorter.order) {
             const sortedData = handleSort(sorter.columnKey, sorter.order);
-            // Actualiza la tabla con los datos ordenados
           }
         }}
       />

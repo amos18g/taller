@@ -20,13 +20,17 @@ export function useProductos() {
       try {
         const response = await fetch("/Api/productos");
         if (!response.ok) throw new Error("Error al obtener los datos");
-        
+
         const result = await response.json();
-        setData(result.map((producto: any) => ({
-          ...producto,
-          categoria: producto.Categoria?.nombre || "Sin Categoría",
-          unidad: producto.Unidad?.nombre || "Sin Unidad"
-        })));
+
+        // Actualizamos el mapeo para usar correctamente los datos de categoria y unidad
+        setData(
+          result.map((producto: any) => ({
+            ...producto,
+            categoria: producto.categoria?.nombre || "Sin Categoría", // Asegurando que 'categoria' sea un objeto con 'nombre'
+            unidad: producto.unidad?.nombre || "Sin Unidad" // Asegurando que 'unidad' sea un objeto con 'nombre'
+          }))
+        );
       } catch (err: any) {
         setError(err.message);
       } finally {
