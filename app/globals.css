@@ -22,7 +22,10 @@ code {
   flex-direction: column;
   width: 100vw;
   height: 100vh;
+  
 }
+
+/*Header*/
 .AppHeader{
   height: 50px;
   display: flex;
@@ -36,6 +39,8 @@ code {
  
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
+
+/*Footer*/
 .AppFooter{
   height: 50px;
   display: flex;
@@ -44,25 +49,41 @@ code {
   border-top: 1px solid rgba(0, 0, 0, 0.15);
 
 }
+
+
 .SideMenuAndPageContent{
   display: flex;
   flex: 1;
   justify-content: flex-start;
   align-items: flex-start;
   background-color: rgba(0, 0, 0, 0.05) ;
+  
 }
+
+/*sideMenu*/
 .SideMenu{
   height: 100%;
 }
 .SideMenuVertical{
   height: 100%;
 }
+
+
+/*Main*/
 .PageContent{
  
-  padding: 30px;
-  margin: 30px;
- 
- 
- 
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	align-content: center;
+
+  height: 100vh;
+  padding: 5%;
+
 }
+ 
+ 
+
 

@@ -19,7 +19,7 @@ const dataSource = [
     title: "Product 2",
     price: 150,
     rating: 3.8,
-    stock: 30,
+    stock: 9,
     brand: "Brand B",
     category: "Category 2",
   },
@@ -39,7 +39,7 @@ const dataSource = [
     title: "Product 2",
     price: 150,
     rating: 3.8,
-    stock: 30,
+    stock: 8,
     brand: "Brand B",
     category: "Category 2",
   },
@@ -59,7 +59,7 @@ const dataSource = [
     title: "Product 2",
     price: 150,
     rating: 3.8,
-    stock: 30,
+    stock: 7,
     brand: "Brand B",
     category: "Category 2",
   }
@@ -69,82 +69,32 @@ const dataSource = [
 const Inventory = () => {
   return (
     <Space size={20} direction="vertical">
-
-        <div className={styles.buttonContainer}>
+      <div className={styles.buttonContainer}>
         <Link href="/inicio/inventario/agregar">
-         <Button type="primary">
-          Agregar Producto
-         </Button>
+          <Button type="primary">Agregar Producto</Button>
         </Link>
-        </div>
-      
-      <Table className={styles.tableContainer}
-        columns={[
-          {
-            title: "Thumbnail",
-            dataIndex: "thumbnail",
-            render: (link) => {
-              return <Avatar src={link} />;
-            },
-          },
-          {
-            title: "Title",
-            dataIndex: "title",
-          },
-          {
-            title: "Price",
-            dataIndex: "price",
-            render: (value) => <span>${value}</span>,
-          },
-          {
-            title: "Rating",
-            dataIndex: "rating",
-            render: (rating) => {
-              return <Rate value={rating} allowHalf disabled />;
-            },
-          },
-          {
-            title: "Stock",
-            dataIndex: "stock",
-          },
-          {
-            title: "Brand",
-            dataIndex: "brand",
-          },
-          {
-            title: "Category",
-            dataIndex: "category",
-          },
-          {
-            title: "Editar",
-            dataIndex: "Editar",
-            render: (_, record) => (
-              <Button type="default" onClick={() => handleAdd(record)}>
-                Editar
-              </Button>
-            ),
-          },
-          {
-            title: "Eliminar",
-            dataIndex: "Eliminar",
-            render: (_, record) => (
-              <Button type="disabled" className={styles.buttonEliminar}  onClick={() => handleAdd(record)}>
-                Eliminar
-              </Button>
-            ),
-          }
-          
-        ]}
-        dataSource={dataSource}
-        pagination={{
-          pageSize: 5,
-        }}
-      />
+      </div>
 
+      <Table className={styles.tableContainer}
+       columns={[
+  { title: "Nombre", dataIndex: "title", width: 200 },
+  { title: "Precio", dataIndex: "price", render: (value) => <span>${value}</span>, width: 150 },
   
-       
-      
-          
+   { title: "Cantidad", dataIndex: "stock", width: 100, render: (stock) => (
+    <span className={`${stock < 10 ? styles.stockLow : styles.stockHigh}`}>
+      {stock}
+    </span>
+    ), },
+
+  { title: "Brand", dataIndex: "brand", width: 150 },
+  { title: "Categoria", dataIndex: "category", width: 150 },
+  { title: "Editar", dataIndex: "Editar", render: (_, record) => (<Button onClick={() => handleAdd(record)}>Editar</Button>), width: 100 },
+  { title: "Eliminar", dataIndex: "Eliminar", render: (_, record) => (<Button className={styles.buttonEliminar} onClick={() => handleAdd(record)}>Eliminar</Button>), width: 100 },
+]}
+
+        dataSource={dataSource}
+        pagination={{ pageSize: 5 }}
+      />
     </Space>
   );
 };
