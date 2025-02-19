@@ -4,6 +4,7 @@ import { Space, Table, Button } from "antd";
 import styles from "./inventario.module.css";
 import Link from "next/link";
 import { useProductos } from "@/hooks/useProductos";
+import { useRouter } from "next/navigation";
 
 const Inventory = () => {
   const { data, loading, error } = useProductos();
@@ -14,6 +15,7 @@ const Inventory = () => {
     setFilteredData(data); // Sincronizar cuando data cambie
   }, [data]);
 
+  // funciion para buscar un producto
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchTerm(value);
@@ -24,6 +26,12 @@ const Inventory = () => {
         item.unidad.toLowerCase().includes(value)
     );
     setFilteredData(filtered);
+  };
+
+  const router = useRouter();
+
+  const handleEdit = (record) => {
+    router.push(`/inicio/inventario/editar?id=${record.id_producto}`);
   };
 
   const columns = [
