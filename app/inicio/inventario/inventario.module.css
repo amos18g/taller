@@ -2,36 +2,43 @@
 .tableContainer {
   width: 100%;
   max-width: 1200px; /* O el tamaño que prefieras */
- 
 }
 
+.buttonContainer {
+  display: flex;
+	flex-direction: row-reverse;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+}
 
-  
-  .buttonEliminar {
-    background-color: #ff4d4f; /* Rojo para el botón de eliminar */
-    color: white;
-    border: none;
-  }
+.input {
 
-  
-  .buttonEliminar:hover {
-    background-color: #ec1410; /* Color de hover para eliminar */
-  }
+  font-size: 16px;
+  padding: 5px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
 
-  .buttonContainer{
+/* Efecto cuando el usuario escribe */
+.input:focus {
+  border-color: #014185;
 
-    display: flex;
-	  flex-direction: column;
-	  flex-wrap: nowrap;
-	  justify-content: center;
-	  align-items: flex-end;
-	  align-content: center;
-    padding-right: 2%;
-  
-    
-  }
+}
+.buttonEliminar {
+  background-color: #ff4d4f; /* Rojo para el botón de eliminar */
+  color: white;
+  border: none;
+}
 
-  .stockLow {
+.buttonEliminar:hover {
+  background-color: #ec1410; /* Color de hover para eliminar */
+}
+
+.stockLow {
   background-color: rgb(255, 25, 25);
   color: white;
   padding: 5px 10px;

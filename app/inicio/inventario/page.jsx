@@ -1,91 +1,98 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Space, Table, Button } from "antd";
-import styles from "./inventario.module.css"; 
-import Link from 'next/link';
-import { useProductos } from "@/hooks/useProductos"; // Hook personalizado
+import styles from "./inventario.module.css";
+import Link from "next/link";
+import { useProductos } from "@/hooks/useProductos";
 
 const Inventory = () => {
   const { data, loading, error } = useProductos();
-  console.log(data);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
-  const handleSort = (columnKey, order) => {
-    const sortedData = [...data].sort((a, b) => {
-      if (order === "ascend") {
-        return a[columnKey] > b[columnKey] ? 1 : -1;
-      } else {
-        return a[columnKey] < b[columnKey] ? 1 : -1;
-      }
-    });
-    return sortedData;
+  useEffect(() => {
+    setFilteredData(data); // Sincronizar cuando data cambie
+  }, [data]);
+
+  const handleSearch = (e) => {
+    const value = e.target.value.toLowerCase();
+    setSearchTerm(value);
+    const filtered = data.filter(
+      (item) =>
+        item.nombre.toLowerCase().includes(value) ||
+        item.categoria.toLowerCase().includes(value) ||
+        item.unidad.toLowerCase().includes(value)
+    );
+    setFilteredData(filtered);
   };
 
   const columns = [
-    { 
-      title: "Nombre", 
-      dataIndex: "nombre", 
-      key: "nombre", 
+    {
+      title: "Nombre",
+      dataIndex: "nombre",
+      key: "nombre",
       width: 200,
-      sorter: (a, b) => a.nombre.localeCompare(b.nombre), 
+      sorter: (a, b) => a.nombre.localeCompare(b.nombre),
       render: (text) => <span>{text}</span>,
-      sortDirections: ['ascend', 'descend'],
+      sortDirections: ["ascend", "descend"],
     },
-    { 
-      title: "Precio", 
-      dataIndex: "precio_venta", 
-      key: "precio_venta", 
-      render: (value) => <span>${value.toFixed(2)}</span>, 
+    {
+      title: "Precio",
+      dataIndex: "precio_venta",
+      key: "precio_venta",
+      render: (value) => <span>${value.toFixed(2)}</span>,
       width: 150,
-      sorter: (a, b) => a.precio_venta - b.precio_venta, 
-      sortDirections: ['ascend', 'descend'],
+      sorter: (a, b) => a.precio_venta - b.precio_venta,
+      sortDirections: ["ascend", "descend"],
     },
-    { 
-      title: "Cantidad", 
-      dataIndex: "stock_actual", 
-      key: "stock_actual", 
-      width: 100, 
+    {
+      title: "Cantidad",
+      dataIndex: "stock_actual",
+      key: "stock_actual",
+      width: 100,
       render: (stock) => (
         <span className={`${stock < 20 ? styles.stockLow : styles.stockHigh}`}>
           {stock}
         </span>
       ),
-      sorter: (a, b) => a.stock_actual - b.stock_actual, 
-      sortDirections: ['ascend', 'descend'],
+      sorter: (a, b) => a.stock_actual - b.stock_actual,
+      sortDirections: ["ascend", "descend"],
     },
-    { 
-      title: "Categoría", 
-      dataIndex: "categoria",  
-      key: "categoria", 
+    {
+      title: "Categoría",
+      dataIndex: "categoria",
+      key: "categoria",
       width: 150,
       render: (categoria) => <span>{categoria}</span>, // Muestra el nombre de la categoría
     },
-    { 
-      title: "Unidad", 
-      dataIndex: "unidad",  
-      key: "unidad", 
+    {
+      title: "Unidad",
+      dataIndex: "unidad",
+      key: "unidad",
       width: 150,
       render: (unidad) => <span>{unidad}</span>,
     },
-    { 
-      title: "Editar", 
-      key: "editar", 
+    {
+      title: "Editar",
+      key: "editar",
       render: (_, record) => (
         <Button onClick={() => handleEdit(record)}>Editar</Button>
-      ), 
-      width: 100 
+      ),
+      width: 100,
     },
-    { 
-      title: "Eliminar", 
-      key: "eliminar", 
+    {
+      title: "Eliminar",
+      key: "eliminar",
       render: (_, record) => (
-        <Button 
-          className={styles.buttonEliminar} 
+        <Button
+          className={styles.buttonEliminar}
           onClick={() => handleDelete(record)}
         >
           Eliminar
         </Button>
-      ), 
-      width: 100 
-    }
+      ),
+      width: 100,
+    },
   ];
 
   return (
@@ -94,19 +101,26 @@ const Inventory = () => {
         <Link href="/inicio/inventario/agregar">
           <Button type="primary">Agregar Producto</Button>
         </Link>
+        <input
+          type="text"
+          placeholder="Buscar producto"
+          className={styles.input}
+          onChange={handleSearch}
+        />
       </div>
 
       <Table
         className={styles.tableContainer}
         columns={columns}
-        dataSource={data}
+        dataSource={filteredData}
         loading={loading}
         rowKey="id_producto"
         pagination={{ pageSize: 5 }}
-        onChange={(pagination, filters, sorter) => {
-          if (sorter.order) {
-            const sortedData = handleSort(sorter.columnKey, sorter.order);
-          }
+        locale={{
+          emptyText: "No hay datos que coincidan con su busqueda", // Mensaje cuando no hay datos
+          triggerDesc: "Haga clic para ordenar de forma descendente",
+          triggerAsc: "Haga clic para ordenar de forma ascendente",
+          cancelSort: "Cancelar ordenación",
         }}
       />
     </Space>
