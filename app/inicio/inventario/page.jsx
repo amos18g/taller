@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Space, Table, Button } from "antd";
+import { Space, Table, Button, Tag } from "antd";
 import styles from "./inventario.module.css";
 import Link from "next/link";
 import { useProductos } from "@/hooks/useProductos";
@@ -58,11 +58,20 @@ const Inventory = () => {
       dataIndex: "stock_actual",
       key: "stock_actual",
       width: 100,
-      render: (stock) => (
-        <span className={`${stock < 20 ? styles.stockLow : styles.stockHigh}`}>
-          {stock}
-        </span>
-      ),
+      render: (stock) => {
+        let tagStyle = "green"; // Verde por defecto para cantidades normales o altas
+        
+        // Si la cantidad es baja (menos de 20), asigna rojo
+        if (stock < 20) {
+          tagStyle = "volcano"; // Rojo
+        }
+        
+        return (
+          <Tag color={tagStyle}>
+            {stock}
+          </Tag>
+        );
+      },
       sorter: (a, b) => a.stock_actual - b.stock_actual,
       sortDirections: ["ascend", "descend"],
     },
@@ -123,7 +132,7 @@ const Inventory = () => {
         dataSource={filteredData}
         loading={loading}
         rowKey="id_producto"
-        pagination={{ pageSize: 5 }}
+        pagination={{ pageSize: 6 }}
         locale={{
           emptyText: "No hay datos que coincidan con su busqueda", // Mensaje cuando no hay datos
           triggerDesc: "Haga clic para ordenar de forma descendente",
