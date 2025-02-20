@@ -38,7 +38,21 @@ export const updateSession = async (request: NextRequest) => {
 
         // Esto actualizará la sesión si expiró (requerido para los componentes del servidor)
         // https://supabase.com/docs/guides/auth/server-side/nextjs
-        const { data: { user }, error: userError } = await supabase.auth.getUser();
+        let { data: { user }, error: userError } = await supabase.auth.getUser();
+
+        if(user == null){ //permitira  buscar el token de autenticación en los headers de la solicitud HTTP. (para el uso de postman)
+            const authHeader = request.headers.get('authorization');
+            if (authHeader && authHeader.startsWith('Bearer ')) {
+                const token = authHeader.split(' ')[1];
+                let { data, error } = await supabase.auth.getUser(token);
+                user = data?.user || null; // Actualiza 'user' con el resultado del header
+                userError = error; // Actualiza 'userError' con el resultado del header
+                console.log('Prueba auth header; ');
+                console.log('data header', user);
+                console.log('error header; ', userError);
+
+            }
+        }
 
         // *** AÑADIDO: Logs justo después de getUser() ***
         console.log("Middleware - Después de supabase.auth.getUser() - user:", user);
@@ -64,7 +78,7 @@ export const updateSession = async (request: NextRequest) => {
         if (user) {
 
             const { data: userProfile, error: profileError } = await supabase
-    .from('user') // IMPORTANTE: Verifica el nombre real de tu tabla
+    .from('user') // tabla usuario
     .select('id, role')
     .eq('id', user?.id)
     .single();
