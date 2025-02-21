@@ -1,0 +1,56 @@
+.contenedor {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+    
+.titulo {
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+
+
+    height: 50%;
+}
+
+.table-container {
+    grid-column: span 3 / span 3;
+    grid-row: span 4 / span 4;
+    grid-row-start: 2;
+    margin-right: 5%;
+    margin-top: -5%;
+}
+
+.form-container {
+    grid-column: span 2 / span 2;
+    grid-row: span 4 / span 4;
+    grid-column-start: 4;
+    grid-row-start: 2;
+    margin-top: -5%;
+}
+
+.form-container h3{
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+
+}
+
+.busqueda {
+
+    font-size: 16px;
+    padding: 5px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .formulario {
+
+    background-color: white;
+    padding: 16px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+}
