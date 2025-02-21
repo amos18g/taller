@@ -9,6 +9,7 @@ interface Categoria {
   fecha_creacion: string;
 }
 
+//Obtiene todas las categorias
 export function useCategorias() {
   const [categorias, setCategorias] = useState<Categoria[] | null>(null);  // Cambiado 'data' por 'categorias'
   const [loading, setLoading] = useState(true);
