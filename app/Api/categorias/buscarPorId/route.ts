@@ -1,4 +1,4 @@
-// Api/categorias/buscarPorNombre
+// Api/categorias/buscarPorId
 
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
@@ -6,11 +6,11 @@ import { createClient } from "@/utils/supabase/server";
 export async function GET(request: NextRequest) {
   const supabase = await createClient();
   const { searchParams } = new URL(request.url);
-  const nombre = searchParams.get("nombre");
+  const id = searchParams.get("id");
 
-  if (!nombre) {
+  if (!id) {
     return NextResponse.json(
-      { error: "El parámetro 'nombre' es requerido." },
+      { error: "El parámetro 'id' es requerido." },
       { status: 400 }
     );
   }
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
   const { data, error } = await supabase
     .from("categoria")
     .select("*")
-    .ilike("nombre", nombre); // Usamos ilike en lugar de eq
+    .eq("id_categoria", id); // Usamos ilike en lugar de eq
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -1,4 +1,5 @@
-// Api/categorias/buscarPorNombre
+// Api/productos/buscar/nombre
+
 
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
@@ -16,9 +17,19 @@ export async function GET(request: NextRequest) {
   }
 
   const { data, error } = await supabase
-    .from("categoria")
-    .select("*")
-    .ilike("nombre", nombre); // Usamos ilike en lugar de eq
+    .from("producto")
+    .select(`
+      id_producto,
+      codigo,
+      nombre,
+      costo,
+      impuesto,
+      precio_venta,
+      stock_actual,
+      categoria:categoria(id_categoria, nombre),
+      unidad:unidad(id_unidad, nombre)
+    `)
+    .ilike("nombre", `%${nombre}%`); 
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -26,10 +37,10 @@ export async function GET(request: NextRequest) {
 
   if (!data || data.length === 0) {
     return NextResponse.json(
-      { error: "Categoría no encontrada." },
+      { error: "Producto no encontrado." },
       { status: 404 }
     );
   }
 
-  return NextResponse.json(data[0], { status: 200 });
+  return NextResponse.json(data, { status: 200 });
 }
