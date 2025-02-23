@@ -5,22 +5,33 @@ import { useRouter } from "next/navigation";
 import { useUnidades } from "@/hooks/useUnidades";
 import { useCategorias } from "@/hooks/useCategorias";
 import { useProductos } from "@/hooks/useProductos";
-import { Spin, Button } from "antd";
+import { v4 as uuidv4 } from "uuid";
+import { Spin, Button, message } from "antd";
 
 function AgregarProducto() {
+
+    
   const router = useRouter();
+  const generarCodigoUnico = () => uuidv4().split("-")[0];
   const [producto, setProducto] = useState({
+    codigo: generarCodigoUnico(),
     nombre: "",
+    costo: "",
     precio_venta: "",
     stock_actual: "",
-    categoria: "",
-    unidad: "",
+    id_categoria: "",
+    id_unidad: "",
+    codigo_barras: generarCodigoUnico(),
+    impuesto: 0.15,
+    stock_minimo: 10,
+    activo: true,
   });
 
+
   // Llamadas a los hooks para obtener unidades y categorías
-  const { unidades, loading: loadingUnidades, error: errorUnidades } = useUnidades();
-  const { categorias, loading: loadingCategorias, error: errorCategorias } = useCategorias();
-  const{ crearProducto} = useProductos();
+  const { unidades,loading: loadingUnidades,error: errorUnidades} = useUnidades();
+  const {categorias,loading: loadingCategorias,error: errorCategorias} = useCategorias();
+  const { crearProducto } = useProductos();
 
   // Manejo de cambios en el formulario
   const handleChange = (e) => {
@@ -28,15 +39,25 @@ function AgregarProducto() {
   };
 
   // Manejo del envío del formulario
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Producto agregado:", producto);
-    // Aquí puedes hacer una petición a la API para guardar el producto
+    console.log("guardando producto");
+    try {
+      await crearProducto(producto);
+      message.success("Producto creado correctamente");
+      router.back();
+    } catch (error) {
+      message.error("Error al crear el producto: " + error.message);
+    }
   };
 
   // Asegurarse de que las unidades y categorías estén cargadas antes de renderizar
   if (loadingUnidades || loadingCategorias) {
-    return <div><Spin></Spin></div>; 
+    return (
+      <div>
+        <Spin></Spin>
+      </div>
+    );
   }
 
   // Manejo de errores
@@ -63,14 +84,22 @@ function AgregarProducto() {
           />
         </div>
         <div>
-          <label className="block font-medium">Precio</label>
+          <label className="block font-medium">Costo</label>
+          <input
+            type="number"
+            name="costo"
+            value={producto.costo}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+            required
+          />
+          <label className="block font-medium">Precio de venta</label>
           <input
             type="number"
             name="precio_venta"
             value={producto.precio_venta}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
-            step="0.01"
             required
           />
         </div>
@@ -88,15 +117,18 @@ function AgregarProducto() {
         <div>
           <label className="block font-medium">Categoría</label>
           <select
-            name="categoria"
-            value={producto.categoria}
+            name="id_categoria"
+            value={producto.id_categoria}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
             required
           >
             <option value="">Seleccione una categoría</option>
             {categorias.map((categoria) => (
-              <option key={categoria.id_categoria} value={categoria.id_categoria}>
+              <option
+                key={categoria.id_categoria}
+                value={categoria.id_categoria}
+              >
                 {categoria.nombre}
               </option>
             ))}
@@ -105,8 +137,8 @@ function AgregarProducto() {
         <div>
           <label className="block font-medium">Unidad</label>
           <select
-            name="unidad"
-            value={producto.unidad}
+            name="id_unidad"
+            value={producto.id_unidad}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
             required
@@ -128,13 +160,9 @@ function AgregarProducto() {
           >
             Volver
           </Button>
-          <Button
-            type="primary"
-            htmlType="submit"
-            variant="solid"
-          >
+         <button typeof="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Guardar
-          </Button>
+         </button>
         </div>
       </form>
     </div>

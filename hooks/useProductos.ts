@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 interface Producto {
   id_producto: number;
   nombre: string;
+  costo: number;
   precio_venta: number;
   stock_actual: number;
   categoria: string;
@@ -33,6 +34,7 @@ export function useProductos() {
           ...producto,
           categoria: producto.categoria?.nombre || "Sin Categoría",
           unidad: producto.unidad?.nombre || "Sin Unidad",
+          costo: producto.costo || 0,
         }))
       );
     } catch (err: any) {
@@ -56,17 +58,23 @@ export function useProductos() {
 
   async function crearProducto(producto: Omit<Producto, "id_producto">) {
     try {
+      console.log("Enviando producto:", producto);
       const response = await fetch("/Api/productos/crearNuevo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(producto),
       });
-
-      if (!response.ok) throw new Error("Error al crear el producto");
-
-      await fetchProductos(); // Actualizar la lista de productos
-    } catch (err: any) {
-      setError(err.message);
+      console.log("Respuesta status:", response.status);
+      const data = await response.json();
+      console.log("Respuesta data:", data);
+      
+      if (!response.ok) throw new Error(data.error || "Error al crear el producto");
+      
+      await fetchProductos();
+      return data;
+    } catch (err) {
+      console.error("Error en crearProducto:", err);
+      throw err;
     }
   }
 

@@ -12,6 +12,7 @@ export async function GET() {
       id_producto,
       codigo,
       nombre,
+      costo,
       precio_venta,
       stock_actual,
       categoria:categoria(nombre),

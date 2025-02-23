@@ -45,7 +45,16 @@ const Inventory = () => {
       sortDirections: ["ascend", "descend"],
     },
     {
-      title: "Precio",
+      title: "Costo",
+      dataIndex: "costo",
+      key: "costo",
+      render: (value) => <span>${value.toFixed(2)}</span>,
+      width: 150,
+      sorter: (a, b) => a.costo - b.costo,
+      sortDirections: ["ascend", "descend"],
+    },
+    {
+      title: "Precio de venta",
       dataIndex: "precio_venta",
       key: "precio_venta",
       render: (value) => <span>${value.toFixed(2)}</span>,
