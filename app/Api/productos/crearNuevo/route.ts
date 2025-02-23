@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
         id_categoria,
         id_unidad,
         costo,
+        impuesto,
         precio_venta,
         stock_actual,
         stock_minimo,

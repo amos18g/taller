@@ -173,6 +173,8 @@ function Categorias() {
   const [isAddDrawerVisible, setIsAddDrawerVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
+  console.log("categorias", categorias);
+
   // buscar categoría
   const handleSearch = (e) => {
     setSearchTerm(e.target.value.toLowerCase());
@@ -291,7 +293,7 @@ function Categorias() {
             columns={columns}
             rowKey="id_categoria"
             loading={loading}
-            pagination={{ pageSize: 6 }}
+            pagination={{ pageSize: 5 }}
             className="custom-table"
           />
         </div>
