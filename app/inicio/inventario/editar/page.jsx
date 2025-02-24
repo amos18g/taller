@@ -128,7 +128,7 @@ const EditarProducto = () => {
             className="w-full p-2 border border-gray-300 rounded"
             required
           >
-            <option value="">Seleccione una categoría</option>
+            <option value="">{producto.categoria.nombre}</option>
             {categorias.map((categoria) => (
               <option
               key={categoria.id_categoria}
@@ -141,7 +141,7 @@ const EditarProducto = () => {
           </select>
         </div>
         <div>
-          <label className="block font-medium">Unidad</label>
+          <label className="block font-medium">{producto.unidad.nombre}</label>
           <select
             name="id_unidad"
             value={producto.id_unidad}
