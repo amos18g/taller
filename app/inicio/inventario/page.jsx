@@ -34,8 +34,8 @@ const Inventory = () => {
     router.push(`/inicio/inventario/editar?id=${record.id_producto}`);
   };
 
-   // Función para eliminar la categoría
-   const handleDeleteProduct = async (record) => {
+  // Función para eliminar la categoría
+  const handleDeleteProduct = async (record) => {
     try {
       await eliminarProducto(record.id_producto);
       message.success("Producto eliminado correctamente");
@@ -43,7 +43,6 @@ const Inventory = () => {
       message.error("Error al eliminar el producto");
     }
   };
-
 
   const columns = [
     {
@@ -80,17 +79,13 @@ const Inventory = () => {
       width: 100,
       render: (stock) => {
         let tagStyle = "green"; // Verde por defecto para cantidades normales o altas
-        
+
         // Si la cantidad es baja (menos de 20), asigna rojo
         if (stock < 20) {
           tagStyle = "volcano"; // Rojo
         }
-        
-        return (
-          <Tag color={tagStyle}>
-            {stock}
-          </Tag>
-        );
+
+        return <Tag color={tagStyle}>{stock}</Tag>;
       },
       sorter: (a, b) => a.stock_actual - b.stock_actual,
       sortDirections: ["ascend", "descend"],
@@ -122,17 +117,17 @@ const Inventory = () => {
       key: "eliminar",
       render: (_, record) => (
         <Popconfirm
-        title="¿Está seguro de eliminar esta categoría?"
-        onConfirm={() => handleDeleteProduct(record)}
-        okText="Sí"
-        cancelText="No"
-      >
-        <Button className="btn-eliminar" danger>
-          Eliminar
-        </Button>
-      </Popconfirm>
+          title="¿Está seguro de eliminar esta categoría?"
+          onConfirm={() => handleDeleteProduct(record)}
+          okText="Sí"
+          cancelText="No"
+        >
+          <Button className="btn-eliminar" danger>
+            Eliminar
+          </Button>
+        </Popconfirm>
       ),
-      
+
       width: 100,
     },
   ];
@@ -157,9 +152,17 @@ const Inventory = () => {
         dataSource={filteredData}
         loading={loading}
         rowKey="id_producto"
-        pagination={{ pageSize: 6 }}
+        /*
+        pagination={{
+          pageSize: 6, // Número de filas por página
+          showSizeChanger: false, // Quitar la opción de cambiar el número de filas por página
+        }}
+          */
+        scroll={{
+          y: 400, // Altura de la tabla, ajusta el valor según lo que necesites
+        }}
         locale={{
-          emptyText: "No hay datos que coincidan con su busqueda", // Mensaje cuando no hay datos
+          emptyText: "No hay datos que coincidan con su búsqueda", // Mensaje cuando no hay datos
           triggerDesc: "Haga clic para ordenar de forma descendente",
           triggerAsc: "Haga clic para ordenar de forma ascendente",
           cancelSort: "Cancelar ordenación",

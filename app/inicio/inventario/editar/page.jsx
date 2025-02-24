@@ -50,7 +50,7 @@ const EditarProducto = () => {
       await editarProducto(id, producto);
       message.success("Producto editado correctamente");
       // Esperar a que el mensaje se muestre antes de redirigir
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       router.back();
     } catch (error) {
       message.error("Error al editar el producto: " + error.message);
@@ -68,7 +68,9 @@ const EditarProducto = () => {
   }
 
   if (!producto) {
-    return <div className="text-center text-red-500">Producto no encontrado</div>;
+    return (
+      <div className="text-center text-red-500">Producto no encontrado</div>
+    );
   }
 
   return (
@@ -123,52 +125,59 @@ const EditarProducto = () => {
           <label className="block font-medium">Categoría</label>
           <select
             name="id_categoria"
-            value={producto.id_categoria}
+            value={producto.id_categoria} // El valor actual del producto
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
-            required
           >
-            <option value="">{producto.categoria.nombre}</option>
+            <option value="">{producto.categoria.nombre}</option>{" "}
+            {/* El valor actual se mantiene */}
             {categorias.map((categoria) => (
               <option
-              key={categoria.id_categoria}
-              value={categoria.id_categoria}
-              disabled={!categoria.activo} // Deshabilitar la opción si la categoría está inactiva
-            >
-              {categoria.nombre}
-            </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block font-medium">{producto.unidad.nombre}</label>
-          <select
-            name="id_unidad"
-            value={producto.id_unidad}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          >
-            <option value="">Seleccione una unidad</option>
-            {unidades.map((unidad) => (
-              <option key={unidad.id_unidad} value={unidad.id_unidad}>
-                {unidad.nombre} ({unidad.abreviatura})
+                key={categoria.id_categoria}
+                value={categoria.id_categoria}
+                disabled={!categoria.activo} // Deshabilitar si la categoría está inactiva
+              >
+                {categoria.nombre}
               </option>
             ))}
           </select>
         </div>
+
+        <div>
+          <label className="block font-medium">Unidad</label>
+          <select
+            name="unidad"
+            value={producto.unidad} // El valor actual del producto
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          >
+            <option value="">{producto.unidad.nombre}</option>{" "}
+            {/* El valor actual se mantiene */}
+            {unidades.map((unidad) => (
+              <option key={unidad.id_unidad} value={unidad.id_unidad}>
+                {unidad.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
+
+      
         <div className="flex justify-between mt-4">
-          <Button type="default" onClick={() => router.back()} disabled={isSubmitting}>
+          <Button
+            type="default"
+            onClick={() => router.back()}
+            disabled={isSubmitting}
+          >
             Volver
           </Button>
           <button
             type="submit"
             className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${
-              isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+              isSubmitting ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Guardando...' : 'Guardar Cambios'}
+            {isSubmitting ? "Guardando..." : "Guardar Cambios"}
           </button>
         </div>
       </form>
