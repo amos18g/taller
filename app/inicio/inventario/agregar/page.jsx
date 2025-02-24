@@ -12,7 +12,7 @@ function AgregarProducto() {
   const router = useRouter();
   const generarCodigoUnico = () => uuidv4().split("-")[0];
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const [producto, setProducto] = useState({
     codigo: generarCodigoUnico(),
     nombre: "",
@@ -28,8 +28,16 @@ function AgregarProducto() {
   });
 
   // Llamadas a los hooks para obtener unidades y categorías
-  const { unidades, loading: loadingUnidades, error: errorUnidades } = useUnidades();
-  const { categorias, loading: loadingCategorias, error: errorCategorias } = useCategorias();
+  const {
+    unidades,
+    loading: loadingUnidades,
+    error: errorUnidades,
+  } = useUnidades();
+  const {
+    categorias,
+    loading: loadingCategorias,
+    error: errorCategorias,
+  } = useCategorias();
   const { crearProducto } = useProductos();
 
   // Manejo de cambios en el formulario
@@ -47,7 +55,7 @@ function AgregarProducto() {
       await crearProducto(producto);
       message.success("Producto creado correctamente");
       // Esperar a que el mensaje se muestre antes de redirigir
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       router.back();
     } catch (error) {
       message.error("Error al crear el producto: " + error.message);
@@ -67,10 +75,18 @@ function AgregarProducto() {
 
   // Manejo de errores
   if (errorUnidades) {
-    return <div className="text-center text-red-500">Error al cargar las unidades: {errorUnidades}</div>;
+    return (
+      <div className="text-center text-red-500">
+        Error al cargar las unidades: {errorUnidades}
+      </div>
+    );
   }
   if (errorCategorias) {
-    return <div className="text-center text-red-500">Error al cargar las categorías: {errorCategorias}</div>;
+    return (
+      <div className="text-center text-red-500">
+        Error al cargar las categorías: {errorCategorias}
+      </div>
+    );
   }
 
   return (
@@ -137,7 +153,11 @@ function AgregarProducto() {
           >
             <option value="">Seleccione una categoría</option>
             {categorias.map((categoria) => (
-              <option key={categoria.id_categoria} value={categoria.id_categoria}>
+              <option
+                key={categoria.id_categoria}
+                value={categoria.id_categoria}
+                disabled={!categoria.activo} // Deshabilitar la opción si la categoría está inactiva
+              >
                 {categoria.nombre}
               </option>
             ))}
@@ -172,11 +192,11 @@ function AgregarProducto() {
           <button
             type="submit"
             className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${
-              isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+              isSubmitting ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Guardando...' : 'Guardar'}
+            {isSubmitting ? "Guardando..." : "Guardar"}
           </button>
         </div>
       </form>

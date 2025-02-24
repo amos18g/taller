@@ -130,9 +130,13 @@ const EditarProducto = () => {
           >
             <option value="">Seleccione una categoría</option>
             {categorias.map((categoria) => (
-              <option key={categoria.id_categoria} value={categoria.id_categoria}>
-                {categoria.nombre}
-              </option>
+              <option
+              key={categoria.id_categoria}
+              value={categoria.id_categoria}
+              disabled={!categoria.activo} // Deshabilitar la opción si la categoría está inactiva
+            >
+              {categoria.nombre}
+            </option>
             ))}
           </select>
         </div>

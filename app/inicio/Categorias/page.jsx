@@ -278,7 +278,7 @@ function Categorias() {
         <div className="titulo flex items-center justify-between mt-5 mb-4">
           <Input
             type="text"
-            placeholder="Buscar por nombre"
+            placeholder="Buscar"
             className="busqueda w-1/4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 mr-2"
             value={searchTerm}
             onChange={handleSearch}
