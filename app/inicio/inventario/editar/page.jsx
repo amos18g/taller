@@ -18,6 +18,7 @@ const EditarProducto = () => {
 
   const [producto, setProducto] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Obtener los datos del producto cuando el componente se monte
   useEffect(() => {
@@ -42,14 +43,19 @@ const EditarProducto = () => {
   // Manejo del envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return; // Prevenir múltiples envíos
+
+    setIsSubmitting(true);
     try {
       await editarProducto(id, producto);
       message.success("Producto editado correctamente");
-      setTimeout(() => {
-        router.back();
-      }, 1500);
+      // Esperar a que el mensaje se muestre antes de redirigir
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      router.back();
     } catch (error) {
       message.error("Error al editar el producto: " + error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -62,7 +68,7 @@ const EditarProducto = () => {
   }
 
   if (!producto) {
-    return <div className="text-center text-red-500">Producto no encontradoo</div>;
+    return <div className="text-center text-red-500">Producto no encontrado</div>;
   }
 
   return (
@@ -148,14 +154,17 @@ const EditarProducto = () => {
           </select>
         </div>
         <div className="flex justify-between mt-4">
-          <Button type="default" onClick={() => router.back()}>
+          <Button type="default" onClick={() => router.back()} disabled={isSubmitting}>
             Volver
           </Button>
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${
+              isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            disabled={isSubmitting}
           >
-            Guardar Cambios
+            {isSubmitting ? 'Guardando...' : 'Guardar Cambios'}
           </button>
         </div>
       </form>

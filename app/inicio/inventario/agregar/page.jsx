@@ -9,10 +9,10 @@ import { v4 as uuidv4 } from "uuid";
 import { Spin, Button, message } from "antd";
 
 function AgregarProducto() {
-
-    
   const router = useRouter();
   const generarCodigoUnico = () => uuidv4().split("-")[0];
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const [producto, setProducto] = useState({
     codigo: generarCodigoUnico(),
     nombre: "",
@@ -27,10 +27,9 @@ function AgregarProducto() {
     activo: true,
   });
 
-
   // Llamadas a los hooks para obtener unidades y categorías
-  const { unidades,loading: loadingUnidades,error: errorUnidades} = useUnidades();
-  const {categorias,loading: loadingCategorias,error: errorCategorias} = useCategorias();
+  const { unidades, loading: loadingUnidades, error: errorUnidades } = useUnidades();
+  const { categorias, loading: loadingCategorias, error: errorCategorias } = useCategorias();
   const { crearProducto } = useProductos();
 
   // Manejo de cambios en el formulario
@@ -41,33 +40,37 @@ function AgregarProducto() {
   // Manejo del envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("guardando producto");
+    if (isSubmitting) return; // Prevenir múltiples envíos
+
+    setIsSubmitting(true);
     try {
       await crearProducto(producto);
       message.success("Producto creado correctamente");
-      setTimeout(() => {
-        router.back();
-      }, 1500); // 1.5 segundos de espera
+      // Esperar a que el mensaje se muestre antes de redirigir
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      router.back();
     } catch (error) {
       message.error("Error al crear el producto: " + error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   // Asegurarse de que las unidades y categorías estén cargadas antes de renderizar
   if (loadingUnidades || loadingCategorias) {
     return (
-      <div>
-        <Spin></Spin>
+      <div className="flex justify-center items-center h-screen">
+        <Spin />
       </div>
     );
   }
 
   // Manejo de errores
   if (errorUnidades) {
-    return <div>Error al cargar las unidades: {errorUnidades}</div>;
+    return <div className="text-center text-red-500">Error al cargar las unidades: {errorUnidades}</div>;
   }
   if (errorCategorias) {
-    return <div>Error al cargar las categorías: {errorCategorias}</div>;
+    return <div className="text-center text-red-500">Error al cargar las categorías: {errorCategorias}</div>;
   }
 
   return (
@@ -83,6 +86,7 @@ function AgregarProducto() {
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
             required
+            disabled={isSubmitting}
           />
         </div>
         <div>
@@ -94,7 +98,10 @@ function AgregarProducto() {
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
             required
+            disabled={isSubmitting}
           />
+        </div>
+        <div>
           <label className="block font-medium">Precio de venta</label>
           <input
             type="number"
@@ -103,6 +110,7 @@ function AgregarProducto() {
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
             required
+            disabled={isSubmitting}
           />
         </div>
         <div>
@@ -114,6 +122,7 @@ function AgregarProducto() {
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
             required
+            disabled={isSubmitting}
           />
         </div>
         <div>
@@ -124,13 +133,11 @@ function AgregarProducto() {
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
             required
+            disabled={isSubmitting}
           >
             <option value="">Seleccione una categoría</option>
             {categorias.map((categoria) => (
-              <option
-                key={categoria.id_categoria}
-                value={categoria.id_categoria}
-              >
+              <option key={categoria.id_categoria} value={categoria.id_categoria}>
                 {categoria.nombre}
               </option>
             ))}
@@ -144,6 +151,7 @@ function AgregarProducto() {
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
             required
+            disabled={isSubmitting}
           >
             <option value="">Seleccione una unidad</option>
             {unidades.map((unidad) => (
@@ -155,16 +163,21 @@ function AgregarProducto() {
         </div>
         <div className="flex justify-between mt-4">
           <Button
-            color="danger"
             type="default"
             onClick={() => router.back()}
-            variant="outlined"
+            disabled={isSubmitting}
           >
             Volver
           </Button>
-         <button typeof="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Guardar
-         </button>
+          <button
+            type="submit"
+            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${
+              isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Guardando...' : 'Guardar'}
+          </button>
         </div>
       </form>
     </div>
