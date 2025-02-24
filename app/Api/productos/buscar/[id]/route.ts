@@ -3,10 +3,13 @@
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   const supabase = await createClient();
-  const { searchParams } = new URL(request.url);
-  const id = searchParams.get("id");
+  
+  // Obtener el id desde params
+  const id = params.id;
+
+  console.log("El id es:", id);
 
   if (!id) {
     return NextResponse.json(
@@ -28,18 +31,19 @@ export async function GET(request: NextRequest) {
       categoria:categoria(id_categoria, nombre),
       unidad:unidad(id_unidad, nombre)
     `)
-    .eq("id_producto", id); 
-    
+    .eq("id_producto", id);
+
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
   if (!data || data.length === 0) {
     return NextResponse.json(
-      { error: "Producto no encontrado." },
+      { error: "backend: Producto no encontrado" },
       { status: 404 }
     );
   }
 
   return NextResponse.json(data[0], { status: 200 });
 }
+

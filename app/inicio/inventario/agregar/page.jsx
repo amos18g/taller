@@ -45,7 +45,9 @@ function AgregarProducto() {
     try {
       await crearProducto(producto);
       message.success("Producto creado correctamente");
-      router.back();
+      setTimeout(() => {
+        router.back();
+      }, 1500); // 1.5 segundos de espera
     } catch (error) {
       message.error("Error al crear el producto: " + error.message);
     }

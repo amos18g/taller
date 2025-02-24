@@ -46,6 +46,7 @@ export function useProductos() {
 
   async function buscarProducto(id: number) {
     try {
+      console.log("Buscando producto con id:", id);
       const response = await fetch(`/Api/productos/buscar/${id}`);
       if (!response.ok) throw new Error("Error al obtener el producto");
 

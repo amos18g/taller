@@ -20,11 +20,11 @@ interface ProfileResult {
 
 
 export async function getProfile(): Promise<ProfileResult | null> {
-    console.log("getProfile() - Iniciando ejecución"); // *** AÑADIDO ***
+   // console.log("getProfile() - Iniciando ejecución"); // *** AÑADIDO ***
 
     const { data: session, error: sessionError } = await supabase.auth.getSession();
 
-    console.log("getProfile() - Después de getSession(), session:", session, "sessionError:", sessionError); // *** AÑADIDO ***
+    //console.log("getProfile() - Después de getSession(), session:", session, "sessionError:", sessionError); // *** AÑADIDO ***
 
     const currentUser = session?.session?.user;
 
@@ -45,7 +45,7 @@ export async function getProfile(): Promise<ProfileResult | null> {
         .eq('id', currentUser.id)
         .single();
 
-    console.log("getProfile() - Después de consulta a 'user' table, userProfile:", userProfile, "profileError:", profileError); // *** AÑADIDO ***
+    //console.log("getProfile() - Después de consulta a 'user' table, userProfile:", userProfile, "profileError:", profileError); // *** AÑADIDO ***
 
 
     if (profileError) {
@@ -53,6 +53,6 @@ export async function getProfile(): Promise<ProfileResult | null> {
         return { user: currentUser, userProfile: null, error: profileError }; // Devuelve error de perfil
     }
 
-    console.log("getProfile() - Retornando ProfileResult exitosamente, userProfile:", userProfile); // *** AÑADIDO ***
+    //console.log("getProfile() - Retornando ProfileResult exitosamente, userProfile:", userProfile); // *** AÑADIDO ***
     return { user: currentUser, userProfile: userProfile as UserProfile };
 }
