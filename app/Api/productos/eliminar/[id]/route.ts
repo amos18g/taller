@@ -1,5 +1,4 @@
-// Api/productos/eliminar/[id]
-import { NextResponse , NextRequest } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
 interface Params {
@@ -7,9 +6,13 @@ interface Params {
 }
 
 export async function DELETE(request: NextRequest, { params }: { params: Params }) {
-  const supabase = await createClient();
-  const { id } = params;
 
+  const { id } = await params;
+
+  console.log("elimando producto con id:",id);
+  
+  const supabase = await createClient();
+  
   const { error } = await supabase
     .from("producto")
     .delete()

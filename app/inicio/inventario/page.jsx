@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Space, Table, Button, Tag } from "antd";
+import { Space, Table, Button, Tag, Popconfirm, message } from "antd";
 import styles from "./inventario.module.css";
 import Link from "next/link";
 import { useProductos } from "@/hooks/useProductos";
 import { useRouter } from "next/navigation";
 
 const Inventory = () => {
-  const { data, loading, error } = useProductos();
+  const { data, loading, error, eliminarProducto } = useProductos();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
@@ -33,6 +33,17 @@ const Inventory = () => {
   const handleEdit = (record) => {
     router.push(`/inicio/inventario/editar?id=${record.id_producto}`);
   };
+
+   // Función para eliminar la categoría
+   const handleDeleteProduct = async (record) => {
+    try {
+      await eliminarProducto(record.id_producto);
+      message.success("Producto eliminado correctamente");
+    } catch (error) {
+      message.error("Error al eliminar el producto");
+    }
+  };
+
 
   const columns = [
     {
@@ -110,13 +121,18 @@ const Inventory = () => {
       title: "Eliminar",
       key: "eliminar",
       render: (_, record) => (
-        <Button
-          className={styles.buttonEliminar}
-          onClick={() => handleDelete(record)}
-        >
+        <Popconfirm
+        title="¿Está seguro de eliminar esta categoría?"
+        onConfirm={() => handleDeleteProduct(record)}
+        okText="Sí"
+        cancelText="No"
+      >
+        <Button className="btn-eliminar" danger>
           Eliminar
         </Button>
+      </Popconfirm>
       ),
+      
       width: 100,
     },
   ];

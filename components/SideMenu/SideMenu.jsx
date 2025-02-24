@@ -36,12 +36,13 @@ function SideMenu() {
             label: <Link href="/inicio/Ventas">Ventas</Link>,
             icon: <ShoppingCartOutlined />,
             key: "/sales",
-          },
+          },/*
           {
+            
             label: <Link href="/inicio/Dashboard">Dashboard</Link>,
             icon: <AppstoreOutlined />,
             key: "/Dashboard",
-          },
+          },*/
         ]}
       />
     </div>
