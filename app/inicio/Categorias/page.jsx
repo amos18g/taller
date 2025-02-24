@@ -270,10 +270,7 @@ function Categorias() {
 
   return (
     <>
-      <div
-        className="table-container bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl shadow-md hover:shadow-xl p-6 w-full max-w-[1400px] h-[600px] 
-      overflow-y-auto transform hover:scale-105 transition-all duration-300 border border-gray-300"
-      >
+      <div >
         <h1 className="text-3xl font-bold text-gray-800 mb-10">Categorías</h1>
         <div className="titulo flex items-center justify-between mt-5 mb-4">
           <Input
@@ -294,7 +291,7 @@ function Categorias() {
             rowKey="id_categoria"
             loading={loading}
             pagination={{ pageSize: 5 }}
-            className="custom-table"
+            className="tableContainer"
           />
         </div>
       </div>

@@ -108,7 +108,8 @@ const Inventory = () => {
       title: "Editar",
       key: "editar",
       render: (_, record) => (
-        <Button onClick={() => handleEdit(record)}>Editar</Button>
+        <Button onClick={() => handleEdit(record)}
+         className="btn-editar">Editar</Button>
       ),
       width: 100,
     },
@@ -134,6 +135,7 @@ const Inventory = () => {
 
   return (
     <Space size={20} direction="vertical">
+      <h1 className="text-3xl font-bold text-gray-800 mb-10">Inventario de Productos</h1>
       <div className={styles.buttonContainer}>
         <Link href="/inicio/inventario/agregar">
           <Button type="primary">Agregar Producto</Button>
