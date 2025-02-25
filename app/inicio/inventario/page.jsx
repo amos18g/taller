@@ -118,7 +118,7 @@ const Inventory = () => {
       key: "eliminar",
       render: (_, record) => (
         <Popconfirm
-          title="¿Está seguro de eliminar esta categoría?"
+          title="¿Está seguro de eliminar este producto?"
           onConfirm={() => handleDeleteProduct(record)}
           okText="Sí"
           cancelText="No"
