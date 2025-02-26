@@ -74,6 +74,7 @@ const EditarProducto = () => {
   }
 
   return (
+    console.log("la unidad es",unidades),
     <div className="max-w-lg mx-auto mt-10 bg-white p-6 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4">Editar Producto</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
