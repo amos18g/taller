@@ -4,6 +4,8 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
   TableOutlined,
+  ShoppingOutlined
+
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import Link from "next/link";
@@ -41,7 +43,12 @@ function SideMenu() {
           {
             label: <Link href="/inicio/Ventas">Ventas</Link>,
             icon: <ShoppingCartOutlined />,
-            key: "/sales",
+            key: "/Sales",
+          },
+          {
+            label: <Link href="/inicio/Caja">Caja</Link>,
+            icon: <ShoppingOutlined/>,
+            key: "/Caja",
           },
           
           /*
