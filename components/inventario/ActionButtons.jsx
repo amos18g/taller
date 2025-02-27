@@ -7,7 +7,7 @@ const ActionButtons = () => {
     <>
 
       <Link href="/inicio/inventario/agregar">
-        <Button type="primary">Agregar Producto</Button>
+        <Button type="primary">Ingresar Producto</Button>
       </Link>
 
     </>
