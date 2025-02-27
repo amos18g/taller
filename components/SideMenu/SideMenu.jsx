@@ -33,10 +33,18 @@ function SideMenu() {
             key: "/Clientes",
           },
           {
+            label: <Link href="/inicio/Compras">Compras</Link>,
+            icon: <ShoppingCartOutlined />,
+            key: "/Compras",
+          },
+        
+          {
             label: <Link href="/inicio/Ventas">Ventas</Link>,
             icon: <ShoppingCartOutlined />,
             key: "/sales",
-          },/*
+          },
+          
+          /*
           {
             
             label: <Link href="/inicio/Dashboard">Dashboard</Link>,

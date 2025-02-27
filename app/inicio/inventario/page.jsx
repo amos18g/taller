@@ -38,6 +38,7 @@ const Inventory = () => {
 
   return (
     <Space size={20} direction="vertical">
+
       <h1 className="text-3xl text-gray-800 mb-10">
         Inventario de Productos
       </h1>
@@ -45,7 +46,7 @@ const Inventory = () => {
         {/*Boton agregar*/}
         <ActionButtons />
 
-        <div className="bg-green-600  !important">
+        <div className="">
           {loading
             ? "Cargando..."
             : `Productos en inventario: ${data?.length || 0}`}
