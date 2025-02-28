@@ -1,3 +1,4 @@
+"use client"
 import {
   AppstoreOutlined,
   ShopOutlined,
@@ -7,10 +8,15 @@ import {
   ShoppingOutlined
 
 } from "@ant-design/icons";
-import { Menu } from "antd";
+import { Menu, Badge  } from "antd";
 import Link from "next/link";
+import useCartStore from "@/store/CartStore"; 
 
 function SideMenu() {
+  // Obtén la cantidad total de productos en el carrito
+  const { items } = useCartStore((state) => state);
+  const totalItemsInCart = items.reduce((total, item) => total + item.quantity, 0); // Suma la cantidad de todos los productos
+
   return (
     <div className="SideMenu">
       <Menu
@@ -46,8 +52,19 @@ function SideMenu() {
             key: "/Sales",
           },
           {
-            label: <Link href="/inicio/Caja">Caja</Link>,
-            icon: <ShoppingOutlined/>,
+            label: (
+              <Link href="/inicio/Caja">
+                Caja
+                {/* Agregar un Badge para mostrar el número de productos */}
+                {totalItemsInCart > 0 && (
+                  <Badge color="success" count={totalItemsInCart} style={{
+                    backgroundColor: '#52c41a',
+                    marginLeft: '5px',
+                  }}/>
+                )}
+              </Link>
+            ),
+            icon: <ShoppingOutlined />,
             key: "/Caja",
           },
           

@@ -136,7 +136,7 @@ const EditarProducto = () => {
               <option
                 key={categoria.id_categoria}
                 value={categoria.id_categoria}
-                disabled={!categoria.activo} // Deshabilitar si la categoría está inactiva
+                disabled={!categoria.activo} // Deshabilita si la categoría está inactiva
               >
                 {categoria.nombre}
               </option>

@@ -4,6 +4,8 @@ import Header from "@/components/Header/Header";
 import SideMenu from "@/components/SideMenu/SideMenu";
 import Footer from "@/components/Footer/Footer";
 
+import { Toaster } from "react-hot-toast";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -21,17 +23,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
- 
-        <div className="App">
-          
-          <div className="SideMenuAndPageContent">
-            <SideMenu/>
-            <main className="PageContent">
-              {children}
-            </main>
-          </div>
-      
-        </div>
-      
+    <div className="App">
+      <Toaster />
+      <div className="SideMenuAndPageContent">
+        <SideMenu />
+        <main className="PageContent">{children}</main>
+      </div>
+    </div>
   );
 }

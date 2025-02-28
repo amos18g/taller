@@ -1,11 +1,12 @@
 "use client";
 import { Table, Button, Tag, Popconfirm, message } from "antd";
 import { useRouter } from "next/navigation";
+import  useCartStore  from "@/store/CartStore";  // Importar directamente el store
 import styles from "../../styles/inventario.module.css";
-import { AlignCenter } from "lucide-react";
 
-const InventoryTable = ({ data, loading, eliminarProducto, agregarACaja }) => {
+const InventoryTable = ({ data, loading, eliminarProducto }) => {
   const router = useRouter();
+  const { addToCart } = useCartStore();  // Obtener la función directamente del store
 
   const handleEdit = (record) => {
     router.push(`/inicio/inventario/editar?id=${record.id_producto}`);
@@ -21,8 +22,7 @@ const InventoryTable = ({ data, loading, eliminarProducto, agregarACaja }) => {
   };
 
   const handleAddToCaja = (record) => {
-    agregarACaja(record); // Llama a la función que maneja la lógica de agregar a la caja
-    message.success(`${record.nombre} agregado a la caja`);
+    addToCart(record);  // Agregar producto directamente al carrito
   };
 
   const columns = [
@@ -39,7 +39,7 @@ const InventoryTable = ({ data, loading, eliminarProducto, agregarACaja }) => {
       render: (value) => `$${value.toFixed(2)}`,
       sorter: (a, b) => a.costo - b.costo,
       width: 100,
-      align: "center"
+      align: "center",
     },
     {
       title: "Precio de venta",
@@ -47,24 +47,36 @@ const InventoryTable = ({ data, loading, eliminarProducto, agregarACaja }) => {
       key: "precio_venta",
       render: (value) => `$${value.toFixed(2)}`,
       sorter: (a, b) => a.precio_venta - b.precio_venta,
-      align: "center"
-    
+      align: "center",
     },
-    
     {
       title: "Cantidad",
       dataIndex: "stock_actual",
       key: "stock_actual",
       render: (stock) => (
-        <Tag color={stock < 20 ? "volcano" : "green"}>{stock}</Tag>
+        stock === 0 ? (
+          <Tag color="gray">Agotado</Tag>  // Cambiar color a gris si el stock es 0
+        ) : (
+          <Tag color={stock < 20 ? "volcano" : "green"}>{stock}</Tag>
+        )
       ),
       width: 100,
       sorter: (a, b) => a.stock_actual - b.stock_actual,
-      width: 100,
-      align: "center"
+      align: "center",
+    }
+    ,
+    {
+      title: "Categoría",
+      dataIndex: "categoria",
+      key: "categoria",
+      align: "center",
     },
-    { title: "Categoría", dataIndex: "categoria", key: "categoria",  align: "center" },
-    { title: "Unidad", dataIndex: "unidad", key: "unidad",  width: 100, },
+    {
+      title: "Unidad",
+      dataIndex: "unidad",
+      key: "unidad",
+      width: 100,
+    },
     {
       title: "Editar",
       key: "editar",
@@ -92,11 +104,16 @@ const InventoryTable = ({ data, loading, eliminarProducto, agregarACaja }) => {
       title: "Agregar a Caja",
       key: "agregar",
       render: (_, record) => (
-        <Button type="primary" onClick={() => handleAddToCaja(record)}>
+        <Button 
+          type="primary" 
+          onClick={() => handleAddToCaja(record)} 
+          disabled={record.stock_actual === 0}  // Deshabilitar si el stock es 0
+        >
           Agregar a Caja
         </Button>
       ),
-    },
+    }
+    ,
   ];
 
   return (

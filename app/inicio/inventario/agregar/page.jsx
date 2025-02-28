@@ -156,7 +156,7 @@ function AgregarProducto() {
               <option
                 key={categoria.id_categoria}
                 value={categoria.id_categoria}
-                disabled={!categoria.activo} // Deshabilitar la opción si la categoría está inactiva
+                disabled={!categoria.activo} // Deshabilita la opción si la categoría está inactiva
               >
                 {categoria.nombre}
               </option>
