@@ -39,10 +39,10 @@ const createCartActions = (set: any, get: any) => ({
         ...get().items,
         {
           quantity: 1, // Inicializa la cantidad en 1
-          id_producto: product.id_producto, // Asigna el id del producto
-          nombre: product.nombre, // Asigna el nombre del producto
-          precio_venta: product.precio_venta, // Asigna el precio del producto
-          codigo_barras: product.codigo_barras, // Asigna el código de barras
+          id_producto: product.id_producto,
+          nombre: product.nombre, 
+          precio_venta: product.precio_venta, 
+          codigo_barras: product.codigo_barras, 
         },
       ],
     });
@@ -78,7 +78,7 @@ const createCartActions = (set: any, get: any) => ({
         return item;
       });
 
-      console.log("Carrito después de agregar:", get().items);
+  
       return { items: updatedItems };
     });
   },

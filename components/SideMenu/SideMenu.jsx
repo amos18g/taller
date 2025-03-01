@@ -57,7 +57,7 @@ function SideMenu() {
                 Caja
                 {/* Agregar un Badge para mostrar el número de productos */}
                 {totalItemsInCart > 0 && (
-                  <Badge color="success" count={totalItemsInCart} style={{
+                  <Badge color="success" count={items.length } style={{
                     backgroundColor: '#52c41a',
                     marginLeft: '5px',
                   }}/>
