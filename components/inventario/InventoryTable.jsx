@@ -6,7 +6,7 @@ import styles from "../../styles/inventario.module.css";
 
 const InventoryTable = ({ data, loading, eliminarProducto }) => {
   const router = useRouter();
-  const { addToCart } = useCartStore();  // Obtener la función directamente del store
+  const { addToCart, removeFromCart, items  } = useCartStore();  // Obtener la función directamente del store
 
   const handleEdit = (record) => {
     router.push(`/inicio/inventario/editar?id=${record.id_producto}`);
@@ -19,10 +19,6 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
     } catch (error) {
       message.error("Error al eliminar el producto");
     }
-  };
-
-  const handleAddToCaja = (record) => {
-    addToCart(record);  // Agregar producto directamente al carrito
   };
 
   const columns = [
@@ -57,7 +53,7 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
         stock === 0 ? (
           <Tag color="gray">Agotado</Tag>  // Cambiar color a gris si el stock es 0
         ) : (
-          <Tag color={stock < 20 ? "volcano" : "green"}>{stock}</Tag>
+          <Tag color={stock < 20 ? "red" : "green"}  style={{fontSize: "1rem" }}>{stock}</Tag>
         )
       ),
       width: 100,
@@ -81,7 +77,7 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
       title: "Editar",
       key: "editar",
       render: (_, record) => (
-        <Button onClick={() => handleEdit(record)}>Editar</Button>
+        <Button color="orange" onClick={() => handleEdit(record)}>Editar</Button>
       ),
       width: 100,
     },
@@ -95,24 +91,32 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
           okText="Sí"
           cancelText="No"
         >
-          <Button danger>Eliminar</Button>
+          <Button color="danger" variant="solid">Eliminar</Button>
         </Popconfirm>
       ),
       width: 100,
     },
     {
-      title: "Agregar a Caja",
-      key: "agregar",
-      render: (_, record) => (
-        <Button 
-          type="primary" 
-          onClick={() => handleAddToCaja(record)} 
-          disabled={record.stock_actual === 0}  // Deshabilitar si el stock es 0
-        >
-          Agregar a Caja
-        </Button>
-      ),
-    }
+      title: "Caja",
+      key: "caja",
+      render: (_, record) => {
+        const isInCart = items.some(item => item.id_producto === record.id_producto);
+  
+        return isInCart ? (
+          <Button danger onClick={() => removeFromCart(record.id_producto)}>
+            Eliminar del carrito
+          </Button>
+        ) : (
+          <Button 
+            type="primary" 
+            onClick={() => addToCart(record)} 
+            disabled={record.stock_actual === 0}  
+          >
+            Agregar a Caja
+          </Button>
+        );
+      },
+    },
     ,
   ];
 

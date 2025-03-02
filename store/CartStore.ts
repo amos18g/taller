@@ -60,7 +60,7 @@ const createCartActions = (set: any, get: any) => ({
     });
 
     // Muestra un mensaje de éxito
-    toast.success("Producto eliminado");
+    toast.error("Producto eliminado de la caja");
   },
 
   updateQty: (type: "increment" | "decrement", id_producto: string) => {
