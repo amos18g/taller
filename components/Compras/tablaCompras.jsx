@@ -1,13 +1,38 @@
-"use client";
 import { Table, Button } from "antd";
 import dayjs from "dayjs";
-import DetalleCompra from "./DetalleCompra";
+import { BlobProvider } from "@react-pdf/renderer";
+import MyDocument from "../../components/Compras/Factura/Document"; // Asumiendo que tienes el componente para generar el PDF
 
-const TablaCompras = ({ data = [], loading }) => { // Desestructurar correctamente
-  
-    const mostrarFactura = (record) => {
-    DetalleCompra(record);
+const TablaCompras = ({ data = [], loading }) => {
+
+  const GenerarFactura = ({ record }) => {
+
+    const empresa = "Mi Empresa S.A.";
+    const totalGeneral = record.costo_total;
+
+
+      <BlobProvider
+      <MyDocument
+        empresa={empresa}
+        fecha={record.fecha_compra}
+        totalGeneral={totalGeneral}
+        comprasData={[record]}
+      />
+
+
+
+      
+        {({ blob, url, loading }) =>
+          loading ? (
+            <span>Generando PDF...</span>
+          ) : (
+            url && window.open(url, "_blank")
+          )
+        }
+      </BlobProvider>
+
   };
+
 
   const columns = [
     {
@@ -30,7 +55,6 @@ const TablaCompras = ({ data = [], loading }) => { // Desestructurar correctamen
       key: "costo_unitario",
       width: 100,
       align: "center",
-      width: 150,
     },
     {
       title: "Costo Total",
@@ -43,7 +67,7 @@ const TablaCompras = ({ data = [], loading }) => { // Desestructurar correctamen
       title: "Factura",
       key: "factura",
       render: (_, record) => (
-        <Button color="primary" onClick={() => mostrarFactura(record)}>
+        <Button onClick={() => GenerarFactura({ record })}>
           Ver factura
         </Button>
       ),
