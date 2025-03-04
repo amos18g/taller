@@ -47,5 +47,22 @@ export function useCompras() {
         obtenerCompras();
     }, []);
 
-    return { compras, loading, error };
+    async function buscarCompra(id: number) {
+        try {
+          console.log("Buscando compra con id:", id);
+          const response = await fetch(`/Api/compras/buscar/${id}`);
+          if (!response.ok) throw new Error("Error al obtener el producto");
+    
+          return await response.json();
+        } catch (err: any) {
+          setError(err.message);
+          return null;
+        }
+      }
+
+    return { 
+        compras, 
+        buscarCompra,
+        loading, 
+        error };
 }

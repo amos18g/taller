@@ -7,7 +7,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   const supabase = await createClient();
 
   const id = params.id;
-  console.log("El id de la factura es:", id);
+  console.log("El id de la compra es:", id);
 
 
 
