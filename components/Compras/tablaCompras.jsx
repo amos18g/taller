@@ -1,11 +1,12 @@
 "use client";
 import { Table, Button } from "antd";
 import dayjs from "dayjs";
+import DetalleCompra from "./DetalleCompra";
 
 const TablaCompras = ({ data = [], loading }) => { // Desestructurar correctamente
   
     const mostrarFactura = (record) => {
-    alert("factura de " + record.id_historial);
+    DetalleCompra(record);
   };
 
   const columns = [
