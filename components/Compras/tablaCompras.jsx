@@ -15,7 +15,7 @@ const GenerarFactura = ({ record }) => {
 
   return (
     <>
-      {/* Botón que siempre se muestra */}
+    
       <Button onClick={handleClick} loading={loading}>
         Ver factura
       </Button>
@@ -26,7 +26,7 @@ const GenerarFactura = ({ record }) => {
           document={
             <MyDocument
               empresa={empresa}
-              fecha={record.fecha_compra}
+              fecha={dayjs(record.fecha_compra).format("DD/MM/YYYY HH:mm")}
               totalGeneral={totalGeneral}
               comprasData={[record]}
             />
@@ -37,7 +37,7 @@ const GenerarFactura = ({ record }) => {
               window.open(url, "_blank"); // Abre el PDF en una nueva pestaña
               setLoading(false); // Reinicia el estado de carga
             }
-            return null; // No renderiza nada en el DOM
+            return null;
           }}
         </BlobProvider>
       )}
