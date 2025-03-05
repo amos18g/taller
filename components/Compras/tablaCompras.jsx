@@ -1,29 +1,51 @@
-import { Table, Button } from "antd";
+import React, { useState } from "react";
+import { Table, Button, message } from "antd";
 import dayjs from "dayjs";
 import { BlobProvider } from "@react-pdf/renderer";
-import MyDocument from "../../components/Compras/Factura/Document"; // Asumiendo que tienes el componente para generar el PDF
+import MyDocument from "../../components/Compras/Factura/Document";
 
-const TablaCompras = ({ data = [], loading }) => {
+const GenerarFactura = ({ record }) => {
+  const [loading, setLoading] = useState(false);
+  const empresa = "Mi Empresa S.A.";
+  const totalGeneral = record.costo_total;
 
-  const GenerarFactura = ({ record }) => {
-
-    const empresa = "Mi Empresa S.A.";
-    const totalGeneral = record.costo_total;
-
-
-
-      
-        {({ blob, url, loading }) =>
-          loading ? (
-            <span>Generando PDF...</span>
-          ) : (
-            url && window.open(url, "_blank")
-          )
-        }
-    
+  const handleClick = () => {
+    setLoading(true); // Activa el estado de carga
   };
 
+  return (
+    <>
+      {/* Botón que siempre se muestra */}
+      <Button onClick={handleClick} loading={loading}>
+        Ver factura
+      </Button>
 
+      {/* BlobProvider que se activa solo cuando loading es true */}
+      {loading && (
+        <BlobProvider
+          document={
+            <MyDocument
+              empresa={empresa}
+              fecha={record.fecha_compra}
+              totalGeneral={totalGeneral}
+              comprasData={[record]}
+            />
+          }
+        >
+          {({ blob, url, loading: pdfLoading }) => {
+            if (url && !pdfLoading) {
+              window.open(url, "_blank"); // Abre el PDF en una nueva pestaña
+              setLoading(false); // Reinicia el estado de carga
+            }
+            return null; // No renderiza nada en el DOM
+          }}
+        </BlobProvider>
+      )}
+    </>
+  );
+};
+
+const TablaCompras = ({ data = [], loading }) => {
   const columns = [
     {
       title: "Fecha de la compra",
@@ -56,21 +78,17 @@ const TablaCompras = ({ data = [], loading }) => {
     {
       title: "Factura",
       key: "factura",
-      render: (_, record) => (
-        <Button onClick={() => GenerarFactura({ record })}>
-          Ver factura
-        </Button>
-      ),
-      width: 100,
+      render: (_, record) => <GenerarFactura record={record} />,
+      width: 150,
     },
   ];
 
   return (
     <Table
       columns={columns}
-      dataSource={data || []} // Evitar "undefined"
+      dataSource={data || []}
       loading={loading}
-      rowKey={(record) => record.id_historial || record.id} // Usar "id" si "id_historial" no existe
+      rowKey={(record) => record.id_historial || record.id}
       scroll={{ y: 400 }}
       locale={{ emptyText: "No hay datos que coincidan con su búsqueda" }}
     />

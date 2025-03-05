@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import { Document, Page } from '@react-pdf/renderer';
 import Header from './Header';
