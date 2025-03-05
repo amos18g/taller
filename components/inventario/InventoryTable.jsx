@@ -104,7 +104,7 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
   
         return isInCart ? (
           <Button danger onClick={() => removeFromCart(record.id_producto)}>
-            Eliminar del carrito
+            Eliminar de caja
           </Button>
         ) : (
           <Button 

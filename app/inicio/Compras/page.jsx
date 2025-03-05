@@ -9,6 +9,8 @@ const Compras = () => {
   const [filterData, setFilterData] = useState(compras || []);
   const { RangePicker } = DatePicker;
 
+  console.log("los compras son", compras);
+
   return (
     <>
       <RangePicker />
