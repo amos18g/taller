@@ -47,6 +47,13 @@ const GenerarFactura = ({ record }) => {
 
 const TablaCompras = ({ data = [], loading }) => {
   const columns = [
+
+    {
+      title: "Producto",
+      dataIndex: "nombre",
+      key: "nombre",
+      width: 150,
+    },
     {
       title: "Fecha de la compra",
       dataIndex: "fecha_compra",
