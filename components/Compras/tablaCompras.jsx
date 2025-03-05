@@ -11,15 +11,6 @@ const TablaCompras = ({ data = [], loading }) => {
     const totalGeneral = record.costo_total;
 
 
-      <BlobProvider
-      <MyDocument
-        empresa={empresa}
-        fecha={record.fecha_compra}
-        totalGeneral={totalGeneral}
-        comprasData={[record]}
-      />
-
-
 
       
         {({ blob, url, loading }) =>
@@ -29,8 +20,7 @@ const TablaCompras = ({ data = [], loading }) => {
             url && window.open(url, "_blank")
           )
         }
-      </BlobProvider>
-
+    
   };
 
 
