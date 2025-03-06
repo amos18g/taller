@@ -4,6 +4,7 @@
 import { Button } from "@/components/ui/button";
 import useCartStore from "@/store/CartStore";
 import { Space } from "antd";
+import { useProcesarVenta } from "@/hooks/useVentas";
 import "./caja.css";
 
 const CartItem = ({ item, updateQty, removeFromCart }) => {
@@ -56,7 +57,7 @@ const CartList = ({ items, updateQty, removeFromCart }) => {
   );
 };
 
-const CartSummary = ({ subtotal, impuesto, total }) => {
+const CartSummary = ({ subtotal, impuesto, total, onSubmit, loading, error }) => {
   return (
     <div className="md:col-span-1">
       <div className="bg-white p-6 rounded-lg shadow">
@@ -73,47 +74,72 @@ const CartSummary = ({ subtotal, impuesto, total }) => {
           <span>Total</span>
           <span>${total.toFixed(2)}</span>
         </div>
-        <Button className="w-full mt-6">Realizar Venta</Button>
+        {error && <p className="text-red-500 mt-4">{error}</p>}
+        <Button className="w-full mt-6" onClick={onSubmit} disabled={loading}>
+          {loading ? "Procesando..." : "Realizar Venta"}
+        </Button>
       </div>
     </div>
   );
 };
 
 const CartComponent = () => {
-  const { items, removeFromCart, updateQty } = useCartStore((state) => state);
-  const subtotal = items.reduce(
-    (total, item) => total + item.precio_venta * item.quantity,
-    0
-  );
+  const { items, removeFromCart, updateQty, clearCart } = useCartStore((state) => state);
+  const { loading, error, data, procesarVenta } = useProcesarVenta();
+  
+  //Valores solo del Front
+  const subtotal = items.reduce((total, item) => total + item.precio_venta * item.quantity,0);
   const impuesto = subtotal * 0.15;
   const total = subtotal + impuesto;
 
+  const handleVenta = async () => {
+    const requestData = {
+      state: {
+        items,
+        id_cliente: 1, 
+        id_empleado: 1, 
+        descuento: 0, 
+        observaciones: "Venta desde front",
+      },
+    };
+  
+    const result = await procesarVenta(requestData);
+  
+    if (result && result.success) {
+      clearCart(); // Limpia el carrito después de una venta exitosa
+      alert(`Venta procesada con éxito. ID: ${result.venta_id}, Total: ${result.total}`);
+    } else {
+      alert("Hubo un error al procesar la venta.");
+    }
+  };
+  
+
   return (
-
     <Space size={20} direction="vertical">
-
-    <div class="parent">
-      <div class="tiutulo-caja">
-        <h1 className="text-3xl text-gray-900 mb-6">
-          Productos ({items.reduce((sum, i) => sum + i.quantity, 0)})
-        </h1>
+      <div className="parent">
+        <div className="tiutulo-caja">
+          <h1 className="text-3xl text-gray-900 mb-6">
+            Productos ({items.reduce((sum, i) => sum + i.quantity, 0)})
+          </h1>
+        </div>
+        <div className="lista-productos">
+          <CartList
+            items={items}
+            updateQty={updateQty}
+            removeFromCart={removeFromCart}
+          />
+        </div>
+        <div className="total">
+          <CartSummary
+            subtotal={subtotal}
+            impuesto={impuesto.toFixed(2)}
+            total={total}
+            onSubmit={handleVenta}
+            loading={loading}
+            error={error}
+          />
+        </div>
       </div>
-      <div class="lista-productos">
-        <CartList
-          items={items}
-          updateQty={updateQty}
-          removeFromCart={removeFromCart}
-        />
-      </div>
-      <div class="total">
-        <CartSummary
-          subtotal={subtotal}
-          impuesto={impuesto.toFixed(2)}
-          total={total}
-        />
-      </div>
-    </div>
-
     </Space>
   );
 };

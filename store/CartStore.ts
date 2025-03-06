@@ -9,6 +9,7 @@ interface CartItem {
   nombre: string;
   precio_venta: number;
   codigo_barras: string;
+  
 }
 
 interface CartState {
@@ -16,10 +17,17 @@ interface CartState {
   addToCart: (product: CartItem) => void;
   removeFromCart: (id_producto: string) => void;
   updateQty: (type: "increment" | "decrement", id_producto: string) => void;
+  clearCart: () => void;
 }
 
 // Acciones del carrito
 const createCartActions = (set: any, get: any) => ({
+
+  clearCart: () => {
+    set({ items: [] }); // Reinicia los items a un arreglo vacío
+    toast.success("Carrito limpiado");
+  },
+
   // Agregar un producto al carrito
   addToCart: (product: CartItem) => {
     // Verifica si el producto ya está en el carrito
@@ -77,8 +85,7 @@ const createCartActions = (set: any, get: any) => ({
 
         return item;
       });
-
-  
+      
       return { items: updatedItems };
     });
   },
