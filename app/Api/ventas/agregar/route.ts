@@ -3,7 +3,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
 export async function POST(request: NextRequest) {
-  console.log("Endpoint: /api/ventas/procesar");
+  console.log("Endpoint: /api/ventas/agregar");
   const supabase = await createClient();
   
   try {
