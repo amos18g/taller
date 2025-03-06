@@ -93,11 +93,11 @@ const TablaCompras = ({ data = [], loading }) => {
   return (
     <Table
       columns={columns}
-      dataSource={data || []}
+      dataSource={data.length > 0 ? data : []} // Asegurar que no sea undefined o null
       loading={loading}
       rowKey={(record) => record.id_historial || record.id}
-      scroll={{ y: 400 }}
-      locale={{ emptyText: "No hay datos que coincidan con su búsqueda" }}
+      scroll={{ y: 400 }} 
+      locale={{ emptyText: "No hay compras en este rango de fechas" }} // Texto personalizado si no hay datos
     />
   );
 };
