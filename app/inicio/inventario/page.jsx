@@ -33,10 +33,11 @@ const Inventory = () => {
     <Space size={20} direction="vertical">
       <h1 className="text-3xl text-gray-800 mb-10">Inventario de Productos</h1>
       <div className={styles.buttonContainer}>
-        <ActionButtons />
+       
         <div>
-          {loading ? "Cargando..." : `Productos en inventario: ${data?.length || 0}`}
+          {loading ? "" : `Productos en inventario: ${data?.length || 0}`}
         </div>
+        
         <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
       </div>
 

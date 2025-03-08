@@ -2,8 +2,10 @@
 import { useState, useEffect } from "react";
 import { useCompras } from "@/hooks/useCompras";
 import TablaCompras from "@/components/Compras/tablaCompras";
-import { Space, DatePicker, Empty } from "antd";
+import { Space, DatePicker, Empty, Button } from "antd";
+import Link from "next/link";
 import dayjs from "dayjs";
+import "./compras.css";
 
 const Compras = () => {
   const { compras, loading } = useCompras();
@@ -36,11 +38,18 @@ const Compras = () => {
 
   return (
     <>
-      <RangePicker onChange={handleDateChange} />
+    <div className="compra-encabezado">
+    <RangePicker onChange={handleDateChange} />
+      
+      <Link href="/inicio/inventario/agregar">
+        <Button type="primary">Comprar Productos</Button>
+      </Link>
+    </div>
+      
       <Space size={20} direction="vertical" style={{ width: '100%' }}>
         {loading ? (
-          // Mientras está cargando, muestra la tabla con el estado de carga
-          <TablaCompras data={[]} loading={true} />
+
+          ""
         ) : (hasSearched && filterData.length === 0) ? (
           // Solo muestra "No hay datos" si se ha realizado una búsqueda y no hay resultados
           <div style={{ textAlign: 'center', padding: '20px' }}>

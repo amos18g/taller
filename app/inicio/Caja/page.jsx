@@ -84,6 +84,7 @@ const CartSummary = ({ subtotal, impuesto, total, onSubmit, loading, error }) =>
 };
 
 const CartComponent = () => {
+  
   const { items, removeFromCart, updateQty, clearCart } = useCartStore((state) => state);
   const { loading, error, data, procesarVenta } = useProcesarVenta();
   
