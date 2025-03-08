@@ -78,7 +78,7 @@ const CartSummary = ({ subtotal, impuesto, total, onSubmit, loading, error }) =>
           <span>${total.toFixed(2)}</span>
         </div>
         {error && <p className="w-full mt-2">{error}</p>}
-        <Button className="w-full mt-6" onClick={onSubmit} disabled={loading}>
+        <Button className="w-full mt-3" onClick={onSubmit} disabled={loading} id="btnVenta">
           {loading ? "Procesando..." : "Realizar Venta"}
         </Button>
       </div>
@@ -121,7 +121,7 @@ const CartComponent = () => {
     <Space size={20} direction="vertical">
       <div className="parent">
         <div className="flex titulo-caja">
-          <h1 className="text-3xl text-gray-900 mb-6">
+          <h1 className="text-3xl mb-6">
             Productos ({items.reduce((sum, i) => sum + i.quantity, 0)})
           </h1>
         </div>
