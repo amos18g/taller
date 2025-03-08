@@ -9,11 +9,12 @@ import "./caja.css";
 
 const CartItem = ({ item, updateQty, removeFromCart }) => {
   return (
-    <div className="flex items-center bg-white p-4 mb-4 rounded-lg shadow">
-      <div className="flex-grow">
-        <h2 className="text-lg font-semibold text-gray-800">{item.nombre}</h2>
-        <p className="text-gray-600">${item.precio_venta}</p>
-        <div className="flex items-center mt-2">
+    <div className="flex items-center bg-white p-1 mb-4 rounded-lg shadow" id="divCarrito">
+      
+      <div className="flex flex-grow" id="divContenidoCarrito">
+        <h2 className="text-lg font-semibold text-black">{item.nombre}</h2>
+        <p className="text-red-500">${item.precio_venta}</p>
+        <div className="flex flex-grow mt-2" id="divIncrementadores">
           <Button
             onClick={() => updateQty("decrement", item.id_producto)}
             variant="outline"
@@ -21,7 +22,7 @@ const CartItem = ({ item, updateQty, removeFromCart }) => {
           >
             -
           </Button>
-          <span className="mx-2">{item.quantity}</span>
+          <span className="mx-2 p-3">{item.quantity}</span>
           <Button
             onClick={() => updateQty("increment", item.id_producto)}
             variant="outline"
@@ -31,12 +32,14 @@ const CartItem = ({ item, updateQty, removeFromCart }) => {
           </Button>
         </div>
       </div>
+
       <Button
         onClick={() => removeFromCart(item.id_producto)}
         variant="destructive"
         size="sm"
+        id="botonCarrito"
       >
-        Eliminar
+        Borrar
       </Button>
     </div>
   );
@@ -59,23 +62,23 @@ const CartList = ({ items, updateQty, removeFromCart }) => {
 
 const CartSummary = ({ subtotal, impuesto, total, onSubmit, loading, error }) => {
   return (
-    <div className="md:col-span-1">
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Total</h2>
-        <div className="flex justify-between mb-2">
+    <div className="flex flex-grow md:col-span-1" id="divTotal">
+      <div className="p-6 rounded-lg shadow">
+        <h2 className="text-xl font-semibold mb-4 text-center">Total</h2>
+        <div className="flex justify-between mb-2 gap-2">
           <span>Subtotal</span>
           <span>${subtotal.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between mb-2">
+        <div className="flex justify-between mb-2 gap-2">
           <span>Impuesto</span>
           <span>${impuesto}</span>
         </div>
-        <div className="flex justify-between font-semibold text-lg mt-4 pt-4 border-t">
+        <div className="flex justify-between font-semibold text-lg mt-4 pt-4 border-t gap-2">
           <span>Total</span>
           <span>${total.toFixed(2)}</span>
         </div>
-        {error && <p className="text-red-500 mt-4">{error}</p>}
-        <Button className="w-full mt-6" onClick={onSubmit} disabled={loading}>
+        {error && <p className="w-full mt-2">{error}</p>}
+        <Button className="w-full mt-3" onClick={onSubmit} disabled={loading} id="btnVenta">
           {loading ? "Procesando..." : "Realizar Venta"}
         </Button>
       </div>
@@ -118,8 +121,8 @@ const CartComponent = () => {
   return (
     <Space size={20} direction="vertical">
       <div className="parent">
-        <div className="tiutulo-caja">
-          <h1 className="text-3xl text-gray-900 mb-6">
+        <div className="flex titulo-caja">
+          <h1 className="text-3xl mb-6">
             Productos ({items.reduce((sum, i) => sum + i.quantity, 0)})
           </h1>
         </div>
