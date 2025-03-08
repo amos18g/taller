@@ -6,10 +6,10 @@
    
 }
     
-.tiutulo-caja {
+.titulo-caja {
+    justify-content: center;
     grid-column: span 5 / span 5;
-
-
+    color: rgb(55,136,255);
 }
 
 .lista-productos {
@@ -18,13 +18,45 @@
     grid-row-start: 2;
     overflow-y: auto;
     max-height: 400px;
-
-
 }
 
 .total {
     grid-row: span 4 / span 4;
     grid-column-start: 5;
     grid-row-start: 2;
+}
 
+#botonCarrito{
+    background-color: rgb(177, 21, 21);
+    border-radius: 8px;
+}
+
+#divCarrito{
+    background-color: rgba(128, 128, 128, 0.219);
+    justify-content: space-evenly;
+    border-radius: 10px;
+}
+
+#divContenidoCarrito{
+    color: black;
+    padding: 1%;
+    gap: 10%;
+    align-items: center;
+}
+
+#divIncrementadores{
+    width: 15vw;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#divTotal{
+    gap: 10%;
+    color: black;
+    background-color:rgba(128, 128, 128, 0.219);
+    border-radius: 10px;
+}
+
+#btnVenta{
+    border-radius: 10px
 }
