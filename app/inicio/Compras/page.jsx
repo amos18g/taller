@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useCompras } from "@/hooks/useCompras";
 import TablaCompras from "@/components/Compras/tablaCompras";
-import { Space, DatePicker, Empty, Button } from "antd";
+import { Space, DatePicker, Empty, Button, Spin } from "antd";
 import Link from "next/link";
 import dayjs from "dayjs";
 import "./compras.css";
@@ -49,7 +49,7 @@ const Compras = () => {
       <Space size={20} direction="vertical" style={{ width: '100%' }}>
         {loading ? (
 
-          ""
+          <Spin/>
         ) : (hasSearched && filterData.length === 0) ? (
           // Solo muestra "No hay datos" si se ha realizado una búsqueda y no hay resultados
           <div style={{ textAlign: 'center', padding: '20px' }}>

@@ -41,7 +41,6 @@ export default function RootLayout({
         >
           <Header />
           <div className="min-h-screen flex flex-col">
-            
             <main className="flex-1 flex flex-col items-center">
               <div className="w-full flex flex-col gap-20 items-center">
                 <div className="flex flex-col gap-1 max-w-10xl p-0">

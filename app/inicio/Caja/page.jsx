@@ -119,7 +119,7 @@ const CartComponent = () => {
   
 
   return (
-    <Space size={20} direction="vertical">
+    <>
       <div className="parent">
         <div className="flex titulo-caja">
           <h1 className="text-3xl mb-6">
@@ -144,7 +144,7 @@ const CartComponent = () => {
           />
         </div>
       </div>
-    </Space>
+    </>
   );
 };
 

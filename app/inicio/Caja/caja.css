@@ -3,6 +3,9 @@
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
     gap: 8px;
+    margin-right: 0px;
+
+    border: solid 2px black;
    
 }
     
