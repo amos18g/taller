@@ -3,6 +3,7 @@ import { Table, Button, Tag, Popconfirm, message } from "antd";
 import { useRouter } from "next/navigation";
 import  useCartStore  from "@/store/CartStore";  // Importar directamente el store
 import styles from "../../styles/inventario.module.css";
+import {EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const InventoryTable = ({ data, loading, eliminarProducto }) => {
   const router = useRouter();
@@ -77,7 +78,7 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
       title: "Editar",
       key: "editar",
       render: (_, record) => (
-        <Button color="orange" onClick={() => handleEdit(record)}>Editar</Button>
+        <Button  onClick={() => handleEdit(record)} className={styles.btnEditar}> <EditOutlined /> Editar</Button>
       ),
       width: 100,
     },
@@ -91,7 +92,9 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
           okText="Sí"
           cancelText="No"
         >
-          <Button color="danger" variant="solid">Eliminar</Button>
+          <Button  className={styles.btnEliminar}>
+          <DeleteOutlined />
+            Eliminar</Button>
         </Popconfirm>
       ),
       width: 100,
@@ -126,7 +129,7 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
       dataSource={data}
       loading={loading}
       rowKey="id_producto"
-      scroll={{ y: 400 }}
+      scroll={{ y: 550 }}
       locale={{
         emptyText: "No hay datos que coincidan con su búsqueda",
         triggerDesc: "Haga clic para ordenar de forma descendente",
@@ -134,6 +137,15 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
         cancelSort: "Cancelar ordenación",
       }}
       className={styles.tableContainer}
+      rowClassName={(record) => {
+        if (record.stock_actual === 0) {
+          return styles.stockAgotado; // Aplica la clase cuando el stock es 0 (gris)
+        }
+        if (record.stock_actual < 20) {
+          return styles.stockBajo; // Aplica la clase cuando el stock es menor a 20 (rojo)
+        }
+        return "";
+      }}
     />
   );
 };

@@ -30,19 +30,23 @@ const Inventory = () => {
   };
 
   return (
-    <Space size={20} direction="vertical">
-      <div className={styles.buttonContainer}>
-        <div>
-          {loading ? "" : `Productos en inventario: ${data?.length || 0}`}
+    <div className="bg-white p-8 rounded-lg shadow-md">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Inventario</h1>
+      <Space size={20} direction="vertical" className="mb-8">
+        <div className={styles.buttonContainer}>
+
+          <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
+          <div>
+            {loading ? "" : `Productos en inventario: ${data?.length || 0}`}
+          </div>
         </div>
-        <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
-      </div>
-      <InventoryTable
-        data={filteredData}
-        loading={loading}
-        eliminarProducto={eliminarProducto}
-      />
-    </Space>
+        <InventoryTable
+          data={filteredData}
+          loading={loading}
+          eliminarProducto={eliminarProducto}
+        />
+      </Space>
+    </div>
   );
 };
 

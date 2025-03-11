@@ -1,11 +1,18 @@
+import { Input } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import styles from "../../styles/inventario.module.css";
 
 const SearchBar = ({ searchTerm, onSearch }) => {
   return (
-    <>
-    <input type="text" placeholder="Buscar producto" className={styles.input} value={searchTerm} onChange={onSearch} />
-   
-    </>
+    <div className={styles.searchContainer}>
+      <Input
+        className={styles.busqueda}
+        placeholder="Buscar producto"
+        value={searchTerm}
+        onChange={onSearch}
+        prefix={<SearchOutlined className={styles.searchIcon} />}
+      />
+    </div>
   );
 };
 

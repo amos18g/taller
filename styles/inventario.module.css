@@ -1,16 +1,16 @@
 /* Inventory.module.css */
 .tableContainer {
   width: 100%;
-  max-width: 1200px; /* O el tamaño que prefieras */
+  max-width: 1200px; 
 }
 
 .buttonContainer {
   display: flex;
-	flex-direction: row-reverse;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	align-items: center;
-	align-content: center;
+  align-items: center; /* Alinea los elementos verticalmente */
+  justify-content: space-between; /* Separa el texto y el buscador */
+  width: 100%;
+  gap: 10px; /* Espaciado entre los elementos */
+  margin-top: 18px;
 }
 
 .input {
@@ -28,14 +28,31 @@
   border-color: #014185;
 
 }
-.buttonEliminar {
-  background-color: #ff4d4f; /* Rojo para el botón de eliminar */
-  color: white;
+
+.btnEliminar {
   border: none;
+  background-color: #d61410;
+  width: 90px;
+  color: white;
+  margin-left: -5;
 }
 
-.buttonEliminar:hover {
-  background-color: #ec1410; /* Color de hover para eliminar */
+.btnEliminar:hover {
+  background-color: #ec1410 !important; 
+  color: white !important;
+}
+
+.btnEditar {
+  background-color: #ef9424;
+  color: white;
+  border: none;
+  width: 90px;
+  margin-left: -10px;
+}
+
+.btnEditar:hover {
+  background-color: #ff9e27 !important;
+  color: white !important;
 }
 
 .stockLow {
@@ -56,4 +73,40 @@
   font-weight: bold;
   display: inline-block;
   text-align: center;
+}
+
+.stockBajo {
+  box-shadow: inset 4px 0 0 red !important; /* Línea roja cuando stock < 20 */
+  background-color: rgba(255, 0, 0, 0.2) !important;
+}
+
+.stockAgotado {
+  box-shadow: inset 4px 0 0 gray !important; /* Línea gris cuando stock es 0 */
+  background-color: rgba(128, 128, 128, 0.2) !important;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 750px;
+}
+
+.busqueda {
+  width: 100%;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+  height: 35px;
+}
+
+.busqueda:focus {
+  border-color: #1890ff;
+}
+
+.searchIcon {
+  font-size: 16px;
+  color: #888;
 }
