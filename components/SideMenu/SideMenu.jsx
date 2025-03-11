@@ -1,28 +1,30 @@
-"use client"
+"use client";
+import "@/styles/sidemenu.module.css";
+
+import React from "react";
 import {
-  AppstoreOutlined,
   ShopOutlined,
   ShoppingCartOutlined,
   UserOutlined,
   TableOutlined,
-  ShoppingOutlined
-
+  ShoppingOutlined,
+  TruckOutlined
 } from "@ant-design/icons";
-import { Menu, Badge  } from "antd";
+import { Menu, Badge } from "antd";
 import Link from "next/link";
-import useCartStore from "@/store/CartStore"; 
+import useCartStore from "@/store/CartStore";
 
 function SideMenu() {
   // Obtén la cantidad total de productos en el carrito
   const { items } = useCartStore((state) => state);
-  const totalItemsInCart = items.reduce((total, item) => total + item.quantity, 0); // Suma la cantidad de todos los productos
+  const totalItemsInCart = items.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <div className="SideMenu">
       <Menu
         className="SideMenuVertical"
         mode="vertical"
-        style={{ width: 256 }}
+        style={{ width: 256, transition: "width 0.3s ease" }}
         defaultSelectedKeys={["/inventario"]}
         items={[
           {
@@ -42,10 +44,9 @@ function SideMenu() {
           },
           {
             label: <Link href="/inicio/Compras">Compras</Link>,
-            icon: <ShoppingCartOutlined />,
+            icon: <TruckOutlined />,
             key: "/Compras",
           },
-        
           {
             label: <Link href="/inicio/Ventas">Ventas</Link>,
             icon: <ShoppingCartOutlined />,
@@ -55,26 +56,21 @@ function SideMenu() {
             label: (
               <Link href="/inicio/Caja">
                 Caja
-                {/* Agregar un Badge para mostrar el número de productos */}
                 {totalItemsInCart > 0 && (
-                  <Badge color="success" count={items.length } style={{
-                    backgroundColor: '#52c41a',
-                    marginLeft: '5px',
-                  }}/>
+                  <Badge
+                    color="success"
+                    count={items.length}
+                    style={{
+                      backgroundColor: "#52c41a",
+                      marginLeft: "5px"
+                    }}
+                  />
                 )}
               </Link>
             ),
             icon: <ShoppingOutlined />,
             key: "/Caja",
           },
-          
-          /*
-          {
-            
-            label: <Link href="/inicio/Dashboard">Dashboard</Link>,
-            icon: <AppstoreOutlined />,
-            key: "/Dashboard",
-          },*/
         ]}
       />
     </div>

@@ -1,0 +1,77 @@
+:global(.SideMenu) {
+  background: #001529;
+  min-height: 100vh;
+  padding-top: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Animación de apertura/cierre */
+:global(.SideMenuTransition) {
+  transition: all 0.3s ease-in-out;
+}
+
+:global(.SideMenuVertical) {
+  background: transparent;
+  border-right: none;
+  padding: 0 8px;
+}
+
+/* Estilo de los elementos del menú con letra más pequeña */
+:global(.SideMenuVertical .ant-menu-item),
+:global(.SideMenuVertical .ant-menu-submenu-title) {
+  transition: all 0.3s ease;
+  margin: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px; /* Tamaño de letra reducido */
+  font-weight: 400; /* Menos negrita para suavizar el volumen */
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: white !important; /* Texto en blanco */
+}
+
+/* Efecto hover con línea azul */
+:global(.SideMenuVertical .ant-menu-item:hover),
+:global(.SideMenuVertical .ant-menu-submenu-title:hover) {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding-left: 20px;
+  transition: all 0.3s ease;
+  color: white !important;
+  box-shadow: inset 3px 0 0 #0073e6; /* Línea azul en hover */
+}
+
+/* Ítem seleccionado con borde celeste */
+:global(.SideMenuVertical .ant-menu-item-selected) {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  border-radius: 6px;
+  color: white !important;
+  box-shadow: inset 3px 0 0 #40a9ff; /* Línea celeste cuando está seleccionado */
+}
+
+/* Separadores entre secciones del menú */
+:global(.SideMenuVertical .ant-menu-item:not(:last-child)) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Estilo de los iconos */
+:global(.SideMenuVertical .ant-menu-item .anticon),
+:global(.SideMenuVertical .ant-menu-submenu-title .anticon) {
+  font-size: 16px; /* Tamaño reducido de iconos */
+  margin-right: 10px;
+  color: white !important; /* Iconos en blanco */
+}
+
+/* Footer con mejor contraste */
+:global(.SideMenuFooter) {
+  padding: 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 11px; /* Letra más pequeña en el footer */
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 500;
+}
