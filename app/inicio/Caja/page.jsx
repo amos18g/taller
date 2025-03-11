@@ -121,10 +121,11 @@ const CartComponent = () => {
   return (
     <>
       <div className="parent">
+      <h1 className="text-3xl font-bold">Caja</h1>
         <div className="flex titulo-caja">
-          <h1 className="text-3xl mb-6">
-            Productos ({items.reduce((sum, i) => sum + i.quantity, 0)})
-          </h1>
+        <h2 className="text-2xl">
+            Cantidad de Productos ({items.reduce((sum, i) => sum + i.quantity, 0)})
+          </h2>
         </div>
         <div className="lista-productos">
           <CartList

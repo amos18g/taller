@@ -61,8 +61,7 @@ export default function CategoryTable({ categorias, loading, onEdit, onDelete })
 
   return (
     <Table
-      className="tableContainer"    
-      bordered                      
+      className="tableContainer"                         
       size="middle"              
       dataSource={categorias}
       columns={columns}

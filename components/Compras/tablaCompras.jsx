@@ -18,6 +18,7 @@ const GenerarFactura = ({ record }) => {
     <>
     
       <Button type="primary" onClick={handleClick} loading={loading}>
+      <  FilePdfOutlined/>
         Ver factura
       </Button>
 
