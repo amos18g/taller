@@ -1,0 +1,133 @@
+.tableContainer {
+  width: 100%;
+  max-width: 1200px; /* O el tamaño que prefieras */
+}
+
+
+.category-table .ant-table {
+  border-radius: 8px; /* esquinas redondeadas del contenedor */
+}
+
+/* Estilo para las cabeceras */
+.category-table .ant-table-thead > tr > th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+/* Estilo para las filas */
+.category-table .ant-table-tbody > tr > td {
+  background-color: #fff;
+}
+
+/* Hover en las filas */
+.category-table .ant-table-tbody > tr:hover > td {
+  background-color: #fafafa;
+}
+
+/* Ajustes a los botones */
+.btnEditar {
+  background-color: #ef9424;
+  color: white;
+  border: none;
+  width: 100px;
+}
+
+.btnEditar:hover {
+  background-color: #0057b4;
+  color: white;
+}
+
+.btnEditar:hover {
+  background-color: #ff9e27 !important;
+  color: white !important;
+}
+
+.btnEliminar {
+  border: none;
+  background-color: #d61410;
+  width: 100px;
+  color: white;
+}
+
+.btnEliminar:hover {
+  background-color: #ec1410 !important; 
+  color: white !important;
+}
+
+.btnAgregar {
+  background-color: #1038d7;
+  color: white;
+  border: none;
+  width: 160px;
+  height: 32px;
+}
+
+.container {
+  padding: 2rem;
+  min-height: 00px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tableSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background-color: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+}
+
+.tableRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tableCell {
+  flex-shrink: 0;
+}
+
+
+.busqueda {
+  width: 100%; 
+  padding: 0.75rem; 
+  border: 1px solid #d1d5db; 
+  border-radius: 0.375rem; 
+  background-color: #ffffff;
+  margin-right: 0.5rem; 
+  transition: all 0.2s ease-in-out;
+  height: 40px;
+}
+
+/* Responsividad: ajustes para pantallas mayores */
+@media (min-width: 640px) {
+  .busqueda {
+    width: 50%; /* sm:w-1/2 */
+  }
+}
+
+@media (min-width: 768px) {
+  .busqueda {
+    width: 33.33%; /* md:w-1/3 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .busqueda {
+    width: 25%; /* lg:w-1/4 */
+  }
+}
+
+/* Estilos para el foco */
+.busqueda:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #60A5FA; /* Simula focus:ring-2 focus:ring-blue-400 */
+}
+
+/* Estilos para el hover */
+.busqueda:hover {
+  border-color: #3b82f6; /* hover:border-blue-400 */
+}
