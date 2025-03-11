@@ -2,3 +2,12 @@
     display: flex;
     justify-content: space-between;
 }
+
+.btnAgregar {
+    background-color: #1038d7;
+    color: white;
+    border: none;
+    width: 160px;
+    height: 32px;
+  }
+  

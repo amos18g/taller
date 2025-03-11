@@ -3,6 +3,7 @@ import { Table, Button, message } from "antd";
 import dayjs from "dayjs";
 import { BlobProvider } from "@react-pdf/renderer";
 import MyDocument from "../../components/Compras/Factura/Document";
+import {FilePdfOutlined } from "@ant-design/icons";
 
 const GenerarFactura = ({ record }) => {
   const [loading, setLoading] = useState(false);
@@ -16,7 +17,7 @@ const GenerarFactura = ({ record }) => {
   return (
     <>
     
-      <Button onClick={handleClick} loading={loading}>
+      <Button type="primary" onClick={handleClick} loading={loading}>
         Ver factura
       </Button>
 
@@ -96,7 +97,7 @@ const TablaCompras = ({ data = [], loading }) => {
       dataSource={data.length > 0 ? data : []} // Asegurar que no sea undefined o null
       loading={loading}
       rowKey={(record) => record.id_historial || record.id}
-      scroll={{ y: 400 }} 
+      scroll={{ y: 500 }} 
       locale={{ emptyText: "No hay compras en este rango de fechas" }} // Texto personalizado si no hay datos
     />
   );

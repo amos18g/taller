@@ -38,11 +38,13 @@ const Compras = () => {
 
   return (
     <>
+    <div className="bg-white p-8 rounded-lg shadow-md">
+    <h1 className="text-3xl font-bold text-gray-800 mb-8">Compras</h1>
     <div className="compra-encabezado">
     <RangePicker onChange={handleDateChange} />
       
       <Link href="/inicio/inventario/agregar">
-        <Button type="primary">Comprar Productos</Button>
+        <Button  className="btnAgregar">Comprar Productos</Button>
       </Link>
     </div>
       
@@ -63,6 +65,7 @@ const Compras = () => {
           <TablaCompras data={filterData} loading={loading} />
         )}
       </Space>
+      </div>
     </>
   );
 };
