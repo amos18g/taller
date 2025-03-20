@@ -108,11 +108,11 @@ function Dashboard() {
 
         <Space>
           <DashboardChart
-            title="Ventas por mes"
+            title="Ingresos por mes"
             data={staticData.ventas_por_mes}
           />
           <DashboardChart
-            title="Compras por mes"
+            title="Ventas por mes"
             data={staticData.compras_por_mes}
           />
         </Space>
