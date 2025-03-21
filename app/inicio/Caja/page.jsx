@@ -8,6 +8,8 @@ import { useProcesarVenta } from "@/hooks/useVentas";
 import "./caja.css";
 
 const CartItem = ({ item, updateQty, removeFromCart }) => {
+  
+  const isMaxQuantity = item.quantity >= item.stock;
   return (
     <div className="flex items-center bg-white p-1 mb-4 rounded-lg shadow" id="divCarrito">
       
@@ -19,6 +21,7 @@ const CartItem = ({ item, updateQty, removeFromCart }) => {
             onClick={() => updateQty("decrement", item.id_producto)}
             variant="outline"
             size="sm"
+            disabled={item.quantity <= 1} // Deshabilita si quantity es 1
           >
             -
           </Button>
@@ -27,6 +30,8 @@ const CartItem = ({ item, updateQty, removeFromCart }) => {
             onClick={() => updateQty("increment", item.id_producto)}
             variant="outline"
             size="sm"
+            disabled={item.quantity >= item.stock} // Deshabilita si quantity >= stock
+            className={isMaxQuantity ? "cursor-not-allowed" : ""}
           >
             +
           </Button>
@@ -44,6 +49,7 @@ const CartItem = ({ item, updateQty, removeFromCart }) => {
     </div>
   );
 };
+
 
 const CartList = ({ items, updateQty, removeFromCart }) => {
   return (
