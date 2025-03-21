@@ -3,53 +3,61 @@
 
 import { Button } from "@/components/ui/button";
 import useCartStore from "@/store/CartStore";
-import { Space } from "antd";
+import { Space, Divider } from "antd";
 import { useProcesarVenta } from "@/hooks/useVentas";
+import { Card } from "antd";
 import "./caja.css";
 
 const CartItem = ({ item, updateQty, removeFromCart }) => {
-  
-  const isMaxQuantity = item.quantity >= item.stock;
-  return (
-    <div className="flex items-center bg-white p-1 mb-4 rounded-lg shadow" id="divCarrito">
-      
-      <div className="flex flex-grow" id="divContenidoCarrito">
-        <h2 className="text-lg font-semibold text-black">{item.nombre}</h2>
-        <p className="text-red-500">${item.precio_venta}</p>
-        <div className="flex flex-grow mt-2" id="divIncrementadores">
-          <Button
-            onClick={() => updateQty("decrement", item.id_producto)}
-            variant="outline"
-            size="sm"
-            disabled={item.quantity <= 1} // Deshabilita si quantity es 1
-          >
-            -
-          </Button>
-          <span className="mx-2 p-3">{item.quantity}</span>
-          <Button
-            onClick={() => updateQty("increment", item.id_producto)}
-            variant="outline"
-            size="sm"
-            disabled={item.quantity >= item.stock} // Deshabilita si quantity >= stock
-            className={isMaxQuantity ? "cursor-not-allowed" : ""}
-          >
-            +
-          </Button>
-        </div>
-      </div>
+  const isMaxQuantity = item.quantity >= item.stock; // Verifica si la cantidad supera el stock
 
-      <Button
-        onClick={() => removeFromCart(item.id_producto)}
-        variant="destructive"
-        size="sm"
-        id="botonCarrito"
-      >
-        Borrar
-      </Button>
-    </div>
+  return (
+    <Card
+      size="small"
+      title={item.nombre + " " + "$" + item.precio_venta}
+      extra={<a href="#"></a>}
+      style={{
+        width: 700,
+        height: 150,
+        margin: 4
+      }}
+      className="shadow-md rounded-lg"
+    >
+      <p>En existencia: {item.stock}</p>
+      <p>Cantidad: {item.quantity}</p>
+
+      <div className="flex items-center mt-2">
+        <Button
+          onClick={() => updateQty("decrement", item.id_producto)}
+          variant="outline"
+          size="sm"
+          disabled={item.quantity <= 1}
+        >
+          -
+        </Button>
+        <span className="mx-2 p-3">{item.quantity}</span>
+        <Button
+          onClick={() => updateQty("increment", item.id_producto)}
+          variant="outline"
+          size="sm"
+          disabled={isMaxQuantity}
+          className={isMaxQuantity ? "cursor-not-allowed" : ""}
+        >
+          +
+        </Button>
+
+        <Button
+          onClick={() => removeFromCart(item.id_producto)}
+          variant="destructive"
+          size="sm"
+          className="ml-auto" // Clase agregada aquí
+        >
+          Borrar
+        </Button>
+      </div>
+    </Card>
   );
 };
-
 
 const CartList = ({ items, updateQty, removeFromCart }) => {
   return (
@@ -66,39 +74,67 @@ const CartList = ({ items, updateQty, removeFromCart }) => {
   );
 };
 
-const CartSummary = ({ subtotal, impuesto, total, onSubmit, loading, error }) => {
+const CartSummary = ({
+  subtotal,
+  impuesto,
+  total,
+  onSubmit,
+  loading,
+  error,
+}) => {
   return (
-    <div className="flex flex-grow md:col-span-1" id="divTotal">
-      <div className="p-6 rounded-lg shadow">
-        <h2 className="text-xl font-semibold mb-4 text-center">Total</h2>
-        <div className="flex justify-between mb-2 gap-2">
+    <Card
+      size="small"
+      title="Total de la Compra"
+      style={{
+        width: 350,
+        margin: 4
+      }}
+      className="shadow-md rounded-lg"
+    >
+      <div className="flex flex-col gap-3">
+        <div className="flex justify-between">
           <span>Subtotal</span>
           <span>${subtotal.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between mb-2 gap-2">
-          <span>Impuesto</span>
+        <div className="flex justify-between">
+          <span>Impuesto (15%)</span>
           <span>${impuesto}</span>
         </div>
-        <div className="flex justify-between font-semibold text-lg mt-4 pt-4 border-t gap-2">
-          <span>Total</span>
+        <Divider className="my-2" />
+        <div className="flex justify-between font-semibold text-lg">
+          <span>Total General</span>
           <span>${total.toFixed(2)}</span>
         </div>
-        {error && <p className="w-full mt-2">{error}</p>}
-        <Button className="w-full mt-3" onClick={onSubmit} disabled={loading} id="btnVenta">
+        
+        {error && <Alert message={error} type="error" className="mt-3" />}
+        
+        <Button
+          type="primary"
+          className="w-full mt-4"
+          onClick={onSubmit}
+          disabled={loading}
+          id="btnVenta"
+        >
           {loading ? "Procesando..." : "Realizar Venta"}
         </Button>
       </div>
-    </div>
+    </Card>
   );
 };
 
+
 const CartComponent = () => {
-  
-  const { items, removeFromCart, updateQty, clearCart } = useCartStore((state) => state);
+  const { items, removeFromCart, updateQty, clearCart } = useCartStore(
+    (state) => state
+  );
   const { loading, error, data, procesarVenta } = useProcesarVenta();
-  
+
   //Valores solo del Front
-  const subtotal = items.reduce((total, item) => total + item.precio_venta * item.quantity,0);
+  const subtotal = items.reduce(
+    (total, item) => total + item.precio_venta * item.quantity,
+    0
+  );
   const impuesto = subtotal * 0.15;
   const total = subtotal + impuesto;
 
@@ -106,31 +142,33 @@ const CartComponent = () => {
     const requestData = {
       state: {
         items,
-        id_cliente: 1, 
-        id_empleado: 1, 
-        descuento: 0, 
+        id_cliente: 1,
+        id_empleado: 1,
+        descuento: 0,
         observaciones: "Venta desde front",
       },
     };
-  
+
     const result = await procesarVenta(requestData);
-  
+
     if (result && result.success) {
       clearCart(); // Limpia el carrito después de una venta exitosa
-      alert(`Venta procesada con éxito. ID: ${result.venta_id}, Total: ${result.total}`);
+      alert(
+        `Venta procesada con éxito. ID: ${result.venta_id}, Total: ${result.total}`
+      );
     } else {
       alert("Hubo un error al procesar la venta.");
     }
   };
-  
 
   return (
     <>
       <div className="parent">
-      <h1 className="text-3xl font-bold">Caja</h1>
+        <h1 className="text-3xl font-bold">Caja</h1>
         <div className="flex titulo-caja">
-        <h2 className="text-2xl">
-            Cantidad de Productos ({items.reduce((sum, i) => sum + i.quantity, 0)})
+          <h2 className="text-2xl">
+            Cantidad de Productos (
+            {items.reduce((sum, i) => sum + i.quantity, 0)})
           </h2>
         </div>
         <div className="lista-productos">
