@@ -81,11 +81,12 @@ const CartSummary = ({
   onSubmit,
   loading,
   error,
+  cantidadProductos
 }) => {
   return (
     <Card
       size="small"
-      title="Total de la Compra"
+      title="Detalles de la venta"
       style={{
         width: 350,
         margin: 4
@@ -93,6 +94,10 @@ const CartSummary = ({
       className="shadow-md rounded-lg"
     >
       <div className="flex flex-col gap-3">
+      <div className="flex justify-between">
+          <span>Cantidad de productos</span>
+          <span>{cantidadProductos}</span>
+        </div>
         <div className="flex justify-between">
           <span>Subtotal</span>
           <span>${subtotal.toFixed(2)}</span>
@@ -145,7 +150,7 @@ const CartComponent = () => {
         id_cliente: 1,
         id_empleado: 1,
         descuento: 0,
-        observaciones: "Venta desde front",
+        observaciones: "Venta hecha desde el sistema de inventario",
       },
     };
 
@@ -165,12 +170,7 @@ const CartComponent = () => {
     <>
       <div className="parent">
         <h1 className="text-3xl font-bold">Caja</h1>
-        <div className="flex titulo-caja">
-          <h2 className="text-2xl">
-            Cantidad de Productos (
-            {items.reduce((sum, i) => sum + i.quantity, 0)})
-          </h2>
-        </div>
+      
         <div className="lista-productos">
           <CartList
             items={items}
@@ -186,6 +186,7 @@ const CartComponent = () => {
             onSubmit={handleVenta}
             loading={loading}
             error={error}
+            cantidadProductos={items.reduce((sum, i) => sum + i.quantity, 0)}
           />
         </div>
       </div>
