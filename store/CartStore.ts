@@ -9,6 +9,7 @@ interface CartItem {
   nombre: string;
   precio_venta: number;
   codigo_barras: string;
+  stock_actual: number;
   
 }
 
@@ -51,6 +52,7 @@ const createCartActions = (set: any, get: any) => ({
           nombre: product.nombre, 
           precio_venta: product.precio_venta, 
           codigo_barras: product.codigo_barras, 
+          stock: product.stock_actual, // <-- Guardar el stock disponible
         },
       ],
     });
@@ -72,23 +74,26 @@ const createCartActions = (set: any, get: any) => ({
   },
 
   updateQty: (type: "increment" | "decrement", id_producto: string) => {
-    // Actualiza la cantidad del producto seleccionado
     set((state: CartState) => {
       const updatedItems = state.items.map((item) => {
         if (item.id_producto === id_producto) {
-          // Incrementa o decrementa la cantidad
-          const newQuantity =
-            type === "increment" ? item.quantity + 1 : item.quantity - 1;
-          // Asegura que la cantidad nunca sea menor a 1
+          let newQuantity = type === "increment" ? item.quantity + 1 : item.quantity - 1;
+  
+     
+        if (type === "increment" && item.quantity >= item.stock_actual) {
+          toast.error("No hay suficiente stock disponible");
+          return item; // No cambia la cantidad
+        }
+  
           return { ...item, quantity: Math.max(newQuantity, 1) };
         }
-
         return item;
       });
-      
+  
       return { items: updatedItems };
     });
   },
+  
 });
 
 // Estado inicial del carrito
