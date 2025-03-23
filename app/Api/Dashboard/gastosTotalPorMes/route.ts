@@ -1,4 +1,4 @@
-// app/api/ingresos/delDia
+// app/api/compras/gastosTotalPorMes?fecha=2025-03-06
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Se requiere el parámetro 'fecha'" }, { status: 400 });
   }
 
-  const { data, error } = await supabase.rpc('get_ingresos_por_dia', {
+  const { data, error } = await supabase.rpc('get_gastos_total_por_mes', {
     fecha_filtro: fecha,
   });
 

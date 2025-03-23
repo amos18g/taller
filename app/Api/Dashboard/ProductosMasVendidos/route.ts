@@ -1,4 +1,4 @@
-// app/api/ventas/ProductosMasVendidos
+// app/api/ventas/ProductosMasVendidos/?limite=5
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 

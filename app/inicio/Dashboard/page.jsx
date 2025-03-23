@@ -1,5 +1,5 @@
 "use client";
-import { Space } from "antd";
+import { Space, spin } from "antd";
 import { ShoppingCartOutlined, DollarCircleOutlined } from "@ant-design/icons";
 import DashboardCard from "@/components/Dashboard/DashboardCard";
 import DashboardChart from "@/components/Dashboard/DashboardChart";
@@ -8,10 +8,19 @@ import PieChart from "@/components/Dashboard/PieChart";
 import DoughnutChart from "@/components/Dashboard/DoughnutChart";
 import iconStyle from "./IconStyle";
 
+
 //datos de ejemplo
 import {productosMasVendidos, ventasPorMes, comprasPorMes, categoriasMasVendidas } from "./staticData";
+import { useDashboard } from "../../../hooks/useDashboard";
+
+
 
 function Dashboard() {
+  
+  const { ingresosDia, ingresosMes, gastos, loading, error } = useDashboard();
+
+  console.log(ingresosDia, ingresosMes, gastos)
+
   return (
     <div className="bg-white p-8 rounded-lg shadow-md">
       <h1 className="text-3xl font-bold text-gray-800 mb-8">Dashboard</h1>
@@ -22,26 +31,31 @@ function Dashboard() {
             icon={<ShoppingCartOutlined style={iconStyle("blue")} />}
             title="Ventas del día"
             value={500}
+            loading={loading}
           />
           <DashboardCard
             icon={<DollarCircleOutlined style={iconStyle("green")} />}
             title="Ingresos del día"
-            value={`$${500}`}
+            value={`$${ingresosDia}`}
+            loading={loading}
           />
           <DashboardCard
             icon={<ShoppingCartOutlined style={iconStyle("blue")} />}
             title="Ventas del mes"
             value={500}
+            loading={loading}
           />
           <DashboardCard
             icon={<DollarCircleOutlined style={iconStyle("green")} />}
             title="Ingresos del mes"
-            value={`$${500}`}
+            value={`$${ingresosMes}`}
+            loading={loading}
           />
           <DashboardCard
             icon={<DollarCircleOutlined style={iconStyle("red")} />}
             title="Gastos del mes"
-            value={`$${500}`}
+            value={`$${gastos}`}
+            loading={loading}
           />
         </Space>
 
@@ -52,8 +66,8 @@ function Dashboard() {
 
         <Space>
           <Tabla data = {productosMasVendidos}/>
-          <PieChart data = {productosMasVendidos}/>
-          <DoughnutChart data = {categoriasMasVendidas}/>
+          <PieChart titulo ="Productos más vendidos" data = {productosMasVendidos}/>
+          <DoughnutChart titulo ="Categorias más vendidas" data = {categoriasMasVendidas}/>
         </Space>
       </Space>
     </div>

@@ -5,7 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
-function PieChart({ data }) {
+function PieChart({ titulo, data }) {
 
   const chartData = {
     labels: data.map((item) => item.nombre),
@@ -28,6 +28,7 @@ function PieChart({ data }) {
 
   return (
     <Card style={{ width: 300, height: 300 }}>
+      {titulo}
       <Pie data={chartData} options={options} />
     </Card>
   );

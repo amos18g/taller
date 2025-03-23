@@ -4,7 +4,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale } from "ch
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale);
 
-function DoughnutChart({data}) {
+function DoughnutChart({titulo, data}) {
 
   const options = {
     responsive: true,
@@ -16,6 +16,7 @@ function DoughnutChart({data}) {
 
   return (
     <Card style={{ width: 300, height: 300 }}>
+      {titulo}
       <Doughnut data={data} options={options} />
     </Card>
   );
