@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Se requiere el parámetro 'fecha'" }, { status: 400 });
   }
 
-  const { data, error } = await supabase.rpc('get_cantidad_factura_ventas_dia', {
+  const { data, error } = await supabase.rpc('get_cantidad_factura_ventas_mes', {
     fecha_filtro: fecha,
   });
 
