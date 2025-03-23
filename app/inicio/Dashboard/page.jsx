@@ -8,18 +8,28 @@ import PieChart from "@/components/Dashboard/PieChart";
 import DoughnutChart from "@/components/Dashboard/DoughnutChart";
 import iconStyle from "./IconStyle";
 
-
 //datos de ejemplo
-import {productosMasVendidos, ventasPorMes, comprasPorMes, categoriasMasVendidas } from "./staticData";
+import {
+  productosMasVendidos,
+  ventasPorMes,
+  comprasPorMes,
+  categoriasMasVendidas,
+} from "./staticData";
 import { useDashboard } from "../../../hooks/useDashboard";
 
-
-
 function Dashboard() {
-  
-  const { ingresosDia, ingresosMes, gastos, loading, error } = useDashboard();
+  const {
+    ventasDelDia,
+    ingresosDia,
+    ventasDelMes,
+    ingresosMes,
+    gastos,
+    loading,
+    ingresosUltimosMeses,
+    error,
+  } = useDashboard();
 
-  console.log(ingresosDia, ingresosMes, gastos)
+  // console.log(ingresosDia, ingresosMes, gastos)
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md">
@@ -30,7 +40,7 @@ function Dashboard() {
           <DashboardCard
             icon={<ShoppingCartOutlined style={iconStyle("blue")} />}
             title="Ventas del día"
-            value={500}
+            value={ventasDelDia}
             loading={loading}
           />
           <DashboardCard
@@ -42,7 +52,7 @@ function Dashboard() {
           <DashboardCard
             icon={<ShoppingCartOutlined style={iconStyle("blue")} />}
             title="Ventas del mes"
-            value={500}
+            value={ventasDelMes}
             loading={loading}
           />
           <DashboardCard
@@ -60,14 +70,24 @@ function Dashboard() {
         </Space>
 
         <Space>
-          <DashboardChart title="Ingresos por mes" data={ventasPorMes} />
+          <DashboardChart
+            title="Ingresos por mes"
+            data={ingresosUltimosMeses}
+            loading={loading}
+          />
           <DashboardChart title="Ventas por mes" data={comprasPorMes} />
         </Space>
 
         <Space>
-          <Tabla data = {productosMasVendidos}/>
-          <PieChart titulo ="Productos más vendidos" data = {productosMasVendidos}/>
-          <DoughnutChart titulo ="Categorias más vendidas" data = {categoriasMasVendidas}/>
+          <Tabla data={productosMasVendidos} />
+          <PieChart
+            titulo="Productos más vendidos"
+            data={productosMasVendidos}
+          />
+          <DoughnutChart
+            titulo="Categorias más vendidas"
+            data={categoriasMasVendidas}
+          />
         </Space>
       </Space>
     </div>

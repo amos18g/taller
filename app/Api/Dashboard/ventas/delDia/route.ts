@@ -1,3 +1,4 @@
+// app/api/ventas/delDia?fecha=2025-03-06
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
