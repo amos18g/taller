@@ -10,11 +10,10 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
     const [ventasDelMes, setventasDelMes] = useState<number | null>(null);
     const [gastos, setGastos] = useState<number | null>(null);
     
-    const [ingresosUltimosMeses, setIngresosUltimosMeses] = useState<{ 
-        labels: string[], 
-        datasets: { label: string, data: number[], backgroundColor: string, borderColor: string, borderWidth: number }[] 
-    } | null>(null);
+    const [ingresosUltimosMeses, setIngresosUltimosMeses] = useState();
     
+    const [productosMasVendidos,setProductosMasVendidos] = useState();
+    const [categoriasMasVendidas, setCategoriasMasvendidas] = useState();
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -74,32 +73,16 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchIngresosUltimosMeses() {
         try {
-          const response = await fetch(`/Api/Dashboard/ingresos/ultimosMeses`);
+          const response = await fetch("/Api/Dashboard/ingresos/ultimosMeses");
           if (!response.ok) throw new Error("Error al obtener los ingresos");
-    
+      
           const result = await response.json();
-    
-          // Verificar que el resultado sea un array
+          setIngresosUltimosMeses(result);
           if (!Array.isArray(result)) throw new Error("Formato de datos incorrecto");
-    
-          // Transformar los datos para Chart.js
-          const labels = result.map((item) => item.mes); // Meses
-          const data = result.map((item) => item.ingreso); // Ingresos
-    
-          setIngresosUltimosMeses({
-            labels, 
-            datasets: [
-              {
-                label: "Ingresos ($)",
-                data,
-                backgroundColor: "#48f148",
-                borderColor: "rgba(0, 100, 0, 1)",
-                borderWidth: 1,
-              },
-            ],
-          });
+      
+          return result;
         } catch (err) {
-          setError(err instanceof Error ? err.message : "Error desconocido");
+          throw new Error(err instanceof Error ? err.message : "Error desconocido");
         }
       }
 
@@ -116,6 +99,32 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
         }
     }
 
+    async function fetchProductosMasVendidos() {
+        try {
+            const response = await fetch(`/Api/Dashboard/ProductosMasVendidos?limite=${5}`);
+            if (!response.ok) throw new Error("Error al obtener los gastos");
+
+            const result = await response.json();
+            setProductosMasVendidos(result);
+           
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Error desconocido");
+        }
+    }
+
+    async function fetchCategoriasMasVendidas() {
+        try {
+            const response = await fetch(`/Api/Dashboard/categoriasMasVendidas?limite=${5}`);
+            if (!response.ok) throw new Error("Error al obtener los gastos");
+
+            const result = await response.json();
+            setCategoriasMasvendidas(result);
+            
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Error desconocido");
+        }
+    }
+
     useEffect(() => {
 
         async function fetchData() {
@@ -126,6 +135,8 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
             await fetchIngresosMes();
             await fetchGastos();
             await fetchIngresosUltimosMeses();
+            await fetchProductosMasVendidos();
+            await fetchCategoriasMasVendidas();
        
            
             setLoading(false);
@@ -133,5 +144,15 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
         fetchData();
     }, [fecha]);
 
-    return { ventasDelDia, ingresosMes, ventasDelMes, ingresosDia, gastos, ingresosUltimosMeses, loading, error };
+    return { 
+        ventasDelDia,
+        ingresosMes,
+        ventasDelMes,
+        ingresosDia,
+        gastos,
+        ingresosUltimosMeses,
+        productosMasVendidos,
+        categoriasMasVendidas,
+        loading,
+        error };
 }

@@ -6,7 +6,7 @@ export const totalIngresos = 25000;
 export const totalGastos = 15000;
 
 
-export const productosMasVendidos = [
+export const productosMasVendidos2 = [
   { key: 1, nombre: "Laptop", cantidad: 10, precio: "$1000" },
   { key: 2, nombre: "Mouse", cantidad: 25, precio: "$25" },
   { key: 3, nombre: "Teclado", cantidad: 15, precio: "$45" },
@@ -37,7 +37,7 @@ export const comprasPorMes = {
   ],
 };
 
-export const categoriasMasVendidas = {
+export const categoriasMasVendidas2 = {
   labels: ["Aceites", "Frenos", "Cascos", "Accesorios", "Repuestos"],
   datasets: [
     {

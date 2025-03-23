@@ -3,6 +3,7 @@ import { Space, spin } from "antd";
 import { ShoppingCartOutlined, DollarCircleOutlined } from "@ant-design/icons";
 import DashboardCard from "@/components/Dashboard/DashboardCard";
 import DashboardChart from "@/components/Dashboard/DashboardChart";
+import DashboardChartGastos from "@/components/Dashboard/DashboardChartGastos";;
 import Tabla from "@/components/Dashboard/Tabla";
 import PieChart from "@/components/Dashboard/PieChart";
 import DoughnutChart from "@/components/Dashboard/DoughnutChart";
@@ -10,14 +11,15 @@ import iconStyle from "./IconStyle";
 
 //datos de ejemplo
 import {
-  productosMasVendidos,
+  productosMasVendidos2,
   ventasPorMes,
   comprasPorMes,
-  categoriasMasVendidas,
+  categoriasMasVendidas2,
 } from "./staticData";
 import { useDashboard } from "../../../hooks/useDashboard";
 
 function Dashboard() {
+  
   const {
     ventasDelDia,
     ingresosDia,
@@ -26,10 +28,14 @@ function Dashboard() {
     gastos,
     loading,
     ingresosUltimosMeses,
+    productosMasVendidos,
+    categoriasMasVendidas,
     error,
+
   } = useDashboard();
 
   // console.log(ingresosDia, ingresosMes, gastos)
+  console.log("ingresos ultimos meses",ingresosUltimosMeses);
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md">
@@ -75,18 +81,26 @@ function Dashboard() {
             data={ingresosUltimosMeses}
             loading={loading}
           />
-          <DashboardChart title="Ventas por mes" data={comprasPorMes} />
+          <DashboardChartGastos title="Gastos del mes"
+           backgroundColor = "#ed5c34" 
+           borderColor = "#df1c06"
+           loading={loading}/>
+          
         </Space>
 
         <Space>
-          <Tabla data={productosMasVendidos} />
+          <Tabla data={productosMasVendidos} loading={loading} />
+
           <PieChart
             titulo="Productos más vendidos"
             data={productosMasVendidos}
+            loading = {loading}
+    
           />
           <DoughnutChart
             titulo="Categorias más vendidas"
             data={categoriasMasVendidas}
+            loading = {loading}
           />
         </Space>
       </Space>

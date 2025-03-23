@@ -11,9 +11,15 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-function DashboardChart({
+const datosDePrueba = [
+    { mes: "2025-03", gasto: 40000 },
+    { mes: "2025-02", gasto: 25000 },
+    { mes: "2025-01", gasto: 20000 },
+  ];
+
+function DashboardChartGastos({
   title,
-  data = [],
+  data = datosDePrueba,
   loading = false,
   backgroundColor = "#48f148",
   borderColor = "rgba(0, 100, 0, 1)",
@@ -22,11 +28,11 @@ function DashboardChart({
   const dataArray = Array.isArray(data) ? data : Object.values(data);
 
   const chartData = {
-    labels: dataArray.map((item) => item.mes), // Extrae los meses
+    labels: dataArray.map((item) => item.mes),
     datasets: [
       {
-        label: "Ingresos ($)",
-        data: dataArray.map((item) => item.ingreso), // Extrae los ingresos
+        label: "Gastos ($)",
+        data: dataArray.map((item) => item.gasto),
         borderColor,
         backgroundColor,
         borderWidth: 1,
@@ -67,4 +73,4 @@ function DashboardChart({
   );
 }
 
-export default DashboardChart;
+export default DashboardChartGastos;
