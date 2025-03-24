@@ -51,6 +51,7 @@ const CartItem = ({ item, updateQty, removeFromCart }) => {
           variant="destructive"
           size="sm"
           className="ml-auto" // Clase agregada aquí
+          id="botonCarrito"
         >
           Borrar
         </Button>
