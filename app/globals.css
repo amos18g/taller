@@ -79,6 +79,13 @@ code {
 
 }
  
- 
+/*Paleta de colores*/ 
+:root {
+  --color-primary: #558cd3;
+  --color-secondary: #0A0A23;
+  --color-accent: #FFD166;
+  --color-text: #0E1B1B;
+  --color-background: #F0F0F0;
+}
 
 
