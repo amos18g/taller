@@ -41,13 +41,12 @@ export default function VentasTable() {
   };
 
   const columns = [
-    { title: "Número Factura", dataIndex: "numero_factura", key: "numero_factura", width: 200 },
-    { title: "ID Cliente", dataIndex: "id_cliente", key: "id_cliente", width: 100 },
-    { title: "Fecha", dataIndex: "fecha", key: "fecha", render: (fecha) => dayjs(fecha).format("DD/MM/YYYY hh:mm a"), width: 600 },
-    { title: "Subtotal", dataIndex: "subtotal", key: "subtotal", width: 100 },
-    { title: "Total", dataIndex: "total", key: "total", width: 100 },
-    { title: "Método de Pago", dataIndex: "metodo_pago", key: "metodo_pago", width: 500 },
-    { title: "Observaciones", dataIndex: "observaciones", key: "observaciones", width: 800 },
+    { title: "Número Factura", dataIndex: "numero_factura", key: "numero_factura", width: 80 },
+    { title: "Fecha", dataIndex: "fecha", key: "fecha", render: (fecha) => dayjs(fecha).format("DD/MM/YYYY hh:mm a"), width: 100 },
+    { title: "Subtotal", dataIndex: "subtotal", key: "subtotal", width: 55 },
+    { title: "Total", dataIndex: "total", key: "total", width: 55 },
+    { title: "Método de Pago", dataIndex: "metodo_pago", key: "metodo_pago", width: 85 },
+    { title: "Observaciones", dataIndex: "observaciones", key: "observaciones", width: 110 },
     {
       title: "Detalle",
       key: "accion",
@@ -57,7 +56,7 @@ export default function VentasTable() {
           Ver Detalle
         </Button>
       ),
-      width: 100,
+      width: 80,
     },
     {
       title: "Factura",
@@ -68,7 +67,7 @@ export default function VentasTable() {
           Ver Factura
         </Button>
       ),
-      width: 100,
+      width: 80,
     },
   ];
 
@@ -98,7 +97,9 @@ export default function VentasTable() {
           columns={columns}
           rowKey="id_venta"
           loading={loading}
-          pagination={{ pageSize: 8 }}
+          scroll={{
+            y: 500, 
+          }}
         />
       )}
 
