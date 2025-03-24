@@ -187,7 +187,8 @@ function AgregarProducto() {
         </div>
         <div className="flex justify-between mt-4">
           <Button
-            type="button"
+            type="default"
+            className="btnVolver"
             onClick={() => router.back()}
             disabled={isSubmitting}
           >

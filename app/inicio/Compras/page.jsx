@@ -40,14 +40,15 @@ const Compras = () => {
   return (
     <>
       <div className="bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">Compras</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-8" style={{color:'black'}}>Compras</h1>
         <div className="compra-encabezado">
           <RangePicker onChange={handleDateChange} />
 
           <Link href="/inicio/inventario/agregar">
             <Button className="btnAgregar">
               <PlusOutlined />
-              Comprar Productos</Button>
+              Agregar Productos
+            </Button>
           </Link>
         </div>
 

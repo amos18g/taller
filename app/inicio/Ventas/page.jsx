@@ -7,7 +7,7 @@ export default function VentasPage() {
     <div className="bg-white p-8 rounded-lg shadow-md">
     
       <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">Ventas</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-8" style={{color:'black'}}>Ventas</h1>
       </div>
       <VentasTable />
     </div>
