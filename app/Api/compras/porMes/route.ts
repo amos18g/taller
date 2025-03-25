@@ -1,4 +1,4 @@
-// app/api/ventas/obtenerPorDia?fecha=2025-03-06
+// app/api/compras/porMes
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Se requiere el parámetro 'fecha'" }, { status: 400 });
   }
 
-  const { data, error } = await supabase.rpc('get_ventas_agrupadas_por_dia_producto', {
+  const { data, error } = await supabase.rpc('get_compras_total_por_mes_producto', {
     fecha_filtro: fecha,
   });
 

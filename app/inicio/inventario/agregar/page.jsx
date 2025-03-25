@@ -7,6 +7,7 @@ import { useCategorias } from "@/hooks/useCategorias";
 import { useProductos } from "@/hooks/useProductos";
 import { v4 as uuidv4 } from "uuid";
 import { Spin, Button, message } from "antd";
+import "./agregar.css";
 
 function AgregarProducto() {
   const router = useRouter();
@@ -90,8 +91,8 @@ function AgregarProducto() {
   }
 
   return (
-    <div className="max-w-lg mx-auto mt-10 bg-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-4">Agregar Producto</h2>
+    <div className="max-w-lg mx-auto mt-10 bg-white p-6 rounded-lg shadow-lg" id="agregarProd">
+      <h2 className="text-2xl font-bold mb-4">Agregar Producto (s)</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block font-medium">Nombre</label>
@@ -100,31 +101,33 @@ function AgregarProducto() {
             name="nombre"
             value={producto.nombre}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="inputBox w-full p-2 border border-gray-300 rounded"
             required
             disabled={isSubmitting}
           />
         </div>
         <div>
-          <label className="block font-medium">Costo</label>
+          <label className="block font-medium">Costo (HNL)</label>
           <input
             type="number"
+            min="0"
             name="costo"
             value={producto.costo}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="inputBox w-full p-2 border border-gray-300 rounded"
             required
             disabled={isSubmitting}
           />
         </div>
         <div>
-          <label className="block font-medium">Precio de venta</label>
+          <label className="block font-medium">Precio de venta (HNL)</label>
           <input
             type="number"
+            min="0"
             name="precio_venta"
             value={producto.precio_venta}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="inputBox w-full p-2 border border-gray-300 rounded"
             required
             disabled={isSubmitting}
           />
@@ -133,10 +136,11 @@ function AgregarProducto() {
           <label className="block font-medium">Cantidad</label>
           <input
             type="number"
+            min="0"
             name="stock_actual"
             value={producto.stock_actual}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="inputBox w-full p-2 border border-gray-300 rounded"
             required
             disabled={isSubmitting}
           />
@@ -147,7 +151,7 @@ function AgregarProducto() {
             name="id_categoria"
             value={producto.id_categoria}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="inputBox w-full p-2 border border-gray-300 rounded"
             required
             disabled={isSubmitting}
           >
@@ -169,7 +173,7 @@ function AgregarProducto() {
             name="id_unidad"
             value={producto.id_unidad}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="inputBox w-full p-2 border border-gray-300 rounded"
             required
             disabled={isSubmitting}
           >
@@ -184,6 +188,7 @@ function AgregarProducto() {
         <div className="flex justify-between mt-4">
           <Button
             type="default"
+            className="btnVolver"
             onClick={() => router.back()}
             disabled={isSubmitting}
           >

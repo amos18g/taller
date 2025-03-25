@@ -5,7 +5,7 @@ import { Modal, Table } from "antd";
 function VentaDetalleModal({ visible, onClose, venta }) {
   const detalleColumns = [
     {
-      title: "Nombre",
+      title: "Producto",
       dataIndex: "nombre",
       key: "nombre",
     },

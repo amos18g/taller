@@ -8,7 +8,8 @@ import {
   UserOutlined,
   TableOutlined,
   ShoppingOutlined,
-  TruckOutlined
+  TruckOutlined,
+  LineChartOutlined
 } from "@ant-design/icons";
 import { Menu, Badge } from "antd";
 import Link from "next/link";
@@ -41,6 +42,11 @@ function SideMenu() {
             label: <Link href="/inicio/Clientes">Clientes</Link>,
             icon: <UserOutlined />,
             key: "/Clientes",
+          },
+          {
+            label: <Link href="/inicio/Dashboard">Dashboard</Link>,
+            icon: <LineChartOutlined />,
+            key: "/Dashboard",
           },
           {
             label: <Link href="/inicio/Compras">Compras</Link>,

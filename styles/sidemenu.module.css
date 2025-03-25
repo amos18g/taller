@@ -1,4 +1,4 @@
-:global(.SideMenu) {
+.SideMenu {
   background: #001529;
   min-height: 100vh;
   padding-top: 20px;
@@ -11,19 +11,19 @@
 }
 
 /* Animación de apertura/cierre */
-:global(.SideMenuTransition) {
+.SideMenuTransition {
   transition: all 0.3s ease-in-out;
 }
 
-:global(.SideMenuVertical) {
+.SideMenuVertical {
   background: transparent;
   border-right: none;
   padding: 0 8px;
 }
 
 /* Estilo de los elementos del menú con letra más pequeña */
-:global(.SideMenuVertical .ant-menu-item),
-:global(.SideMenuVertical .ant-menu-submenu-title) {
+.SideMenuVertical .ant-menu-item,
+.SideMenuVertical .ant-menu-submenu-title {
   transition: all 0.3s ease;
   margin: 6px 12px;
   border-radius: 6px;
@@ -36,8 +36,8 @@
 }
 
 /* Efecto hover con línea azul */
-:global(.SideMenuVertical .ant-menu-item:hover),
-:global(.SideMenuVertical .ant-menu-submenu-title:hover) {
+.SideMenuVertical .ant-menu-item:hover,
+.SideMenuVertical .ant-menu-submenu-title:hover {
   background-color: rgba(255, 255, 255, 0.2);
   padding-left: 20px;
   transition: all 0.3s ease;
@@ -46,7 +46,7 @@
 }
 
 /* Ítem seleccionado con borde celeste */
-:global(.SideMenuVertical .ant-menu-item-selected) {
+.SideMenuVertical .ant-menu-item-selected {
   background-color: rgba(255, 255, 255, 0.3) !important;
   border-radius: 6px;
   color: white !important;
@@ -54,20 +54,20 @@
 }
 
 /* Separadores entre secciones del menú */
-:global(.SideMenuVertical .ant-menu-item:not(:last-child)) {
+.SideMenuVertical .ant-menu-item:not(:last-child) {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Estilo de los iconos */
-:global(.SideMenuVertical .ant-menu-item .anticon),
-:global(.SideMenuVertical .ant-menu-submenu-title .anticon) {
+.SideMenuVertical .ant-menu-item .anticon,
+.SideMenuVertical .ant-menu-submenu-title .anticon {
   font-size: 16px; /* Tamaño reducido de iconos */
   margin-right: 10px;
   color: white !important; /* Iconos en blanco */
 }
 
 /* Footer con mejor contraste */
-:global(.SideMenuFooter) {
+.SideMenuFooter {
   padding: 16px;
   text-align: center;
   color: rgba(255, 255, 255, 0.8);

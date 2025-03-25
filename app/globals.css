@@ -56,7 +56,7 @@ code {
   flex: 1;
   justify-content: flex-start;
   align-items: flex-start;
-  background-color: rgba(0, 0, 0, 0.05) ;
+  background-color: white ;
   
 }
 
@@ -79,6 +79,13 @@ code {
 
 }
  
- 
+/*Paleta de colores*/ 
+:root {
+  --color-primary: #558cd3;
+  --color-secondary: #0A0A23;
+  --color-accent: #FFD166;
+  --color-text: #0E1B1B;
+  --color-background: #F0F0F0;
+}
 
 

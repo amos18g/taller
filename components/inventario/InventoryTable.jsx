@@ -57,7 +57,7 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
           <Tag color={stock < 20 ? "red" : "green"}  style={{fontSize: "1rem" }}>{stock}</Tag>
         )
       ),
-      width: 100,
+      width: 110,
       sorter: (a, b) => a.stock_actual - b.stock_actual,
       align: "center",
     }

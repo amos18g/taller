@@ -39,7 +39,7 @@ export default async function AuthButton() {
               size="sm"
               variant={"default"}
               disabled
-              className="opacity-75 cursor-none pointer-events-none"
+              className="opacity-75 cursor-none pointer-events-none "
             >
               <Link href="/sign-up">Registrarse</Link>
             </Button>
@@ -49,10 +49,10 @@ export default async function AuthButton() {
     );
   }
   return user ? (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4  text-lg">
       Hola, {user.email}!
       <form action={signOutAction}>
-        <Button  type="submit" variant={"ghost"}>
+        <Button  type="submit" variant={"ghost"} className="ml-10 mr-4 bg-yellow-300 rounded-[10px]">
           Cerrar Sesion
         </Button>
       </form>

@@ -4,10 +4,11 @@
 }
 
 .btnAgregar {
-    background-color: #1038d7;
+    background-color: #1677ff;
     color: white;
     border: none;
     width: 160px;
     height: 32px;
+    padding: 25px;
   }
   

@@ -1,0 +1,21 @@
+
+#agregarProd{
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    flex: auto;
+    box-shadow: 14px 14px 14px;
+  }
+
+  .inputBox{
+    background-color: white;
+    color: black;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+.btnVolver{
+    font-size: 15px !important;
+    padding: 20px;
+}
+

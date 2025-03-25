@@ -51,7 +51,7 @@ export default function CategoriasPage() {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Categorías</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6" style={{color:'black'}}>Categorías</h1>
       <div className="titulo flex items-center gap-4 mt-5 mb-4">
         <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
         <Button type="primary" className={styles.btnAgregar} onClick={() => setIsAddDrawerVisible(true)}>
