@@ -8,7 +8,7 @@ import { useProductos } from "@/hooks/useProductos";
 import styles from "@/styles/inventario.module.css";
 
 const Inventory = () => {
-  const { data, loading, eliminarProducto } = useProductos();
+  const { data, loading, eliminarProducto, editarProducto } = useProductos();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
@@ -46,6 +46,7 @@ const Inventory = () => {
           data={filteredData}
           loading={loading}
           eliminarProducto={eliminarProducto}
+          editarProducto ={editarProducto}
         />
       </Space>
     </div>

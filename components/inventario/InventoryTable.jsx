@@ -1,16 +1,25 @@
 "use client";
-import { Table, Button, Tag, Popconfirm, message } from "antd";
-import { useRouter } from "next/navigation";
-import  useCartStore  from "@/store/CartStore";  // Importar directamente el store
+import { Table, Button, Tag, Popconfirm, message, Modal } from "antd";
+import { useState } from "react";
+import useCartStore from "@/store/CartStore"; // Importar directamente el store
 import styles from "../../styles/inventario.module.css";
-import {EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import EditarProducto from "../../components/inventario/Editar/EditarProductos";
 
-const InventoryTable = ({ data, loading, eliminarProducto }) => {
-  const router = useRouter();
-  const { addToCart, removeFromCart, items  } = useCartStore();  // Obtener la función directamente del store
+const InventoryTable = ({ data, loading, eliminarProducto, editarProducto  }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+  const { addToCart, removeFromCart, items } = useCartStore(); // Obtener la función directamente del store
 
   const handleEdit = (record) => {
-    router.push(`/inicio/inventario/editar?id=${record.id_producto}`);
+    setProductoSeleccionado(record);
+    setIsModalOpen(true);
+  };
+  
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setProductoSeleccionado(null);
   };
 
   const handleDeleteProduct = async (record) => {
@@ -50,18 +59,21 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
       title: "Cantidad",
       dataIndex: "stock_actual",
       key: "stock_actual",
-      render: (stock) => (
+      render: (stock) =>
         stock === 0 ? (
-          <Tag color="gray">Agotado</Tag>  // Cambiar color a gris si el stock es 0
+          <Tag color="gray">Agotado</Tag> // Cambiar color a gris si el stock es 0
         ) : (
-          <Tag color={stock < 20 ? "red" : "green"}  style={{fontSize: "1rem" }}>{stock}</Tag>
-        )
-      ),
+          <Tag
+            color={stock < 20 ? "red" : "green"}
+            style={{ fontSize: "1rem" }}
+          >
+            {stock}
+          </Tag>
+        ),
       width: 110,
       sorter: (a, b) => a.stock_actual - b.stock_actual,
       align: "center",
-    }
-    ,
+    },
     {
       title: "Categoría",
       dataIndex: "categoria",
@@ -78,7 +90,9 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
       title: "Editar",
       key: "editar",
       render: (_, record) => (
-        <Button  onClick={() => handleEdit(record)} className={styles.btnEditar}> <EditOutlined /> Editar</Button>
+        <Button onClick={() => handleEdit(record)} className={styles.btnEditar}>
+          <EditOutlined /> Editar
+        </Button>
       ),
       width: 100,
     },
@@ -92,9 +106,10 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
           okText="Sí"
           cancelText="No"
         >
-          <Button  className={styles.btnEliminar}>
-          <DeleteOutlined />
-            Eliminar</Button>
+          <Button className={styles.btnEliminar}>
+            <DeleteOutlined />
+            Eliminar
+          </Button>
         </Popconfirm>
       ),
       width: 100,
@@ -103,17 +118,19 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
       title: "Caja",
       key: "caja",
       render: (_, record) => {
-        const isInCart = items.some(item => item.id_producto === record.id_producto);
-  
+        const isInCart = items.some(
+          (item) => item.id_producto === record.id_producto
+        );
+
         return isInCart ? (
           <Button danger onClick={() => removeFromCart(record.id_producto)}>
             Eliminar de caja
           </Button>
         ) : (
-          <Button 
-            type="primary" 
-            onClick={() => addToCart(record)} 
-            disabled={record.stock_actual === 0}  
+          <Button
+            type="primary"
+            onClick={() => addToCart(record)}
+            disabled={record.stock_actual === 0}
           >
             Agregar a Caja
           </Button>
@@ -124,29 +141,46 @@ const InventoryTable = ({ data, loading, eliminarProducto }) => {
   ];
 
   return (
-    <Table
-      columns={columns}
-      dataSource={data}
-      loading={loading}
-      rowKey="id_producto"
-      scroll={{ y: 550 }}
-      locale={{
-        emptyText: "No hay datos que coincidan con su búsqueda",
-        triggerDesc: "Haga clic para ordenar de forma descendente",
-        triggerAsc: "Haga clic para ordenar de forma ascendente",
-        cancelSort: "Cancelar ordenación",
-      }}
-      className={styles.tableContainer}
-      rowClassName={(record) => {
-        if (record.stock_actual === 0) {
-          return styles.stockAgotado; // Aplica la clase cuando el stock es 0 (gris)
-        }
-        if (record.stock_actual < 20) {
-          return styles.stockBajo; // Aplica la clase cuando el stock es menor a 20 (rojo)
-        }
-        return "";
-      }}
-    />
+    <>
+      <Table
+        columns={columns}
+        dataSource={data}
+        loading={loading}
+        rowKey="id_producto"
+        scroll={{ y: 550 }}
+        locale={{
+          emptyText: "No hay datos que coincidan con su búsqueda",
+          triggerDesc: "Haga clic para ordenar de forma descendente",
+          triggerAsc: "Haga clic para ordenar de forma ascendente",
+          cancelSort: "Cancelar ordenación",
+        }}
+        className={styles.tableContainer}
+        rowClassName={(record) => {
+          if (record.stock_actual === 0) {
+            return styles.stockAgotado; // Aplica la clase cuando el stock es 0 (gris)
+          }
+          if (record.stock_actual < 20) {
+            return styles.stockBajo; // Aplica la clase cuando el stock es menor a 20 (rojo)
+          }
+          return "";
+        }}
+      />
+
+      <Modal
+        title="Editar Producto"
+        open={isModalOpen}
+        onCancel={handleCloseModal}
+        footer={null}
+      >
+        {productoSeleccionado && (
+          <EditarProducto
+            producto={productoSeleccionado}
+            onClose={handleCloseModal}
+            editarProducto={editarProducto}
+          />
+        )}
+      </Modal>
+    </>
   );
 };
 
