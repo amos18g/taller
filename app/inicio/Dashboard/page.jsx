@@ -19,93 +19,106 @@ import {
 import { useDashboard } from "../../../hooks/useDashboard";
 
 function Dashboard() {
-  
-  const {
-    ventasDelDia,
-    ingresosDia,
-    ventasDelMes,
-    ingresosMes,
-    gastos,
-    loading,
-    ingresosUltimosMeses,
-    productosMasVendidos,
-    categoriasMasVendidas,
-    error,
+    const {
+        ventasDelDia,
+        ingresosMes,
+        ventasDelMes,
+        ingresosDia,
+        gastos,
+        ingresosUltimosMeses,
+        productosMasVendidos,
+        categoriasMasVendidas,
 
-  } = useDashboard();
+        loadingVentasDia,
+        loadingIngresosDia,
+        loadingVentasMes,
+        loadingIngresosMes,
+        loadingGastos,
+        loadingIngresosMeses,
+        loadingProductos,
+        loadingCategorias,
+        error,
+    } = useDashboard();
 
-  // console.log(ingresosDia, ingresosMes, gastos)
-  console.log("ingresos ultimos meses",ingresosUltimosMeses);
+    if (error) {
+        return <div className="bg-white p-8 rounded-lg shadow-md">Error: {error}</div>;
+    }
 
-  return (
-    <div className="bg-white p-8 rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">Dashboard</h1>
+    console.log(ingresosUltimosMeses )
+    console.log(categoriasMasVendidas)
+    console.log(productosMasVendidos)
 
-      <Space size={20} direction="vertical">
-        <Space direction="horizontal">
-          <DashboardCard
-            icon={<ShoppingCartOutlined style={iconStyle("blue")} />}
-            title="Ventas del día"
-            value={ventasDelDia}
-            loading={loading}
-          />
-          <DashboardCard
-            icon={<DollarCircleOutlined style={iconStyle("green")} />}
-            title="Ingresos del día"
-            value={`$${ingresosDia}`}
-            loading={loading}
-          />
-          <DashboardCard
-            icon={<ShoppingCartOutlined style={iconStyle("blue")} />}
-            title="Ventas del mes"
-            value={ventasDelMes}
-            loading={loading}
-          />
-          <DashboardCard
-            icon={<DollarCircleOutlined style={iconStyle("green")} />}
-            title="Ingresos del mes"
-            value={`$${ingresosMes}`}
-            loading={loading}
-          />
-          <DashboardCard
-            icon={<DollarCircleOutlined style={iconStyle("red")} />}
-            title="Gastos del mes"
-            value={`$${gastos}`}
-            loading={loading}
-          />
-        </Space>
+    return (
+        <div className="bg-white p-8 rounded-lg shadow-md">
+            <h1 className="text-3xl font-bold text-gray-800 mb-8">Dashboard</h1>
 
-        <Space>
-          <DashboardChart
-            title="Ingresos por mes"
-            data={ingresosUltimosMeses}
-            loading={loading}
-          />
-          <DashboardChartGastos title="Gastos del mes"
-           backgroundColor = "#ed5c34" 
-           borderColor = "#df1c06"
-           loading={loading}/>
-          
-        </Space>
+            <Space size={20} direction="vertical">
+                <Space direction="horizontal">
+                    <DashboardCard
+                        icon={<ShoppingCartOutlined style={iconStyle("blue")} />}
+                        title="Ventas del día"
+                        value={ventasDelDia}
+                        loading={loadingVentasDia}
+                    />
+                    <DashboardCard
+                        icon={<DollarCircleOutlined style={iconStyle("green")} />}
+                        title="Ingresos del día"
+                        value={ingresosDia}
+                        loading={loadingIngresosDia}
+                    />
+                    <DashboardCard
+                        icon={<ShoppingCartOutlined style={iconStyle("blue")} />}
+                        title="Ventas del mes"
+                        value={ventasDelMes}
+                        loading={loadingVentasMes}
+                    />
+                    <DashboardCard
+                        icon={<DollarCircleOutlined style={iconStyle("green")} />}
+                        title="Ingresos del mes"
+                        value={ingresosMes}
+                        loading={loadingIngresosMes}
+                    />
+                    <DashboardCard
+                        icon={<DollarCircleOutlined style={iconStyle("red")} />}
+                        title="Gastos del mes"
+                        value={gastos}
+                        loading={loadingGastos}
+                    />
+                </Space>
 
-        <Space>
-          <Tabla data={productosMasVendidos} loading={loading} />
+                <Space>
+                    <DashboardChart
+                        title="Ingresos por mes"
+                        data={ingresosUltimosMeses}
+                        loading={loadingIngresosMeses}
+                    />
+                    <DashboardChartGastos 
+                        title="Gastos del mes"
+                        backgroundColor="#ed5c34" 
+                        borderColor="#df1c06"
+                        loading={loadingGastos}
+                    />
+                </Space>
 
-          <PieChart
-            titulo="Productos más vendidos"
-            data={productosMasVendidos}
-            loading = {loading}
-    
-          />
-          <DoughnutChart
-            titulo="Categorias más vendidas"
-            data={categoriasMasVendidas}
-            loading = {loading}
-          />
-        </Space>
-      </Space>
-    </div>
-  );
+                <Space>
+                    <Tabla 
+                        data={productosMasVendidos} 
+                        loading={loadingProductos} 
+                    />
+                    <PieChart
+                        titulo="Productos más vendidos"
+                        data={productosMasVendidos}
+                        loading={loadingProductos}
+                    />
+                    <DoughnutChart
+                        titulo="Categorias más vendidas"
+                        data={categoriasMasVendidas}
+                        loading={loadingCategorias}
+                    />
+                </Space>
+            </Space>
+        </div>
+    );
 }
 
 export default Dashboard;

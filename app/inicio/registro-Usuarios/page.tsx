@@ -41,9 +41,10 @@ export default async function Signup(props: {
             <MailOutlined className="absolute left-4 top-3 text-gray-500 dark:text-gray-400" />
             <Input
               name="email"
-              placeholder="you@example.com"
-              required
               autoComplete="off"
+              placeholder="Correo"
+              required
+      
               className="w-full pl-10 py-3 border border-blue-200 rounded-[12px] bg-blue-100 dark:bg-gray-800 dark:border-gray-700
                 focus:outline-none focus:ring-4 focus:ring-blue-400 dark:focus:ring-blue-300 focus:border-blue-500 placeholder-gray-500 
                 dark:placeholder-gray-400 placeholder-opacity-75 shadow-sm hover:shadow-md transition"
@@ -60,10 +61,10 @@ export default async function Signup(props: {
             <Input
               type="password"
               name="password"
-              placeholder="Tu contraseña"
+              autoComplete="off"
+              placeholder="Contraseña"
               minLength={6}
               required
-              autoComplete="off"
               className="w-full pl-10 py-3 border border-blue-200 rounded-[12px] bg-blue-100 dark:bg-gray-800 dark:border-gray-700
                 focus:outline-none focus:ring-4 focus:ring-blue-400 dark:focus:ring-blue-300 focus:border-blue-500 placeholder-gray-500 
                 dark:placeholder-gray-400 placeholder-opacity-75 shadow-sm hover:shadow-md transition"

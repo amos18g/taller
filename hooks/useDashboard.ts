@@ -1,33 +1,45 @@
 "use client";
 import { useState, useEffect } from "react";
 
-// se establece la fecha actual como parametro
 export function useDashboard(fecha: string = new Date().toISOString().split("T")[0]) {
-
+    // Estados para los datos
     const [ingresosMes, setIngresosMes] = useState<number | null>(null);
     const [ingresosDia, setIngresosDia] = useState<number | null>(null);
     const [ventasDelDia, setventasDelDia] = useState<number | null>(null);
     const [ventasDelMes, setventasDelMes] = useState<number | null>(null);
     const [gastos, setGastos] = useState<number | null>(null);
-    
-    const [ingresosUltimosMeses, setIngresosUltimosMeses] = useState();
-    
-    const [productosMasVendidos,setProductosMasVendidos] = useState();
-    const [categoriasMasVendidas, setCategoriasMasvendidas] = useState();
+    const [ingresosUltimosMeses, setIngresosUltimosMeses] = useState<any>(null);
+    const [productosMasVendidos, setProductosMasVendidos] = useState<any>(null);
+    const [categoriasMasVendidas, setCategoriasMasvendidas] = useState<any>(null);
 
-    const [loading, setLoading] = useState(true);
+    // Estados de loading individuales
+    const [loadingIngresosMes, setLoadingIngresosMes] = useState(true);
+    const [loadingIngresosDia, setLoadingIngresosDia] = useState(true);
+    const [loadingVentasDia, setLoadingVentasDia] = useState(true);
+    const [loadingVentasMes, setLoadingVentasMes] = useState(true);
+    const [loadingGastos, setLoadingGastos] = useState(true);
+    const [loadingIngresosMeses, setLoadingIngresosMeses] = useState(true);
+    const [loadingProductos, setLoadingProductos] = useState(true);
+    const [loadingCategorias, setLoadingCategorias] = useState(true);
+
     const [error, setError] = useState<string | null>(null);
 
-    async function fetchIngresosMes() {
-        try {
-            const response = await fetch(`/api/Dashboard/ingresos/delMes?fecha=${fecha}`);
-            if (!response.ok) throw new Error("Error al obtener los ingresos");
+    // Función para manejar errores
+    const handleError = (err: unknown) => {
+        setError(err instanceof Error ? err.message : "Error desconocido");
+        return err;
+    };
 
+    async function fetchVentasDelDia() {
+        try {
+            const response = await fetch(`/api/Dashboard/ventas/delDia?fecha=${fecha}`);
+            if (!response.ok) throw new Error("Error al obtener las ventas del dia");
             const result = await response.json();
-            if (typeof result.total === "number") setIngresosMes(result.total);
-            else throw new Error("El formato de los datos recibidos no es válido");
+            setventasDelDia(typeof result.cantidad === "number" ? result.cantidad : null);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error desconocido");
+            handleError(err);
+        } finally {
+            setLoadingVentasDia(false);
         }
     }
 
@@ -35,25 +47,12 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
         try {
             const response = await fetch(`/api/Dashboard/ingresos/delDia?fecha=${fecha}`);
             if (!response.ok) throw new Error("Error al obtener los ingresos");
-
             const result = await response.json();
-            if (typeof result.total === "number") setIngresosDia(result.total);
-            else throw new Error("El formato de los datos recibidos no es válido");
+            setIngresosDia(typeof result.total === "number" ? result.total : null);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error desconocido");
-        }
-    }
-
-    async function fetchVentasDelDia() {
-        try {
-            const response = await fetch(`/api/Dashboard/ventas/delDia?fecha=${fecha}`);
-            if (!response.ok) throw new Error("Error al las ventas del dia");
-
-            const result = await response.json();
-            if (typeof result.cantidad === "number") setventasDelDia(result.cantidad);
-            else throw new Error("El formato de los datos recibidos no es válido");
-        } catch (err) {
-            setError(err instanceof Error ? err.message : "Error desconocido");
+            handleError(err);
+        } finally {
+            setLoadingIngresosDia(false);
         }
     }
 
@@ -61,87 +60,91 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
         try {
             const response = await fetch(`/api/Dashboard/ventas/delMes?fecha=${fecha}`);
             if (!response.ok) throw new Error("Error al obtener las ventas del mes");
-
             const result = await response.json();
-            if (typeof result.cantidad === "number") setventasDelMes(result.cantidad);
-            else throw new Error("El formato de los datos recibidos no es válido");
+            setventasDelMes(typeof result.cantidad === "number" ? result.cantidad : null);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error desconocido");
+            handleError(err);
+        } finally {
+            setLoadingVentasMes(false);
         }
     }
 
-
-    async function fetchIngresosUltimosMeses() {
+    async function fetchIngresosMes() {
         try {
-          const response = await fetch("/api/Dashboard/ingresos/ultimosMeses");
-          if (!response.ok) throw new Error("Error al obtener los ingresos");
-      
-          const result = await response.json();
-          setIngresosUltimosMeses(result);
-          if (!Array.isArray(result)) throw new Error("Formato de datos incorrecto");
-      
-          return result;
+            const response = await fetch(`/api/Dashboard/ingresos/delMes?fecha=${fecha}`);
+            if (!response.ok) throw new Error("Error al obtener los ingresos");
+            const result = await response.json();
+            setIngresosMes(typeof result.total === "number" ? result.total : null);
         } catch (err) {
-          throw new Error(err instanceof Error ? err.message : "Error desconocido");
+            handleError(err);
+        } finally {
+            setLoadingIngresosMes(false);
         }
-      }
-
+    }
+   
     async function fetchGastos() {
         try {
             const response = await fetch(`/api/Dashboard/gastosTotalPorMes?fecha=${fecha}`);
             if (!response.ok) throw new Error("Error al obtener los gastos");
-
             const result = await response.json();
-            if (typeof result.total === "number") setGastos(result.total);
-            else throw new Error("El formato de los datos recibidos no es válido");
+            setGastos(typeof result.total === "number" ? result.total : null);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error desconocido");
+            handleError(err);
+        } finally {
+            setLoadingGastos(false);
         }
     }
+
+    async function fetchIngresosUltimosMeses() {
+        try {
+            const response = await fetch(`/api/Dashboard/ingresos/ultimosMeses?fecha=${fecha}"`);
+            if (!response.ok) throw new Error("Error al obtener los ingresos");
+            const result = await response.json();
+            setIngresosUltimosMeses(Array.isArray(result) ? result : null);
+        } catch (err) {
+            handleError(err);
+        } finally {
+            setLoadingIngresosMeses(false);
+        }
+    }
+
 
     async function fetchProductosMasVendidos() {
         try {
             const response = await fetch(`/api/Dashboard/ProductosMasVendidos?limite=${5}`);
-            if (!response.ok) throw new Error("Error al obtener los gastos");
-
+            if (!response.ok) throw new Error("Error al obtener los productos");
             const result = await response.json();
             setProductosMasVendidos(result);
-           
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error desconocido");
+            handleError(err);
+        } finally {
+            setLoadingProductos(false);
         }
     }
 
     async function fetchCategoriasMasVendidas() {
         try {
             const response = await fetch(`/api/Dashboard/categoriasMasVendidas?limite=${5}`);
-            if (!response.ok) throw new Error("Error al obtener los gastos");
-
+            if (!response.ok) throw new Error("Error al obtener las categorías");
             const result = await response.json();
             setCategoriasMasvendidas(result);
-            
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error desconocido");
+            handleError(err);
+        } finally {
+            setLoadingCategorias(false);
         }
     }
 
     useEffect(() => {
-
-        async function fetchData() {
-            setLoading(true);
-            await fetchVentasDelDia();
-            await fetchIngresosDia();
-            await fetchventasDelMes();
-            await fetchIngresosMes();
-            await fetchGastos();
-            await fetchIngresosUltimosMeses();
-            await fetchProductosMasVendidos();
-            await fetchCategoriasMasVendidas();
-       
-           
-            setLoading(false);
-        }
-        fetchData();
+        // Ejecutar todas las consultas en paralelo
+        fetchVentasDelDia();
+        fetchIngresosDia();
+        fetchventasDelMes();
+        fetchIngresosMes();
+        fetchGastos();
+        fetchIngresosUltimosMeses();
+        fetchProductosMasVendidos();
+        fetchCategoriasMasVendidas();
     }, [fecha]);
 
     return { 
@@ -153,6 +156,15 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
         ingresosUltimosMeses,
         productosMasVendidos,
         categoriasMasVendidas,
-        loading,
-        error };
+
+        loadingVentasDia,
+        loadingIngresosDia,
+        loadingVentasMes,
+        loadingIngresosMes,
+        loadingGastos,
+        loadingIngresosMeses,
+        loadingProductos,
+        loadingCategorias,
+        error 
+    };
 }

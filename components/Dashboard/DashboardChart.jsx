@@ -18,8 +18,8 @@ function DashboardChart({
   backgroundColor = "#48f148",
   borderColor = "rgba(0, 100, 0, 1)",
 }) {
-  // Verificar si data es un array antes de mapear
-  const dataArray = Array.isArray(data) ? data : Object.values(data);
+ 
+  const dataArray = Array.isArray(data) ? data : data ? Object.values(data) : [];
 
   const chartData = {
     labels: dataArray.map((item) => item.mes), // Extrae los meses
