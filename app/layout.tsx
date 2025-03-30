@@ -4,6 +4,7 @@ import "./globals.css";
 import { Geist_Mono } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
       <body className="bg-background text-foreground">
+      <AuthProvider>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -51,6 +53,7 @@ export default function RootLayout({
       
           </div>
         </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -87,6 +87,46 @@ const EditarProducto = ({ producto, onClose, editarProducto }) => {
           required
         />
       </div>
+      <div>
+          <label className="block font-medium">Categoría</label>
+          <select
+            name="id_categoria"
+            value={producto.id_categoria} // El valor actual del producto
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          >
+            <option value="">{producto.categoria.nombre}</option>{" "}
+            {/* El valor actual se mantiene */}
+            {categorias.map((categoria) => (
+              <option
+                key={categoria.id_categoria}
+                value={categoria.id_categoria}
+                disabled={!categoria.activo} // Deshabilita si la categoría está inactiva
+              >
+                {categoria.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block font-medium">Unidad</label>
+          <select
+            name="unidad"
+            value={producto.unidad} // El valor actual del producto
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          >
+            <option value="">{producto.unidad.nombre}</option>{" "}
+            {/* El valor actual se mantiene */}
+            {unidades.map((unidad) => (
+              <option key={unidad.id_unidad} value={unidad.id_unidad}>
+                {unidad.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
+
 
       <div className="flex justify-between mt-4">
         <Button type="default" onClick={onClose} disabled={isSubmitting}>

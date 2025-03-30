@@ -20,7 +20,6 @@ function Dashboard() {
         ingresosUltimosMeses,
         productosMasVendidos,
         categoriasMasVendidas,
-
         loadingVentasDia,
         loadingIngresosDia,
         loadingVentasMes,

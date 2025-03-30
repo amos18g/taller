@@ -6,11 +6,16 @@ import SearchBar from "@/components/inventario/SearchBar";
 import ActionButtons from "@/components/inventario/ActionButtons";
 import { useProductos } from "@/hooks/useProductos";
 import styles from "@/styles/inventario.module.css";
+import { useAuth } from "@/context/AuthContext";
 
 const Inventory = () => {
   const { data, loading, eliminarProducto, editarProducto } = useProductos();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const user = useAuth();
+
+  console.log(user);
+
 
   useEffect(() => {
     setFilteredData(data);
