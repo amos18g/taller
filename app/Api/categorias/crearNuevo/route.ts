@@ -1,4 +1,4 @@
-// Api/categorias/crearNuevo
+// api/categorias/crearNuevo
 import { NextResponse, NextRequest  } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 

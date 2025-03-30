@@ -1,4 +1,4 @@
-// app/Api/ventas/obtenerPorMes/route.ts
+// app/api/ventas/obtenerPorMes/route.ts
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 

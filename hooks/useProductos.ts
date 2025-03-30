@@ -24,7 +24,7 @@ export function useProductos() {
   async function fetchProductos() {
     setLoading(true);
     try {
-      const response = await fetch("/Api/productos");
+      const response = await fetch("/api/productos");
       if (!response.ok) throw new Error("Error al obtener los datos");
 
       const result = await response.json();
@@ -47,7 +47,7 @@ export function useProductos() {
   async function buscarProducto(id: number) {
     try {
       console.log("Buscando producto con id:", id);
-      const response = await fetch(`/Api/productos/buscar/${id}`);
+      const response = await fetch(`/api/productos/buscar/${id}`);
       if (!response.ok) throw new Error("Error al obtener el producto");
 
       return await response.json();
@@ -60,7 +60,7 @@ export function useProductos() {
   async function crearProducto(producto: Omit<Producto, "id_producto">) {
     try {
       console.log("Enviando producto:", producto);
-      const response = await fetch("/Api/productos/crearNuevo", {
+      const response = await fetch("/api/productos/crearNuevo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(producto),
@@ -81,7 +81,7 @@ export function useProductos() {
 
   async function editarProducto(id: number, producto: Partial<Producto>) {
     try {
-      const response = await fetch(`/Api/productos/editar/${id}`, {
+      const response = await fetch(`/api/productos/editar/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(producto),
@@ -98,7 +98,7 @@ export function useProductos() {
   
   async function eliminarProducto(id: number) {
     try {
-      const response = await fetch(`/Api/productos/eliminar/${id}`, {
+      const response = await fetch(`/api/productos/eliminar/${id}`, {
         method: "DELETE",
       });
 

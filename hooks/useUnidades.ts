@@ -16,7 +16,7 @@ export function useUnidades() {
   useEffect(() => {
     async function fetchUnidades() {
       try {
-        const response = await fetch("/Api/unidades");
+        const response = await fetch("/api/unidades");
         if (!response.ok) throw new Error("Error al obtener las unidades");
 
         const result = await response.json();

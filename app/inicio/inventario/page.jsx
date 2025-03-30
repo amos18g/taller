@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Space } from "antd";
+import { Space, Button } from "antd";
 import InventoryTable from "@/components/inventario/InventoryTable";
 import SearchBar from "@/components/inventario/SearchBar";
 import ActionButtons from "@/components/inventario/ActionButtons";
@@ -37,7 +37,9 @@ const Inventory = () => {
 
           <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
           <div>
-            {loading ? "" : `Productos en inventario: ${data?.length || 0}`}
+            <Button >
+              {loading ? "" : `Productos en inventario: ${data?.length || 0}`}
+            </Button>
           </div>
         </div>
         <InventoryTable

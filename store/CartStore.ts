@@ -26,7 +26,7 @@ const createCartActions = (set: any, get: any) => ({
 
   clearCart: () => {
     set({ items: [] }); // Reinicia los items a un arreglo vacío
-    toast.success("Carrito limpiado");
+    toast.success("Venta realizada con éxito.");
   },
 
   // Agregar un producto al carrito

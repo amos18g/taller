@@ -39,9 +39,9 @@ function SideMenu() {
             key: "/Categorias",
           },
           {
-            label: <Link href="/inicio/Clientes">Clientes</Link>,
+            label: <Link href="/inicio/registro-Usuarios">Usuarios</Link>,
             icon: <UserOutlined />,
-            key: "/Clientes",
+            key: "/Usuarios",
           },
           {
             label: <Link href="/inicio/Dashboard">Dashboard</Link>,

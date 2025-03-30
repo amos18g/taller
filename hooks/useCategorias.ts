@@ -17,7 +17,7 @@ export function useCategorias() {
   useEffect(() => {
     async function fetchCategorias() {
       try {
-        const response = await fetch("/Api/categorias/obtenerTodos");
+        const response = await fetch("/api/categorias/obtenerTodos");
         if (!response.ok) throw new Error("Error al obtener los datos");
 
         const result = await response.json();
@@ -44,7 +44,7 @@ export function useCategorias() {
     nuevaCategoria: Omit<Categoria, "id_categoria" | "fecha_creacion">
   ) {
     try {
-      const response = await fetch("/Api/categorias/crearNuevo", {
+      const response = await fetch("/api/categorias/crearNuevo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export function useCategorias() {
     categoriaActualizada: Partial<Categoria>
   ) {
     try {
-      const response = await fetch(`/Api/categorias/editar/${id}`, {
+      const response = await fetch(`/api/categorias/editar/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +102,7 @@ export function useCategorias() {
   // Función para eliminar una categoría
   async function deleteCategoria(id: number) {
     try {
-      const response = await fetch(`/Api/categorias/eliminar/${id}`, {
+      const response = await fetch(`/api/categorias/eliminar/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {
@@ -129,7 +129,7 @@ export function useCategorias() {
     }
     try {
       const response = await fetch(
-        `/Api/categorias/buscarPorNombre?nombre=${encodeURIComponent(nombre)}`
+        `/api/categorias/buscarPorNombre?nombre=${encodeURIComponent(nombre)}`
       );
       if (!response.ok) {
         const data = await response.json();

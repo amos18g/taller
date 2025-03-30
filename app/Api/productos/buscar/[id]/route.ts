@@ -1,4 +1,4 @@
-//Api/productos/buscar/id
+//api/productos/buscar/id
 
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";

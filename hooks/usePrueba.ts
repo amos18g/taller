@@ -14,7 +14,7 @@ export function usePrueba() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/Api/prueba");
+        const response = await fetch("/api/prueba");
         if (!response.ok) throw new Error("Error fetching data");
         
         const result = await response.json();

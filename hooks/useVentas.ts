@@ -36,7 +36,7 @@ export const useProcesarVenta = () => {
     setData(null);
   
     try {
-      const response = await fetch("/Api/ventas/agregar", {
+      const response = await fetch("/api/ventas/agregar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

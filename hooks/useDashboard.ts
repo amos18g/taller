@@ -20,7 +20,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchIngresosMes() {
         try {
-            const response = await fetch(`/Api/Dashboard/ingresos/delMes?fecha=${fecha}`);
+            const response = await fetch(`/api/Dashboard/ingresos/delMes?fecha=${fecha}`);
             if (!response.ok) throw new Error("Error al obtener los ingresos");
 
             const result = await response.json();
@@ -33,7 +33,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchIngresosDia() {
         try {
-            const response = await fetch(`/Api/Dashboard/ingresos/delDia?fecha=${fecha}`);
+            const response = await fetch(`/api/Dashboard/ingresos/delDia?fecha=${fecha}`);
             if (!response.ok) throw new Error("Error al obtener los ingresos");
 
             const result = await response.json();
@@ -46,7 +46,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchVentasDelDia() {
         try {
-            const response = await fetch(`/Api/Dashboard/ventas/delDia?fecha=${fecha}`);
+            const response = await fetch(`/api/Dashboard/ventas/delDia?fecha=${fecha}`);
             if (!response.ok) throw new Error("Error al las ventas del dia");
 
             const result = await response.json();
@@ -59,7 +59,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchventasDelMes() {
         try {
-            const response = await fetch(`/Api/Dashboard/ventas/delMes?fecha=${fecha}`);
+            const response = await fetch(`/api/Dashboard/ventas/delMes?fecha=${fecha}`);
             if (!response.ok) throw new Error("Error al obtener las ventas del mes");
 
             const result = await response.json();
@@ -73,7 +73,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchIngresosUltimosMeses() {
         try {
-          const response = await fetch("/Api/Dashboard/ingresos/ultimosMeses");
+          const response = await fetch("/api/Dashboard/ingresos/ultimosMeses");
           if (!response.ok) throw new Error("Error al obtener los ingresos");
       
           const result = await response.json();
@@ -88,7 +88,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchGastos() {
         try {
-            const response = await fetch(`/Api/Dashboard/gastosTotalPorMes?fecha=${fecha}`);
+            const response = await fetch(`/api/Dashboard/gastosTotalPorMes?fecha=${fecha}`);
             if (!response.ok) throw new Error("Error al obtener los gastos");
 
             const result = await response.json();
@@ -101,7 +101,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchProductosMasVendidos() {
         try {
-            const response = await fetch(`/Api/Dashboard/ProductosMasVendidos?limite=${5}`);
+            const response = await fetch(`/api/Dashboard/ProductosMasVendidos?limite=${5}`);
             if (!response.ok) throw new Error("Error al obtener los gastos");
 
             const result = await response.json();
@@ -114,7 +114,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchCategoriasMasVendidas() {
         try {
-            const response = await fetch(`/Api/Dashboard/categoriasMasVendidas?limite=${5}`);
+            const response = await fetch(`/api/Dashboard/categoriasMasVendidas?limite=${5}`);
             if (!response.ok) throw new Error("Error al obtener los gastos");
 
             const result = await response.json();

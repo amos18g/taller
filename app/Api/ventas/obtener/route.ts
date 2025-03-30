@@ -1,4 +1,4 @@
-// app/Api/ventas/obtener
+// app/api/ventas/obtener
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 

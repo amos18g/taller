@@ -1,10 +1,10 @@
-// Api/productos/crearNuevo
+// api/productos/crearNuevo
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
 export async function POST(request: NextRequest) {
 
-  console.log("Endpoint: /Api/productos/crearNuevo");
+  console.log("Endpoint: /api/productos/crearNuevo");
   const supabase = await createClient();
   const {
     codigo,

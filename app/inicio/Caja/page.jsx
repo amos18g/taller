@@ -6,6 +6,7 @@ import useCartStore from "@/store/CartStore";
 import { Space, Divider } from "antd";
 import { useProcesarVenta } from "@/hooks/useVentas";
 import { Card } from "antd";
+
 import "./caja.css";
 
 const CartItem = ({ item, updateQty, removeFromCart }) => {
@@ -158,9 +159,7 @@ const CartComponent = () => {
 
     if (result && result.success) {
       clearCart(); // Limpia el carrito después de una venta exitosa
-      alert(
-        `Venta procesada con éxito. ID: ${result.venta_id}, Total: ${result.total}`
-      );
+       
     } else {
       alert("Hubo un error al procesar la venta.");
     }

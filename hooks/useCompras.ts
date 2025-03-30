@@ -21,7 +21,7 @@ export function useCompras() {
         async function obtenerCompras() {
             setLoading(true);
             try {
-                const response = await fetch("/Api/compras/obtenerTodos");
+                const response = await fetch("/api/compras/obtenerTodos");
 
                 if (!response.ok) {
                     throw new Error("Error al obtener los datos del endpoint");
@@ -50,7 +50,7 @@ export function useCompras() {
     async function buscarCompra(id: number) {
         try {
           console.log("Buscando compra con id:", id);
-          const response = await fetch(`/Api/compras/buscar/${id}`);
+          const response = await fetch(`/api/compras/buscar/${id}`);
           if (!response.ok) throw new Error("Error al obtener la compra");
     
           return await response.json();

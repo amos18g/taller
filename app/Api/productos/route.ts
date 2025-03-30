@@ -1,4 +1,4 @@
-// Api/productos/editar/[id]
+// api/productos/editar/[id]
 
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";

@@ -52,21 +52,8 @@ const Compras = () => {
         </div>
 
         <Space size={20} direction="vertical" style={{ width: '100%' }}>
-          {loading ? (
-
-            <Spin />
-          ) : (hasSearched && filterData.length === 0) ? (
-            // Solo muestra "No hay datos" si se ha realizado una búsqueda y no hay resultados
-            <div style={{ textAlign: 'center', padding: '20px' }}>
-              <Empty
-                description="No hay datos para el rango de fechas seleccionado"
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-              />
-            </div>
-          ) : (
-            // Muestra la tabla normal con los datos disponibles
+          
             <TablaCompras data={filterData} loading={loading} />
-          )}
         </Space>
       </div>
     </>

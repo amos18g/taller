@@ -1,4 +1,4 @@
-// app/Api/ventas/ObtenerTotalPorDia
+// app/api/ventas/ObtenerTotalPorDia
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 

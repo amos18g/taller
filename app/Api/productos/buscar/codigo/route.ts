@@ -1,4 +1,4 @@
-// Api/productos/buscar/codigo?codigo=[codigo]
+// api/productos/buscar/codigo?codigo=[codigo]
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 

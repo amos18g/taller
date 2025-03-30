@@ -1,4 +1,4 @@
-// Api/productos/buscar/nombre
+// api/productos/buscar/nombre
 
 
 import { NextResponse, NextRequest } from "next/server";

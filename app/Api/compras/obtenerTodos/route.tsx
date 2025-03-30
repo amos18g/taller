@@ -1,4 +1,4 @@
-// Api/compras/obtenerTodos/route.js
+// api/compras/obtenerTodos/route.js
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 

@@ -19,7 +19,7 @@ const GenerarFactura = ({ record }) => {
     
       <Button type="primary" onClick={handleClick} loading={loading}>
       <  FilePdfOutlined/>
-        Ver factura
+        Ver Detalles
       </Button>
 
       {/* BlobProvider que se activa solo cuando loading es true */}
@@ -85,7 +85,7 @@ const TablaCompras = ({ data = [], loading }) => {
       width: 150,
     },
     {
-      title: "Factura",
+      title: "Detalles de la compra",
       key: "factura",
       render: (_, record) => <GenerarFactura record={record} />,
       width: 150,

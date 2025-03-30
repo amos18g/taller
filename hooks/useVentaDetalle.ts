@@ -49,7 +49,7 @@ export function useVentasConDetalle(fechaInicio?: string, fechaFin?: string) {
     const fetchVentas = async () => {
       try {
         setLoading(true);
-        let url = "/Api/ventas/obtenerVentasDetalle";
+        let url = "/api/ventas/obtenerVentasDetalle";
 
         if (fechaInicio && fechaFin) {
           url += `?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
@@ -101,7 +101,7 @@ export function useVentasPorDia(fecha: string | null) {
         setLoadingVentasPorDia(true);
         console.log(`🔍 Buscando ventas para la fecha: ${fecha}`);
 
-        const response = await fetch(`/Api/ventas/obtenerPorDIa?fecha=${fecha}`);
+        const response = await fetch(`/api/ventas/obtenerPorDIa?fecha=${fecha}`);
 
         if (!response.ok) {
           throw new Error(`Error al obtener las ventas por día: ${response.status}`);
