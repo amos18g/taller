@@ -37,7 +37,7 @@ const Inventory = () => {
 
           <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
           <div>
-            <Button >
+            <Button default>
               {loading ? "" : `Productos en inventario: ${data?.length || 0}`}
             </Button>
           </div>

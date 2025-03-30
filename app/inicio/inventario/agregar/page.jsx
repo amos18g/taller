@@ -8,7 +8,7 @@ import { useProductos } from "@/hooks/useProductos";
 import { v4 as uuidv4 } from "uuid";
 import { Spin, Button, message } from "antd";
 
-function AgregarProducto() {
+function AgregarProducto({ onClose }) {
   const router = useRouter();
   const generarCodigoUnico = () => uuidv4().split("-")[0];
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -54,9 +54,8 @@ function AgregarProducto() {
     try {
       await crearProducto(producto);
       message.success("Producto creado correctamente");
-      // Esperar a que el mensaje se muestre antes de redirigir
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      router.back();
+      onClose(); // Cierra el modal después de guardar
     } catch (error) {
       message.error("Error al crear el producto: " + error.message);
     } finally {
@@ -182,11 +181,7 @@ function AgregarProducto() {
           </select>
         </div>
         <div className="flex justify-between mt-4">
-          <Button
-            type="default"
-            onClick={() => router.back()}
-            disabled={isSubmitting}
-          >
+        <Button type="default" onClick={onClose} disabled={isSubmitting}>
             Volver
           </Button>
           <button
