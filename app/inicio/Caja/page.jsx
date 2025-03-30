@@ -82,7 +82,8 @@ const CartSummary = ({
   onSubmit,
   loading,
   error,
-  cantidadProductos
+  cantidadProductos,
+  carritoVacio 
 }) => {
   return (
     <Card
@@ -119,7 +120,7 @@ const CartSummary = ({
           type="primary"
           className="w-full mt-4"
           onClick={onSubmit}
-          disabled={loading}
+          disabled={loading || carritoVacio} // Deshabilitado si loading o carrito vacío
           id="btnVenta"
         >
           {loading ? "Procesando..." : "Realizar Venta"}
@@ -186,6 +187,7 @@ const CartComponent = () => {
             loading={loading}
             error={error}
             cantidadProductos={items.reduce((sum, i) => sum + i.quantity, 0)}
+            carritoVacio={items.length === 0} // Nueva prop
           />
         </div>
       </div>
