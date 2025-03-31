@@ -63,7 +63,7 @@ function Dashboard() {
                     </Space>
 
                     <Space direction="vertical">
-                    <DatePicker></DatePicker>
+                    <DatePicker picker="month"></DatePicker>
                     <DashboardCard
                         icon={<ShoppingCartOutlined style={iconStyle("blue")} />}
                         title="Ventas del mes"
@@ -73,7 +73,7 @@ function Dashboard() {
                     </Space>
 
                     <Space direction="vertical">
-                    <DatePicker></DatePicker>
+                    <DatePicker picker="month"></DatePicker>
                     <DashboardCard
                         icon={<DollarCircleOutlined style={iconStyle("green")} />}
                         title="Ingresos del mes"
@@ -83,7 +83,7 @@ function Dashboard() {
                     </Space>
 
                     <Space direction="vertical">
-                    <DatePicker></DatePicker>
+                    <DatePicker picker="month"></DatePicker>
                     <DashboardCard
                         icon={<DollarCircleOutlined style={iconStyle("red")} />}
                         title="Gastos del mes"

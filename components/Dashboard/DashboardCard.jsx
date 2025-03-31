@@ -8,7 +8,7 @@ function DashboardCard({ title, value, icon, loading = false }) {
         {loading ? (
           <Spin size="small" />
         ) : (
-          <Statistic title={title} value={value} />
+          <Statistic title={title} value={value ?? 0} />
         )}
       </Space>
     </Card>
