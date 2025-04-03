@@ -8,14 +8,15 @@ import { redirect } from "next/navigation";
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
+  const nombre = formData.get("nombre")?.toString(); // Obtener el nombre
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
 
-  if (!email || !password) {
+  if (!email || !password || !nombre) { // Verificar si el nombre está presente
     return encodedRedirect(
       "error",
       "/inicio/registro-Usuarios",
-      "Email and password are required",
+      "Email, password and name are required",
     );
   }
 
@@ -24,6 +25,9 @@ export const signUpAction = async (formData: FormData) => {
     password,
     options: {
       emailRedirectTo: `${origin}/auth/callback`,
+      data: {
+        nombre: nombre, // Agregar el nombre a los datos del usuario
+      },
     },
   });
 
