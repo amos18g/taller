@@ -1,4 +1,4 @@
-// app/api/users/editRole/route.ts
+// app/api/users/editarRol
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
