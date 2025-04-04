@@ -89,7 +89,7 @@ export const updateSession = async (request: NextRequest) => {
         console.log("prueba role 0");
         const userRole = userProfile.role;
 
-        if (userRole === "admin") {
+        if (userRole === "admin" || userRole === "super_admin") {
           console.log("prueba role 1");
           console.log(userRole);
           if (request.nextUrl.pathname.startsWith("/user")) {
