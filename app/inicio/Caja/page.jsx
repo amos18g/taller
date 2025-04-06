@@ -86,20 +86,16 @@ const CartSummary = ({
   error,
   cantidadProductos,
   carritoVacio,
+  clienteData,
+  setClienteData,
 }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [clienteData, setClienteData] = useState({
-    nombre: "",
-    correo: "",
-    identidad: "",
-    rtn: "",
-  });
 
   const handleSaveCliente = (data) => {
     setClienteData(data);
     setModalVisible(false);
-    console.log("Cliente guardado:", data);
+  
   };
 
   return (
@@ -146,6 +142,7 @@ const CartSummary = ({
               type="primary"
               className="w-full salesButton"
               onClick={() => setModalVisible(true)}
+              disabled={loading || carritoVacio}
             >
               Ingresar datos del cliente
             </Button>
@@ -166,17 +163,19 @@ const CartSummary = ({
   );
 };
 
+// En el componente Caja:
 const Caja = () => {
-  const { items, removeFromCart, updateQty, clearCart } = useCartStore(
-    (state) => state
-  );
-  const { loading, error, data, procesarVenta } = useProcesarVenta();
+  const { items, removeFromCart, updateQty, clearCart } = useCartStore((state) => state);
+  const { loading, error, procesarVenta } = useProcesarVenta();
 
-  //Valores solo del Front
-  const subtotal = items.reduce(
-    (total, item) => total + item.precio_venta * item.quantity,
-    0
-  );
+  const [clienteData, setClienteData] = useState({
+    nombre: "",
+    correo: "",
+    identidad: "",
+    rtn: "",
+  });
+
+  const subtotal = items.reduce((total, item) => total + item.precio_venta * item.quantity, 0);
   const impuesto = subtotal * 0.15;
   const total = subtotal + impuesto;
 
@@ -188,13 +187,14 @@ const Caja = () => {
         id_empleado: 1,
         descuento: 0,
         observaciones: "Venta hecha desde el sistema de inventario",
+        cliente: clienteData?.nombre ? clienteData : null,
       },
     };
 
+    console.log("datos que se envian",requestData);
     const result = await procesarVenta(requestData);
-
     if (result && result.success) {
-      clearCart(); // Limpia el carrito después de una venta exitosa
+      clearCart();
     } else {
       alert("Hubo un error al procesar la venta.");
     }
@@ -206,11 +206,7 @@ const Caja = () => {
         <h1 className="text-3xl font-bold">Caja</h1>
 
         <div className="lista-productos">
-          <CartList
-            items={items}
-            updateQty={updateQty}
-            removeFromCart={removeFromCart}
-          />
+          <CartList items={items} updateQty={updateQty} removeFromCart={removeFromCart} />
         </div>
         <div className="total">
           <CartSummary
@@ -221,12 +217,15 @@ const Caja = () => {
             loading={loading}
             error={error}
             cantidadProductos={items.reduce((sum, i) => sum + i.quantity, 0)}
-            carritoVacio={items.length === 0} // Nueva prop
+            carritoVacio={items.length === 0}
+            clienteData={clienteData}
+            setClienteData={setClienteData} // 👈 Pasamos la función al hijo
           />
         </div>
       </div>
     </>
   );
 };
+
 
 export default Caja;
