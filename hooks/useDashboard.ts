@@ -1,7 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 
-export function useDashboard(fecha: string = new Date().toISOString().split("T")[0]) {
+export function useDashboard(  
+    ventasDiaFecha: string,
+    ingresosDiaFecha: string,
+    ventasMesFecha: string,
+    ingresosMesFecha: string,
+    gastosMesFecha: string) {
     // Estados para los datos
     const [ingresosMes, setIngresosMes] = useState<number | null>(null);
     const [ingresosDia, setIngresosDia] = useState<number | null>(null);
@@ -32,7 +37,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchVentasDelDia() {
         try {
-            const response = await fetch(`/api/Dashboard/ventas/delDia?fecha=${fecha}`);
+            const response = await fetch(`/api/Dashboard/ventas/delDia?fecha=${ventasDiaFecha}`);
             if (!response.ok) throw new Error("Error al obtener las ventas del dia");
             const result = await response.json();
             setventasDelDia(typeof result.cantidad === "number" ? result.cantidad : null);
@@ -45,7 +50,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchIngresosDia() {
         try {
-            const response = await fetch(`/api/Dashboard/ingresos/delDia?fecha=${fecha}`);
+            const response = await fetch(`/api/Dashboard/ingresos/delDia?fecha=${ingresosDiaFecha}`);
             if (!response.ok) throw new Error("Error al obtener los ingresos");
             const result = await response.json();
             setIngresosDia(typeof result.total === "number" ? result.total : null);
@@ -58,7 +63,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchventasDelMes() {
         try {
-            const response = await fetch(`/api/Dashboard/ventas/delMes?fecha=${fecha}`);
+            const response = await fetch(`/api/Dashboard/ventas/delMes?fecha=${ventasMesFecha}`);
             if (!response.ok) throw new Error("Error al obtener las ventas del mes");
             const result = await response.json();
             setventasDelMes(typeof result.cantidad === "number" ? result.cantidad : null);
@@ -71,7 +76,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchIngresosMes() {
         try {
-            const response = await fetch(`/api/Dashboard/ingresos/delMes?fecha=${fecha}`);
+            const response = await fetch(`/api/Dashboard/ingresos/delMes?fecha=${ingresosMesFecha}`);
             if (!response.ok) throw new Error("Error al obtener los ingresos");
             const result = await response.json();
             setIngresosMes(typeof result.total === "number" ? result.total : null);
@@ -84,7 +89,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
    
     async function fetchGastos() {
         try {
-            const response = await fetch(`/api/Dashboard/gastosTotalPorMes?fecha=${fecha}`);
+            const response = await fetch(`/api/Dashboard/gastosTotalPorMes?fecha=${gastosMesFecha}`);
             if (!response.ok) throw new Error("Error al obtener los gastos");
             const result = await response.json();
             setGastos(typeof result.total === "number" ? result.total : null);
@@ -97,7 +102,7 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
 
     async function fetchIngresosUltimosMeses() {
         try {
-            const response = await fetch(`/api/Dashboard/ingresos/ultimosMeses?fecha=${fecha}"`);
+            const response = await fetch(`/api/Dashboard/ingresos/ultimosMeses?fecha=${ingresosMesFecha}"`);
             if (!response.ok) throw new Error("Error al obtener los ingresos");
             const result = await response.json();
             setIngresosUltimosMeses(Array.isArray(result) ? result : null);
@@ -145,7 +150,8 @@ export function useDashboard(fecha: string = new Date().toISOString().split("T")
         fetchIngresosUltimosMeses();
         fetchProductosMasVendidos();
         fetchCategoriasMasVendidas();
-    }, [fecha]);
+    }, [ventasDiaFecha, ingresosDiaFecha, ventasMesFecha, ingresosMesFecha, gastosMesFecha]);
+    
 
     return { 
         ventasDelDia,
