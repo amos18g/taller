@@ -1,11 +1,12 @@
+"use client";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 interface Usuario {
   id: string;
   name: string;
   email: string;
   role: string;
-
 }
 
 interface UseUsuariosResult {
@@ -14,7 +15,11 @@ interface UseUsuariosResult {
   error: string | null;
 }
 
-export const useUsuarios = (userId: string | null): UseUsuariosResult => {
+export const useUsuarios = (): UseUsuariosResult => {
+  // Mover useAuth dentro del hook
+  const {user} = useAuth();
+  const userId = user?.id;
+
   const [usuarios, setUsuarios] = useState<Usuario[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +33,7 @@ export const useUsuarios = (userId: string | null): UseUsuariosResult => {
 
       try {
         const res = await fetch(`/api/usuarios/getUsuarios?id=${userId}`);
-
+        
         if (!res.ok) {
           const data = await res.json();
           throw new Error(data.error || "Error al obtener los usuarios");
@@ -44,7 +49,7 @@ export const useUsuarios = (userId: string | null): UseUsuariosResult => {
     };
 
     fetchUsuarios();
-  }, [userId]);
+  }, [userId]); 
 
   return { usuarios, loading, error };
 };

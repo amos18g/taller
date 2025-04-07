@@ -14,7 +14,7 @@ const Inventory = () => {
   const [filteredData, setFilteredData] = useState([]);
   const user = useAuth();
 
-  console.log(user);
+  console.log("el usuario es:",user);
 
 
   useEffect(() => {

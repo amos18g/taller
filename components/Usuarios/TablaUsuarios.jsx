@@ -1,63 +1,86 @@
-"use client"; // 🔹 Indica que este componente debe renderizarse en el cliente
+"use client";
+import { Avatar, Space, Table, Typography, Button, Select, message } from "antd";
+import dayjs from "dayjs";
+import { useState } from "react";
+import { useEditarRol } from "@/hooks/useEditarRol"; // Asegúrate de importar el hook creado
 
-import { Avatar, Space, Table, Typography } from "antd";
+function TablaUsuarios({ usuarios, loading }) {
+  const [nuevoRol, setNuevoRol] = useState(null);
+  const { editarRol, loading: loadingRol, error, success } = useEditarRol();
 
-const staticusers = [
-  {
-    key: "1",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
-    firstName: "John",
-    lastName: "Doe",
-    email: "johndoe@example.com",
-    phone: "+1 123-456-7890",
-    address: { address: "123 Main St", city: "New York" },
-  },
-  {
-    key: "2",
-    image: "https://randomuser.me/api/portraits/women/2.jpg",
-    firstName: "Jane",
-    lastName: "Smith",
-    email: "janesmith@example.com",
-    phone: "+1 987-654-3210",
-    address: { address: "456 Elm St", city: "Los Angeles" },
-  },
-  {
-    key: "3",
-    image: "https://randomuser.me/api/portraits/men/3.jpg",
-    firstName: "Michael",
-    lastName: "Brown",
-    email: "michaelbrown@example.com",
-    phone: "+1 555-678-9012",
-    address: { address: "789 Oak St", city: "Chicago" },
-  },
-];
+  const handleRolChange = (value) => {
+    console.log("el nuevo rol es:", value)
+    setNuevoRol(value);
+  };
 
-function TablaUsuarios() {
+  const handleEditarRol = (idUsuario) => {
+    if (!nuevoRol) {
+      message.error("Por favor, seleccione un nuevo rol.");
+      return;
+    }
+
+    editarRol(idUsuario, nuevoRol);
+  };
+
   return (
     <Space size={20} direction="vertical">
-  <Typography.Title level={4} className="text-center">Usuarios Registrados</Typography.Title>
+      <Typography.Title level={4} className="text-center">
+        Usuarios Registrados
+      </Typography.Title>
       <Table
         columns={[
           {
+            title: "Nombre",
+            dataIndex: "nombre",
+            width: 200,
+          },
+          {
             title: "Email",
             dataIndex: "email",
-            width: 200
+            width: 200,
+            align: "center",
           },
           {
             title: "Fecha de creación",
-            dataIndex: "phone",
-            width: 200
+            dataIndex: "created_at",
+            width: 200,
+            render: (text) => dayjs(text).format("DD/MM/YYYY hh:mm A"),
           },
           {
-            title: "Ultima vez que ingresó",
-            dataIndex: "address",
-            width: 300,
-            render: (address) => `${address.address}, ${address.city}`,
+            title: "Editar Rol",
+            dataIndex: "editar_rol",
+            width: 200,
+            render: (_, record) => (
+              <Space size={10}>
+                <Select
+                  defaultValue={record.role}
+                  style={{ width: 120 }}
+                  onChange={handleRolChange}
+                  disabled={loadingRol}
+                >
+                  <Select.Option value="admin">Habilitar</Select.Option>
+                  <Select.Option value="user">Deshabilitar</Select.Option>
+                </Select>
+                <Button
+                  type="primary"
+                  onClick={() => handleEditarRol(record.id)}
+                  loading={loadingRol}
+                  disabled={loadingRol || !nuevoRol}
+                >
+                  Editar
+                </Button>
+              </Space>
+            ),
           },
         ]}
-        dataSource={staticusers}
+        dataSource={usuarios}
         pagination={{ pageSize: 5 }}
+        loading={loading}
+        rowKey="id"
       />
+      {/* Mostrar mensajes de éxito o error */}
+      {success && message.success(success)}
+      {error && message.error(error)}
     </Space>
   );
 }

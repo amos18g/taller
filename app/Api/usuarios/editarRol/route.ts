@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   const supabase = await createClient();
 
   // Obtener el ID del usuario que realiza la petición y el ID del usuario a editar del cuerpo de la solicitud
-  const { id_editar_role, nuevoRol, id } = await request.json();
+  const { id, id_editar_role, nuevoRol } = await request.json();
 
   if (!id) {
     return NextResponse.json(

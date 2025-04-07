@@ -219,7 +219,7 @@ const Caja = () => {
             cantidadProductos={items.reduce((sum, i) => sum + i.quantity, 0)}
             carritoVacio={items.length === 0}
             clienteData={clienteData}
-            setClienteData={setClienteData} // 👈 Pasamos la función al hijo
+            setClienteData={setClienteData} 
           />
         </div>
       </div>
