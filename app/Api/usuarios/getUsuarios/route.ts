@@ -38,6 +38,16 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  // Actualizar last_sign_in_at para todos los usuarios
+  const { error: updateError } = await supabase.rpc('update_all_user_last_sign_in');
+
+  if (updateError) {
+    console.error("Error al actualizar last_sign_in_at:", updateError);
+    // You might want to handle this error more gracefully, 
+    // perhaps logging it and continuing or returning a specific error response.
+    // For this example, I'll just log it.
+  }
+
   // Si el usuario que realiza la petición es super_admin, obtener todos los usuarios excepto los super_admin
   const { data: users, error: usersError } = await supabase
     .from("user")
