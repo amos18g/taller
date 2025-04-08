@@ -22,7 +22,7 @@ function SideMenu() {
   const { items } = useCartStore((state) => state);
   const totalItemsInCart = items.reduce((total, item) => total + item.quantity, 0);
 
-  console.log("el rol es:",isSuperAdmin);
+
   // Array de items del menú construido dinámicamente
   const menuItems = [
     {
