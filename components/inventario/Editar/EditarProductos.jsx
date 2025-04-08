@@ -5,7 +5,6 @@ import { message, Button } from "antd";
 import { useUnidades } from "@/hooks/useUnidades";
 import { useCategorias } from "@/hooks/useCategorias";
 
-
 const EditarProducto = ({ producto, onClose, editarProducto }) => {
   const { unidades, loading: loadingUnidades } = useUnidades();
   const { categorias, loading: loadingCategorias } = useCategorias();
@@ -27,6 +26,7 @@ const EditarProducto = ({ producto, onClose, editarProducto }) => {
 
     setIsSubmitting(true);
     try {
+      console.log("el producto se actualizara a:", productoEditado);
       await editarProducto(productoEditado.id_producto, productoEditado);
       message.success("Producto editado correctamente");
       onClose();
@@ -87,47 +87,41 @@ const EditarProducto = ({ producto, onClose, editarProducto }) => {
           required
         />
       </div>
+
+      {/* Select de Categoría */}
       <div>
-          <label className="block font-medium">Categoría</label>
-          <select
-            name="id_categoria"
-            value={producto.id_categoria} // El valor actual del producto
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
-          >
-            <option value="">{producto.categoria.nombre}</option>{" "}
-            {/* El valor actual se mantiene */}
-            {categorias.map((categoria) => (
-              <option
-                key={categoria.id_categoria}
-                value={categoria.id_categoria}
-                disabled={!categoria.activo} // Deshabilita si la categoría está inactiva
-              >
-                {categoria.nombre}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="block font-medium">Unidad</label>
-          <select
-            name="unidad"
-            value={producto.unidad} // El valor actual del producto
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
-          >
-            <option value="">{producto.unidad.nombre}</option>{" "}
-            {/* El valor actual se mantiene */}
-            {unidades.map((unidad) => (
-              <option key={unidad.id_unidad} value={unidad.id_unidad}>
-                {unidad.nombre}
-              </option>
-            ))}
-          </select>
-        </div>
-
-
+        <label className="block font-medium">Categoría</label>
+        <select
+          name="id_categoria"
+          value={productoEditado.id_categoria ?? ""}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded"
+        >
+          <option value="">{productoEditado.categoria}</option>
+          {categorias.map((categoria) => (
+            <option key={categoria.id_categoria} value={categoria.id_categoria}>
+              {categoria.nombre}
+            </option>
+          ))}
+        </select>
+      </div>
+      {/* Select de Unidad */}
+      <div>
+        <label className="block font-medium">Unidad</label>
+        <select
+          name="id_unidad"
+          value={productoEditado.id_unidad ?? ""}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded"
+        >
+          <option value="">{productoEditado.unidad}</option>
+          {unidades.map((unidad) => (
+            <option key={unidad.id_unidad} value={unidad.id_unidad}>
+              {unidad.nombre}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="flex justify-between mt-4">
         <Button type="default" onClick={onClose} disabled={isSubmitting}>
           Volver

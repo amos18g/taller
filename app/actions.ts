@@ -131,8 +131,13 @@ export const resetPasswordAction = async (formData: FormData) => {
   encodedRedirect("success", "/protected/reset-password", "Password updated");
 };
 
+function recargar(){
+  window.location.href = "/sign-in";
+}
+
 export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
+  recargar();
   return redirect("/sign-in");
 };
