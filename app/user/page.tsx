@@ -1,5 +1,5 @@
 export default function UserPage(){
     return(
-        <h1>Rutas de un usuario normal</h1>
+        <h1>Usuario deshabilitado</h1>
     )
 }
