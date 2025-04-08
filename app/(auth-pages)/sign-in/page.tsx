@@ -28,14 +28,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
             Iniciar Sesión
           </h1>
           <p className="text-sm text-gray-600 dark:text-gray-300 text-center mt-2">
-            ¿Aún no tienes una cuenta?{" "}
-            <Link
-              className="text-blue-500 dark:text-blue-500 font-medium hover:text-blue-700 dark:hover:text-blue-300 focus:underline focus:outline-none 
-              focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 p-1 transition duration-300 ease-in-out"
-              href="/sign-up"
-            >
-              Regístrate
-            </Link>
+          
           </p>
           <div className="flex flex-col gap-3 mt-3">
             <Label htmlFor="email" className="text-gray-700 dark:text-gray-300">
@@ -82,12 +75,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
               Iniciar sesión
             </SubmitButton>
             <FormMessage message={searchParams} />
-            <Link
-              className="text-xs text-blue-500 dark:text-blue-400 underline flex justify-center"
-              href="/forgot-password"
-            >
-              ¿Olvidaste tu contraseña?
-            </Link>
+            
           </div>
         </form>
       </div>
