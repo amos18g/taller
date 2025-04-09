@@ -21,6 +21,8 @@ export default function VentasTable() {
   // Función para generar el PDF y abrirlo en una nueva pestaña
   const handleOpenFactura = async (record) => {
     try {
+
+      console.log("los detalles de la venta son:",record)
       const blob = await pdf(<FacturaPDF venta={record} />).toBlob();
       const blobUrl = URL.createObjectURL(blob);
       window.open(blobUrl, "_blank");
