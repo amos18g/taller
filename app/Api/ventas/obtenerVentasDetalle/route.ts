@@ -9,7 +9,8 @@ export async function GET(request: NextRequest) {
     .from("venta")
     .select(`
       *,
-      detalles_venta:detalles_venta(*)
+      detalles_venta:detalles_venta(*),
+      cliente:cliente(id, rtn,identidad, correo, nombre)
     `);
 
   if (error) {
