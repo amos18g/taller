@@ -47,6 +47,12 @@ function TablaUsuarios({ usuarios, loading }) {
             render: (text) => dayjs(text).format("DD/MM/YYYY hh:mm A"),
           },
           {
+            title: "Ultimo inicio sesión",
+            dataIndex: "last_sign_in_at",
+            width: 200,
+            render: (text) => dayjs(text).format("DD/MM/YYYY hh:mm A"),
+          },
+          {
             title: "Editar Rol",
             dataIndex: "editar_rol",
             width: 200,

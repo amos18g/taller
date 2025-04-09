@@ -27,7 +27,7 @@ export default function SignupClient({ searchParams }: { searchParams: Message }
   return (
     <div className="flex">
       {/* Sección del formulario */}
-      <div className="w-1/2 flex p-1">
+      <div className="w-1/2 flex">
         <div className="w-full sm:max-w-2xl lg:w-[450px] bg-white dark:bg-gray-900 p-8 rounded-[12px] shadow-md border border-gray-200">
           <h1 className="text-3xl font-semibold text-center text-gray-900 dark:text-white">Registrar Usuarios</h1>
           <form className="flex flex-col gap-1">
@@ -88,7 +88,7 @@ export default function SignupClient({ searchParams }: { searchParams: Message }
       </div>
 
       {/* Sección de la tabla */}
-      <div className="w-1/2 flex p-1">
+      <div className="">
         <TablaUsuarios  usuarios={usuarios} loading={loading} />
       </div>
     </div>
