@@ -10,6 +10,7 @@ export default async function AuthButton() {
 
   const {
     data: { user },
+    error: userError,
   } = await supabase.auth.getUser();
 
   if (!hasEnvVars) {
@@ -51,20 +52,17 @@ export default async function AuthButton() {
 
   if (user) {
     // Obtener el nombre del usuario de la tabla public.user
-    const { data: userData, error } = await supabase
+    const { data: userData, error: userDataError } = await supabase
       .from("user")
       .select("nombre")
       .eq("id", user.id)
       .single();
 
-      const nombreUsuario = userData?.nombre || user.id; // Usar el nombre o el id si no se encuentra el nombre
-      console.log('nombre usuario', nombreUsuario)
-
-    if (error) {
-      console.error("Error al obtener el nombre del usuario:", error);
+    if (userDataError) {
+      console.error("Error al obtener el nombre del usuario:", userDataError);
       return (
         <div className="flex items-center gap-4">
-          Hola, {nombreUsuario} !  
+          Hola, {user.id}!
           <form action={signOutAction}>
             <Button type="submit" variant={"ghost"}>
               Cerrar Sesion
@@ -74,11 +72,23 @@ export default async function AuthButton() {
       );
     }
 
-   
+    const nombreUsuario = userData?.nombre || user.id;
+    console.log('nombre usuario', nombreUsuario);
+
+    // Actualizar last_sign_in_at en public.user
+    const { error: updateError } = await supabase
+      .from("user")
+      .update({ last_sign_in_at: new Date() })
+      .eq("id", user.id);
+
+    if (updateError) {
+      console.error("Error al actualizar last_sign_in_at:", updateError);
+      // Handle the error appropriately (e.g., log it, show a message)
+    }
 
     return (
       <div className="flex items-center gap-4">
-        Hola, {nombreUsuario} !
+        Hola, {nombreUsuario}!
         <form action={signOutAction}>
           <Button type="submit" variant={"ghost"}>
             Cerrar Sesion

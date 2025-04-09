@@ -61,7 +61,8 @@ export const updateSession = async (request: NextRequest) => {
     //console.log("Middleware - Después de supabase.auth.getUser() - userError:", userError);
 
     const requestedPath = request.nextUrl.pathname;
-    const publicPaths = ["/", "/sign-in", "/sign-up"]; // Aca se definen las rutas publicas
+    const publicPaths = ["/", "/sign-in", "/sign-up", "/forgot-password", "/protected/"
+       , "/protected/reset-password", "/auth/callback" ]; // Aca se definen las rutas publicas
     const isPublicPath = publicPaths.includes(requestedPath);
 
     // ***  VERIFICACIÓN DE AUTENTICACIÓN INICIAL PARA RUTAS PROTEGIDAS (/admin, /user, /protected) ***
@@ -141,7 +142,7 @@ export const config = {
 
     "/admin/:path*",
     "/user/:path*",
-    "/protected/:path*",
+    // "/protected/:path*",
     "/inicio/:path*",
   ],
 };
