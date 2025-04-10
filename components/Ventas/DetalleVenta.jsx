@@ -5,7 +5,7 @@ import { Modal, Table } from "antd";
 function VentaDetalleModal({ visible, onClose, venta }) {
   const detalleColumns = [
     {
-      title: "Nombre",
+      title: "Producto",
       dataIndex: "nombre",
       key: "nombre",
     },
@@ -46,7 +46,7 @@ function VentaDetalleModal({ visible, onClose, venta }) {
   );
 }
 
-// Definición de PropTypes para validación (opcional pero recomendado)
+
 VentaDetalleModal.propTypes = {
   visible: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,

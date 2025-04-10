@@ -1,153 +1,178 @@
-// components/InvoiceDocument.jsx
 import React from "react";
 import { Document, Page, Text, View, StyleSheet, Image } from "@react-pdf/renderer";
 import dayjs from "dayjs";
-
-// Definición de estilos mejorados para el PDF
 const styles = StyleSheet.create({
   page: {
     padding: 40,
     fontSize: 11,
     fontFamily: "Helvetica",
   },
-  headerContainer: {
+  headerRow: {
     flexDirection: "row",
-    alignItems: "center",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     marginBottom: 20,
   },
   logo: {
-    width: 60,
-    height: 60,
-    marginRight: 15,
-  },
-  headerText: {
-    fontSize: 20,
-    textTransform: "uppercase",
-    letterSpacing: 1,
+    width: 100,
+    height: 70,
+    marginLeft: 10,
+    borderRadius:150,
   },
   infoSection: {
-    marginBottom: 20,
-  },
-  infoRow: {
-    flexDirection: "row",
-    marginBottom: 4,
-  },
-  label: {
-    fontWeight: "bold",
-    width: 130,
-  },
-  value: {
+    fontSize: 10,
+    textAlign: "left",
     flex: 1,
+  },
+  facturaNumero: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "red",
+    marginTop: 5,
+  },
+  customerBox: {
+    borderWidth: 1,
+    borderColor: "#000",
+    borderRadius: 4,
+    padding: 10,
+    marginBottom: 10,
+  },
+  customerColumns: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  customerColumn: {
+    flex: 1,
+    paddingRight: 10,
+  },
+  customerText: {
+    marginBottom: 4,
   },
   table: {
     display: "table",
     width: "auto",
-    marginTop: 20,
+    marginTop: 10,
     borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: "#ccc",
+    borderWidth: 0.5,
+    borderColor: "#000",
   },
   tableRow: {
     flexDirection: "row",
   },
   tableColHeader: {
-    width: "33.33%",
+    width: "25%",
     borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: "#ccc",
-    backgroundColor: "#f0f0f0",
+    borderWidth: 0.5,
+    borderColor: "#000",
+    backgroundColor: "#e9f2ff",
     padding: 5,
     textAlign: "center",
   },
   tableCol: {
-    width: "33.33%",
+    width: "25%",
     borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: "#ccc",
+    borderWidth: 0.5,
+    borderColor: "#000",
     padding: 5,
     textAlign: "center",
   },
-  tableCellHeader: {
-    fontSize: 11,
-    fontWeight: "bold",
+  summaryBox: {
+    alignSelf: "flex-end",
+    width: 260,
+    marginTop: 20,
+    borderWidth: 0.5,
   },
-  tableCell: {
-    fontSize: 10,
+  bold: {
+    fontWeight: "bold",
   },
 });
 
 const InvoiceDocument = ({ venta }) => (
   <Document>
     <Page style={styles.page}>
-      {/* Encabezado con logo y título */}
-      <View style={styles.headerContainer}>
-        <Image style={styles.logo} src="https://via.placeholder.com/60" />
-        <Text style={styles.headerText}>Factura de Venta</Text>
+      {/* Header con logo y datos */}
+      <View style={styles.headerRow}>
+        {/* Info de la empresa a la izquierda */}
+        <View style={styles.infoSection}>
+          <Text style={{ fontSize: 12, fontWeight: "bold" }}>Taller Emanuel</Text>
+          <Text>Dirección: Tegucigalpa Calle 34V 123-10</Text>
+          <Text>Teléfono: 504 9847 24578</Text>
+          <Text style={styles.facturaNumero}>FACTURA N. {venta.numero_factura}</Text>
+        </View>
+        <Image style={styles.logo} src="/img/Taller.jpg" />
       </View>
-
-      {/* Sección de datos de la venta */}
-      <View style={styles.infoSection}>
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>Número de Factura:</Text>
-          <Text style={styles.value}>{venta.numero_factura}</Text>
-        </View>
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>Fecha:</Text>
-          <Text style={styles.value}>{dayjs(venta.fecha).format("DD/MM/YYYY HH:mm:ss")}</Text>
-        </View>
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>ID Cliente:</Text>
-          <Text style={styles.value}>{venta.id_cliente}</Text>
-        </View>
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>Método de Pago:</Text>
-          <Text style={styles.value}>{venta.metodo_pago}</Text>
-        </View>
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>Observaciones:</Text>
-          <Text style={styles.value}>{venta.observaciones || "-"}</Text>
-        </View>
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>Subtotal:</Text>
-          <Text style={styles.value}>{venta.subtotal}</Text>
-        </View>
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>Total:</Text>
-          <Text style={styles.value}>{venta.total}</Text>
-        </View>
-      </View>
-
-      {/* Tabla de detalles de la venta */}
-      {venta.detalles_venta && venta.detalles_venta.length > 0 && (
-        <View style={styles.table}>
-          {/* Encabezado de la tabla */}
-          <View style={styles.tableRow}>
-            <View style={styles.tableColHeader}>
-              <Text style={styles.tableCellHeader}>Producto</Text>
-            </View>
-            <View style={styles.tableColHeader}>
-              <Text style={styles.tableCellHeader}>Cantidad</Text>
-            </View>
-            <View style={styles.tableColHeader}>
-              <Text style={styles.tableCellHeader}>Precio</Text>
-            </View>
+      {/* Datos del Cliente */}
+      <View style={styles.customerBox}>
+        <View style={styles.customerColumns}>
+          <View style={styles.customerColumn}>
+            <Text style={styles.customerText}>
+              Cliente: {venta.cliente?.nombre || "-"}
+            </Text>
+            <Text style={styles.customerText}>
+              RTN: {venta.cliente?.rtn || "-"}
+            </Text>
+            <Text style={styles.customerText}>
+              Correo: {venta.cliente?.correo || "-"}
+            </Text>
           </View>
-          {/* Cuerpo de la tabla */}
-          {venta.detalles_venta.map((detalle, index) => (
-            <View style={styles.tableRow} key={index}>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>{detalle.nombre}</Text>
-              </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>{detalle.quantity}</Text>
-              </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>{detalle.precio_venta}</Text>
-              </View>
-            </View>
-          ))}
+          <View style={styles.customerColumn}>
+            <Text style={styles.customerText}>
+              Fecha: {venta.fecha ? dayjs(venta.fecha).format("YYYY-MM-DD") : "-"}
+            </Text>
+            <Text style={styles.customerText}>
+              Identidad: {venta.cliente?.identidad || "-"}
+            </Text>
+          </View>
         </View>
-      )}
+      </View>
+      {/* Tabla de productos */}
+      <View style={styles.table}>
+        <View style={styles.tableRow}>
+          <Text style={styles.tableColHeader}>Producto</Text>
+          <Text style={styles.tableColHeader}>Cantidad</Text>
+          <Text style={styles.tableColHeader}>Valor Unit.</Text>
+          <Text style={styles.tableColHeader}>Valor Total</Text>
+        </View>
+        {venta.detalles_venta.map((detalle, index) => (
+          <View style={styles.tableRow} key={index}>
+            <Text style={styles.tableCol}>{detalle.nombre}</Text>
+            <Text style={styles.tableCol}>{detalle.quantity}</Text>
+            <Text style={styles.tableCol}>L.{detalle.precio_venta.toFixed(2)}</Text>
+            <Text style={styles.tableCol}>
+              L.{(detalle.quantity * detalle.precio_venta).toFixed(2)}
+            </Text>
+          </View>
+        ))}
+      </View>
+      {/* Resumen */}
+      <View style={styles.summaryBox}>
+        <View style={styles.tableRow}>
+          <Text style={[styles.tableCol, { width: "50%", textAlign: "left" }]}>Neto:</Text>
+          <Text style={[styles.tableCol, { width: "50%" }]}>
+            L.{venta.subtotal.toFixed(2)}
+          </Text>
+        </View>
+        <View style={styles.tableRow}>
+          <Text style={[styles.tableCol, { width: "50%", textAlign: "left" }]}>Impuesto:</Text>
+          <Text style={[styles.tableCol, { width: "50%" }]}>
+            L.{venta.impuesto.toFixed(2)}
+          </Text>
+        </View>
+        <View style={styles.tableRow}>
+          <Text
+            style={[
+              styles.tableCol,
+              { width: "50%", textAlign: "left" },
+              styles.bold,
+            ]}
+          >
+            Total:
+          </Text>
+          <Text style={[styles.tableCol, { width: "50%" }, styles.bold]}>
+            L.{venta.total.toFixed(2)}
+          </Text>
+        </View>
+      </View>
     </Page>
   </Document>
 );

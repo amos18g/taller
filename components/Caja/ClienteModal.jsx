@@ -34,7 +34,9 @@ const ClienteModal = ({ open, onCancel, onSave, clienteData }) => {
         <Form.Item
           name="nombre"
           label="Nombre"
-          rules={[{ required: false, message: "Por favor ingrese el nombre" }]}
+          rules={[{ required: false, message: "Por favor ingrese el nombre" },
+                  {pattern: /^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/, message: "Solo se permiten letras",}
+          ]}
         >
           <Input />
         </Form.Item>
@@ -51,9 +53,11 @@ const ClienteModal = ({ open, onCancel, onSave, clienteData }) => {
         <Form.Item
           name="identidad"
           label="Número de Identidad"
-          rules={[{ required: false, message: "Ingrese el número de identidad" }]}
+          rules={[{ required: false, message: "Ingrese el número de identidad" },
+            { pattern: /^\d{4}-\d{4}-\d{5}$/, message: "El formato debe ser XXXX-XXXX-XXXXX",}
+          ]}
         >
-          <Input />
+          <Input  placeholder="0801-2000-05800"/>
         </Form.Item>
         <Form.Item
           name="rtn"
