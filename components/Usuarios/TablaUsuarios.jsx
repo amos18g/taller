@@ -37,25 +37,20 @@ function TablaUsuarios({ usuarios, loading }) {
           {
             title: "Email",
             dataIndex: "email",
-            width: 200,
+            width: 100,
             align: "center",
           },
+          
           {
-            title: "Fecha de creación",
-            dataIndex: "created_at",
-            width: 200,
-            render: (text) => dayjs(text).format("DD/MM/YYYY hh:mm A"),
-          },
-          {
-            title: "Ultimo inicio sesión",
+            title: "Ultimo inicio de sesión",
             dataIndex: "last_sign_in_at",
-            width: 200,
+            width: 300,
             render: (text) => dayjs(text).format("DD/MM/YYYY hh:mm A"),
           },
           {
             title: "Editar Rol",
             dataIndex: "editar_rol",
-            width: 200,
+            width: 100,
             render: (_, record) => (
               <Space size={10}>
                 <Select
