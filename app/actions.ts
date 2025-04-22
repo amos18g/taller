@@ -11,6 +11,7 @@ export const signUpAction = async (formData: FormData) => {
   const nombre = formData.get("nombre")?.toString(); // Obtener el nombre
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
+  
 
   if (!email || !password || !nombre) { // Verificar si el nombre está presente
     return encodedRedirect(
@@ -57,6 +58,7 @@ export const signInAction = async (formData: FormData) => {
     return encodedRedirect("error", "/sign-in", error.message);
   }
 
+  
   return redirect("/inicio");
 };
 

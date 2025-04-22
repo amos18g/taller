@@ -7,7 +7,7 @@ import {FilePdfOutlined } from "@ant-design/icons";
 
 const GenerarFactura = ({ record }) => {
   const [loading, setLoading] = useState(false);
-  const empresa = "Mi Empresa S.A.";
+  const empresa = "Detalles de la Compra";
   const totalGeneral = record.costo_total;
 
   const handleClick = () => {
@@ -19,7 +19,7 @@ const GenerarFactura = ({ record }) => {
     
       <Button type="primary" onClick={handleClick} loading={loading}>
       <  FilePdfOutlined/>
-        Ver Detalles
+        Descargar
       </Button>
 
       {/* BlobProvider que se activa solo cuando loading es true */}

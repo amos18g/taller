@@ -21,7 +21,7 @@ const Header = ({ empresa, fecha, hora }) => (
   <View style={styles.header}>
     <Text style={styles.title}>{empresa}</Text>
     <Text style={styles.subtitle}>Fecha: {fecha}</Text>
-    <Text style={styles.subtitle}>Hora: {hora}</Text>
+
   </View>
 );
 

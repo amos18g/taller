@@ -8,7 +8,7 @@ import Total from './TotalFactura';
 // Componente para el documento PDF
 const MyDocument = ({ empresa, fecha, hora, totalGeneral, comprasData }) => {
   
-  console.log("La info de la compra es:", comprasData);
+
 
   return (
     <Document>
