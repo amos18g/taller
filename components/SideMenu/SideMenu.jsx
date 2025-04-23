@@ -9,7 +9,7 @@ import "@/styles/sidemenu.module.css";
 function SideMenu() {
   const { isSuperAdmin } = useAuth();
   
-  return isSuperAdmin ? <SideMenuSuperAdmin /> : <SideMenuAdmin />;
+  return <SideMenuSuperAdmin/>;
 }
 
 export default SideMenu;
