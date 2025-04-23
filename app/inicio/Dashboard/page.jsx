@@ -64,6 +64,7 @@ function Dashboard() {
       <Space size={20} direction="vertical">
         <Space direction="horizontal">
           <Space direction="vertical">
+            <span className="text-sm">Filtrar ventas del dia</span>
             <DatePicker
               value={fechaVentasDia}
               //onChange={(date) => date && setfechaVentasDia(date || dayjs().format("YYYY-MM-DD"))}
@@ -79,6 +80,7 @@ function Dashboard() {
           </Space>
 
           <Space direction="vertical">
+          <span className="text-sm">Filtrar ingresos del dia</span>
             <DatePicker
               value={fechaIngresosDeldia}
              // onChange={(date) => date && setfechaIngresosDeldia(date || dayjs().format("YYYY-MM-DD"))}
@@ -94,6 +96,7 @@ function Dashboard() {
           </Space>
 
           <Space direction="vertical">
+          <span className="text-sm">Filtrar ventas del mes</span>
             <DatePicker
               picker="month"
               value={fechaVentasMes}
@@ -110,6 +113,7 @@ function Dashboard() {
           </Space>
 
           <Space direction="vertical">
+          <span className="text-sm">Filtrar ingresos del mes</span>
             <DatePicker
               picker="month"
               value={fechaIngresosMes}
@@ -125,6 +129,7 @@ function Dashboard() {
           </Space>
 
           <Space direction="vertical">
+          <span className="text-sm">Filtrar gastos del mes</span>
             <DatePicker
               picker="month"
               value={fechaGastosMes}
