@@ -189,7 +189,7 @@ const Caja = () => {
       state: {
         items,
         id_cliente: 1,
-        id_empleado: user.user.user_metadata.nombre,
+        id_empleado:  user?.user?.user_metadata?.nombre || user?.user?.email,
         descuento: 0,
         observaciones: "Venta hecha desde el sistema de inventario",
         cliente: clienteData?.nombre ? clienteData : null,
