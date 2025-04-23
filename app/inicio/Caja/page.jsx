@@ -10,6 +10,10 @@ import ClienteModal from "@/components/Caja/ClienteModal";
 import { useState } from "react";
 
 import "./caja.css";
+import { useAuth } from "@/context/AuthContext";
+
+
+
 
 const CartItem = ({ item, updateQty, removeFromCart }) => {
   const isMaxQuantity = item.quantity >= item.stock; // Verifica si la cantidad supera el stock
@@ -167,6 +171,7 @@ const CartSummary = ({
 const Caja = () => {
   const { items, removeFromCart, updateQty, clearCart } = useCartStore((state) => state);
   const { loading, error, procesarVenta } = useProcesarVenta();
+  const user = useAuth();
 
   const [clienteData, setClienteData] = useState({
     nombre: "",
@@ -184,7 +189,7 @@ const Caja = () => {
       state: {
         items,
         id_cliente: 1,
-        id_empleado: 1,
+        id_empleado: user.user.user_metadata.nombre,
         descuento: 0,
         observaciones: "Venta hecha desde el sistema de inventario",
         cliente: clienteData?.nombre ? clienteData : null,

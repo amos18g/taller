@@ -105,6 +105,9 @@ const InvoiceDocument = ({ venta }) => (
       <View style={styles.customerBox}>
         <View style={styles.customerColumns}>
           <View style={styles.customerColumn}>
+          <Text style={styles.customerText}>
+              Empleado: {venta?.id_empleado || "-"}
+            </Text>
             <Text style={styles.customerText}>
               Cliente: {venta.cliente?.nombre || "-"}
             </Text>

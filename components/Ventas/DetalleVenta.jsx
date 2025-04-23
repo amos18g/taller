@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Modal, Table } from "antd";
 
 function VentaDetalleModal({ visible, onClose, venta }) {
+
+
   const detalleColumns = [
     {
       title: "Producto",
