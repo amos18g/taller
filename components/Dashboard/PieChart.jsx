@@ -20,7 +20,7 @@ function PieChart({ titulo, data, loading = false }) {
     datasets: [
       {
         data: data?.map((item) => item.total_cantidad_vendida) || [],
-        backgroundColor: ["#ff0037", "#0099ff", "#FFCE56", "#15fa00", "#76c6e3"],
+        backgroundColor: [ "#118AB2","#EF476F",  "#FFD166", "#8338EC", "#06D6A0"],
         hoverOffset: 4,
       },
     ],
@@ -35,7 +35,7 @@ function PieChart({ titulo, data, loading = false }) {
   };
 
   return (
-    <Card style={{ width: 300, height: 300 }}>
+    <Card style={{ width: 380, height: 380 }}>
       {titulo}
       <Pie data={chartData} options={options} />
     </Card>

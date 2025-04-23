@@ -20,7 +20,7 @@ function DoughnutChart({ titulo, data, loading = false }) {
     datasets: [
       {
         data: data?.map((item) => item.cantidad_productos_vendidos) || [],
-        backgroundColor: ["#ff0037", "#0099ff", "#FFCE56", "#15fa00", "#76c6e3"],
+        backgroundColor: ["#EF476F", "#8338EC", "#FFD166", "#06D6A0", "#118AB2"],
         hoverOffset: 4,
       },
     ],
@@ -35,7 +35,7 @@ function DoughnutChart({ titulo, data, loading = false }) {
   };
 
   return (
-    <Card style={{ width: 300, height: 300 }}>
+    <Card style={{ width: 380, height: 380 }}>
       {titulo}
       <Doughnut data={chartData} options={options} />
     </Card>

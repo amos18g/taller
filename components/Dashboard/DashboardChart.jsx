@@ -15,7 +15,7 @@ function DashboardChart({
   title,
   data = [],
   loading = false,
-  backgroundColor = "#48f148",
+  backgroundColor = "#1da792",
   borderColor = "rgba(0, 100, 0, 1)",
 }) {
  
@@ -25,7 +25,7 @@ function DashboardChart({
     labels: dataArray.map((item) => item.mes), // Extrae los meses
     datasets: [
       {
-        label: "Ingresos ($)",
+        label: "Ingresos (L)",
         data: dataArray.map((item) => item.ingreso), // Extrae los ingresos
         borderColor,
         backgroundColor,
@@ -48,7 +48,7 @@ function DashboardChart({
   };
 
   return (
-    <Card style={{ width: 500, height: 250 }}>
+    <Card style={{ width: 555, height: 250 }}>
       {loading ? (
         <div
           style={{

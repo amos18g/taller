@@ -31,7 +31,7 @@ function DashboardChartGastos({
     labels: dataArray.map((item) => item.mes),
     datasets: [
       {
-        label: "Gastos ($)",
+        label: "Gastos (L)",
         data: dataArray.map((item) => item.gasto),
         borderColor,
         backgroundColor,
@@ -54,7 +54,7 @@ function DashboardChartGastos({
   };
 
   return (
-    <Card style={{ width: 500, height: 250 }}>
+    <Card style={{ width: 555, height: 250 }}>
       {loading ? (
         <div
           style={{
