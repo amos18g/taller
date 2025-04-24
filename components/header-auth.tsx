@@ -90,7 +90,7 @@ export default async function AuthButton() {
       <div className="flex items-center gap-4">
         Hola, {nombreUsuario}!
         <form action={signOutAction}>
-          <Button type="submit" variant={"ghost"}>
+          <Button type="submit" variant={"ghost"} className="ml-10 mr-4 bg-yellow-300 rounded-[10px]">
             Cerrar Sesion
           </Button>
         </form>
@@ -102,9 +102,7 @@ export default async function AuthButton() {
         <Button asChild size="sm" variant={"outline"}>
           <Link href="/sign-in">Iniciar sesion</Link>
         </Button>
-        <Button asChild size="sm" variant={"default"}>
-          <Link href="/sign-up">Registrarse</Link>
-        </Button>
+        
       </div>
     );
   }

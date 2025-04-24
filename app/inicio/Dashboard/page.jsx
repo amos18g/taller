@@ -55,19 +55,20 @@ function Dashboard() {
   const handleFechaChange = (setter) => (date) => {
     setter(date || dayjs());
   };
-  
+
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-md">
+    <div className="bg-white p-8 rounded-lg shadow-md w-[1200px]">
       <h1 className="text-3xl font-bold text-gray-800 mb-8">Dashboard</h1>
-
       <Space size={20} direction="vertical">
-        <Space direction="horizontal">
-          <Space direction="vertical">
+        <Space direction="horizontal" align="start" size={32}>
+          <Space direction="vertical" >
+            <span className="text-sm">Filtrar ventas del dia</span>
             <DatePicker
               value={fechaVentasDia}
               //onChange={(date) => date && setfechaVentasDia(date || dayjs().format("YYYY-MM-DD"))}
-              onChange={handleFechaChange(setfechaVentasDia)} 
+              onChange={handleFechaChange(setfechaVentasDia)}
+              style={{ width: "200px" }}
             />
 
             <DashboardCard
@@ -79,10 +80,12 @@ function Dashboard() {
           </Space>
 
           <Space direction="vertical">
+            <span className="text-sm">Filtrar ingresos del dia</span>
             <DatePicker
               value={fechaIngresosDeldia}
-             // onChange={(date) => date && setfechaIngresosDeldia(date || dayjs().format("YYYY-MM-DD"))}
-             onChange={handleFechaChange(setfechaIngresosDeldia)} 
+              // onChange={(date) => date && setfechaIngresosDeldia(date || dayjs().format("YYYY-MM-DD"))}
+              onChange={handleFechaChange(setfechaIngresosDeldia)}
+              style={{ width: "200px" }}
             />
 
             <DashboardCard
@@ -94,12 +97,14 @@ function Dashboard() {
           </Space>
 
           <Space direction="vertical">
+            <span className="text-sm">Filtrar ventas del mes</span>
             <DatePicker
               picker="month"
               value={fechaVentasMes}
               //onChange={(date) => date && setfechaVentasMes(date || dayjs().format("YYYY-MM") + "-01")}
-              onChange={handleFechaChange(setfechaVentasMes)} 
-              
+              onChange={handleFechaChange(setfechaVentasMes)}
+              style={{ width: "200px" }}
+
             />
             <DashboardCard
               icon={<ShoppingCartOutlined style={iconStyle("blue")} />}
@@ -110,11 +115,13 @@ function Dashboard() {
           </Space>
 
           <Space direction="vertical">
+            <span className="text-sm">Filtrar ingresos del mes</span>
             <DatePicker
               picker="month"
               value={fechaIngresosMes}
               //onChange={(date) => date && setfechaIngresosMes(date || dayjs().format("YYYY-MM") + "-01")}
-              onChange={handleFechaChange(setfechaIngresosMes)} 
+              onChange={handleFechaChange(setfechaIngresosMes)}
+              style={{ width: "200px" }}
             />
             <DashboardCard
               icon={<DollarCircleOutlined style={iconStyle("green")} />}
@@ -125,11 +132,13 @@ function Dashboard() {
           </Space>
 
           <Space direction="vertical">
+            <span className="text-sm">Filtrar gastos del mes</span>
             <DatePicker
               picker="month"
               value={fechaGastosMes}
-             // onChange={(date) => date && setfechaGastosMes(date || dayjs().format("YYYY-MM") + "-01")}
-             onChange={handleFechaChange(setfechaGastosMes)} 
+              // onChange={(date) => date && setfechaGastosMes(date || dayjs().format("YYYY-MM") + "-01")}
+              onChange={handleFechaChange(setfechaGastosMes)}
+              style={{ width: "200px" }}
             />
             <DashboardCard
               icon={<DollarCircleOutlined style={iconStyle("red")} />}
@@ -148,7 +157,7 @@ function Dashboard() {
           />
           <DashboardChartGastos
             title="Gastos del mes"
-            backgroundColor="#ed5c34"
+            backgroundColor="#ec7e17"
             borderColor="#df1c06"
             loading={loadingGastos}
           />

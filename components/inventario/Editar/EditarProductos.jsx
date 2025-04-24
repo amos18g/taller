@@ -99,7 +99,9 @@ const EditarProducto = ({ producto, onClose, editarProducto }) => {
         >
           <option value="">{productoEditado.categoria}</option>
           {categorias.map((categoria) => (
-            <option key={categoria.id_categoria} value={categoria.id_categoria}>
+            <option key={categoria.id_categoria} 
+            value={categoria.id_categoria}
+            disabled={!categoria.activo}>
               {categoria.nombre}
             </option>
           ))}
