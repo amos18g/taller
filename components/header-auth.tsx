@@ -87,13 +87,22 @@ export default async function AuthButton() {
     }
 
     return (
-      <div className="flex items-center gap-4">
-        Hola, {nombreUsuario}!
-        <form action={signOutAction}>
-          <Button type="submit" variant={"ghost"} className="ml-10 mr-4 bg-yellow-300 rounded-[10px]">
-            Cerrar Sesion
-          </Button>
-        </form>
+      <div className="flex items-center justify-between w-full">
+        <div className="flex items-center">
+          <img src="/img/Taller_logo.png" alt="Logo" className="ml-[-30px] w-[150px] h-12 object-contain  hover:scale-105 transition-transform duration-200" />
+          <span className="text-md text-gray-800 font-semibold ml-[-15px]"> Taller Emanuel</span>
+        </div>
+        <div className="flex items-center gap-4" >
+          <div className=" bg-yellow-100 text-gray-900 font-semibold px-6 py-2 shadow-sm text-sm hover:scale-105 transition-transform duration-200 rounded-[10px]">
+            Hola, {nombreUsuario}!
+          </div>
+
+          <form action={signOutAction}>
+            <Button type="submit" variant={"ghost"} className="ml- mr-4 bg-yellow-300 rounded-[10px] text-gray-900 hover:scale-105 transition-transform duration-200">
+              Cerrar Sesion
+            </Button>
+          </form>
+        </div>
       </div>
     );
   } else {
@@ -102,7 +111,7 @@ export default async function AuthButton() {
         <Button asChild size="sm" variant={"outline"}>
           <Link href="/sign-in">Iniciar sesion</Link>
         </Button>
-        
+
       </div>
     );
   }
