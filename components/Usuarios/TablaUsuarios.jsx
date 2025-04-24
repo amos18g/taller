@@ -23,7 +23,7 @@ function TablaUsuarios({ usuarios, loading }) {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Usuarios Registrados</h1>
+      <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Usuarios Registrados</h1>
     <Space size={20} direction="vertical" className="w-full">
       <Typography.Title level={4} className="text-center">
  
