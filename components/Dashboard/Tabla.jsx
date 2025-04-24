@@ -2,8 +2,10 @@ import { Card, Table, Typography, Spin } from "antd";
 
 function Tabla({ data, loading }) {
   return (
-    <Card>
-      <Typography.Text>Productos más vendidos</Typography.Text>
+    <Card style={{marginTop: 8 }}>
+      <div style={{ textAlign: "center", fontWeight: 600}}>
+      Productos más vendidos
+    </div>
       <Table
         columns={[
           { title: "Nombre", dataIndex: "nombre_producto" },

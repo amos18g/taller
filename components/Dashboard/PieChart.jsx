@@ -36,7 +36,9 @@ function PieChart({ titulo, data, loading = false }) {
 
   return (
     <Card style={{ width: 380, height: 380 }}>
+      <div style={{ textAlign: "center", fontWeight: 600, marginBottom: 8 }}>
       {titulo}
+    </div>
       <Pie data={chartData} options={options} />
     </Card>
   );

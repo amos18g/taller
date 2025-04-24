@@ -36,7 +36,9 @@ function DoughnutChart({ titulo, data, loading = false }) {
 
   return (
     <Card style={{ width: 380, height: 380 }}>
+      <div style={{ textAlign: "center", fontWeight: 600}}>
       {titulo}
+    </div>
       <Doughnut data={chartData} options={options} />
     </Card>
   );
